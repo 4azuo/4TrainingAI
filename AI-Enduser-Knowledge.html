@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI End-User Knowledge</title>
+<link rel="stylesheet" href="AI-Enduser-Knowledge.css">
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+</head>
+<body>
+
+<header>
+  <div class="header-top">
+    <div class="header-brand">
+      <h1>🧠 AI End-User Knowledge</h1>
+      <p>Kiến thức tổng quát về Sử dụng AI — Dành cho người dùng cuối</p>
+    </div>
+    <div class="search-bar">
+      <input type="search" id="search-input" class="search-input"
+             placeholder="🔍 Tìm kiếm..." autocomplete="off" spellcheck="false">
+      <span id="search-count" class="search-count"></span>
+      <button class="search-nav-btn" id="btn-prev" title="Trước (Shift+Enter)" disabled>&#10094;</button>
+      <button class="search-nav-btn" id="btn-next" title="Tiếp theo (Enter)" disabled>&#10095;</button>
+    </div>
+  </div>
+  <nav class="tab-nav">
+    <button class="tab-btn active" data-tab="model">1. AI Model</button>
+    <button class="tab-btn" data-tab="prompt">2. Prompt</button>
+    <button class="tab-btn" data-tab="hook">3. Hook / Trigger</button>
+    <button class="tab-btn" data-tab="tool">4. Tool</button>
+    <button class="tab-btn" data-tab="skill">5. Skill</button>
+    <button class="tab-btn" data-tab="agent">6. Agent</button>
+    <button class="tab-btn" data-tab="subagent">7. Sub-Agent</button>
+    <button class="tab-btn" data-tab="orchestrator">8. Orchestrator</button>
+    <button class="tab-btn" data-tab="memory">9. Memory</button>
+    <button class="tab-btn" data-tab="rag">10. RAG</button>
+    <button class="tab-btn" data-tab="workflow">11. Workflow</button>
+    <button class="tab-btn" data-tab="overview">12. Tổng kết</button>
+    <button class="tab-btn" data-tab="history">📋 Lịch sử</button>
+  </nav>
+</header>
+
+<main>
+
+<!-- ══ TAB 1 — AI MODEL ══ -->
+<div class="tab-panel active" id="tab-model">
+  <h2>🤖 AI Model — Bộ não trung tâm</h2>
+  <p class="tagline"><strong>AI Model là bộ não</strong> — nhận đầu vào (văn bản, ảnh, file...), xử lý và trả về kết quả.</p>
+
+  <h3>Các khái niệm cốt lõi</h3>
+  <table>
+    <tr><th>Khái niệm</th><th>Giải thích đơn giản</th></tr>
+    <tr><td><strong>LLM</strong></td><td>Mô hình ngôn ngữ lớn — ví dụ: GPT-4, Claude, Gemini</td></tr>
+    <tr><td><strong>Context Window</strong></td><td>Lượng thông tin AI "nhớ" trong 1 phiên hội thoại</td></tr>
+    <tr><td><strong>Token</strong></td><td>Đơn vị xử lý (~¾ từ tiếng Anh, ~½ từ tiếng Việt)</td></tr>
+    <tr><td><strong>Temperature</strong></td><td>Độ sáng tạo: thấp = chính xác / cao = sáng tạo, linh hoạt</td></tr>
+    <tr><td><strong>System Prompt</strong></td><td>Lệnh nền — định hình nhân cách, vai trò, giới hạn của AI</td></tr>
+    <tr><td><strong>Inference</strong></td><td>Quá trình AI suy nghĩ và sinh ra câu trả lời</td></tr>
+  </table>
+
+  <h3>Phân loại theo khả năng</h3>
+  <div class="mermaid">
+flowchart LR
+    A["AI Models"]
+    A --> B["⚡ Text-only<br>GPT-4o mini, Claude Haiku<br>Nhanh, rẻ"]
+    A --> C["🖼️ Multimodal<br>GPT-4o, Claude Sonnet<br>Văn bản + Ảnh + File"]
+    A --> D["🧠 Reasoning<br>o1, Claude Opus, Gemini Ultra<br>Suy luận phức tạp"]
+    A --> E["🎯 Specialized<br>Whisper, DALL-E, Sora<br>Speech, Image, Video"]
+    style A fill:#e0e7ff,color:#3730a3,stroke:#6366f1
+    style B fill:#dcfce7,color:#14532d,stroke:#86efac
+    style C fill:#e0f2fe,color:#0c4a6e,stroke:#7dd3fc
+    style D fill:#fdf4ff,color:#7e22ce,stroke:#d8b4fe
+    style E fill:#fff7ed,color:#9a3412,stroke:#fdba74
+  </div>
+</div>
+
+<!-- ══ TAB 2 — PROMPT ══ -->
+<div class="tab-panel" id="tab-prompt">
+  <h2>✍️ Prompt — Cách ra lệnh cho AI</h2>
+  <p class="tagline"><strong>Prompt là đầu vào bạn gửi cho AI.</strong> Prompt tốt = kết quả tốt. Đây là kỹ năng quan trọng nhất khi dùng AI.</p>
+
+  <h3>Cấu trúc Prompt hiệu quả (RCTFO)</h3>
+  <div class="mermaid">
+flowchart TD
+    R["🎭 ROLE<br>Bạn là chuyên gia marketing 10 năm"]
+    C["📍 CONTEXT<br>Công ty bán SaaS B2B, khách hàng SME"]
+    T["✅ TASK<br>Viết email chào hàng cho Giám đốc IT"]
+    F["📐 FORMAT<br>Gạch đầu dòng, tối đa 150 chữ, có subject"]
+    O["📌 OUTPUT<br>Dán ví dụ mẫu phong cách mong muốn"]
+    R --> C --> T --> F --> O
+    style R fill:#ede9fe,color:#4c1d95,stroke:#a78bfa
+    style C fill:#e0f2fe,color:#0c4a6e,stroke:#7dd3fc
+    style T fill:#dcfce7,color:#14532d,stroke:#86efac
+    style F fill:#fef9c3,color:#854d0e,stroke:#fde047
+    style O fill:#fce7f3,color:#831843,stroke:#fbcfe8
+  </div>
+
+  <h3>Kỹ thuật Prompt</h3>
+  <table>
+    <tr><th>Kỹ thuật</th><th>Cách dùng</th><th>Khi nào dùng</th></tr>
+    <tr><td><strong>Zero-shot</strong></td><td>Hỏi thẳng, không ví dụ</td><td>Task đơn giản, rõ ràng</td></tr>
+    <tr><td><strong>Few-shot</strong></td><td>Cho 2–3 ví dụ mẫu trước</td><td>Muốn output theo chuẩn nhất định</td></tr>
+    <tr><td><strong>Chain of Thought</strong></td><td>"Hãy suy nghĩ từng bước..."</td><td>Bài toán logic, phân tích</td></tr>
+    <tr><td><strong>Role Prompting</strong></td><td>Gán vai chuyên gia cụ thể</td><td>Muốn AI có góc nhìn chuyên sâu</td></tr>
+    <tr><td><strong>Negative Prompting</strong></td><td>"Không dùng jargon, không bullet..."</td><td>Kiểm soát thứ AI KHÔNG làm</td></tr>
+    <tr><td><strong>Iterative</strong></td><td>Hỏi → nhận → chỉnh → hỏi lại</td><td>Hoàn thiện dần kết quả</td></tr>
+    <tr><td><strong>Decomposition</strong></td><td>Chia task lớn thành nhiều prompt nhỏ</td><td>Task phức tạp nhiều bước</td></tr>
+  </table>
+
+  <h3>Lỗi thường gặp</h3>
+  <pre><span class="bad">❌ "Viết cho tôi một bài"</span>           → Quá mơ hồ
+<span class="good">✅ "Viết bài LinkedIn 200 chữ về X, tone chuyên nghiệp, kết bằng câu hỏi"</span>
+
+<span class="bad">❌ "Làm tốt hơn"</span>                    → AI không biết tốt hơn theo hướng nào
+<span class="good">✅ "Rút ngắn xuống 100 chữ, giữ 3 điểm chính, bỏ phần mở đầu"</span>
+
+<span class="bad">❌ Một prompt dài 2000 chữ lộn xộn</span>  → AI dễ bỏ sót yêu cầu
+<span class="good">✅ Tách thành nhiều prompt rõ ràng, từng bước</span></pre>
+</div>
+
+<!-- ══ TAB 3 — HOOK / TRIGGER ══ -->
+<div class="tab-panel" id="tab-hook">
+  <h2>🔔 Hook / Trigger — Điểm kích hoạt</h2>
+  <p class="tagline"><strong>Hook là điểm kích hoạt</strong> — sự kiện xảy ra trong thế giới thật làm AI bắt đầu chạy tự động, không cần ra lệnh thủ công.</p>
+
+  <h3>Phân loại Hook</h3>
+  <div class="card-grid">
+    <div class="card"><h4>⏰ Time-based</h4><ul><li>Mỗi sáng 8h, tóm tắt tin tức và gửi email</li><li>Mỗi thứ Hai, tạo báo cáo tuần</li></ul></div>
+    <div class="card"><h4>📩 Event-based</h4><ul><li>Email mới từ khách → phân loại + trả lời</li><li>Form submit → gửi email chào mừng</li></ul></div>
+    <div class="card"><h4>🔗 Webhook</h4><ul><li>Đơn hàng Shopify mới → xử lý tự động</li><li>Slack nhận tin → AI phản hồi</li></ul></div>
+    <div class="card"><h4>📊 Condition-based</h4><ul><li>Doanh thu giảm &gt;10% → tạo alert</li><li>Ticket chưa trả lời sau 2h → escalate</li></ul></div>
+  </div>
+
+  <h3>Luồng kích hoạt</h3>
+  <div class="mermaid">
+flowchart LR
+    E1["📧 Email đến"] --> H["🔔 HOOK"]
+    E2["📝 Form submit"] --> H
+    E3["🛒 Đơn hàng mới"] --> H
+    E4["📁 File upload"] --> H
+    E5["⏰ Lịch đến hạn"] --> H
+    H --> A["🤖 AI bắt đầu chạy"]
+    A --> R1["Phân loại & Trả lời"]
+    A --> R2["Tạo lead & Email"]
+    A --> R3["Xác nhận & Kho"]
+    A --> R4["Tóm tắt & Lưu"]
+    A --> R5["Báo cáo & Slack"]
+    style H fill:#ede9fe,color:#4c1d95,stroke:#a78bfa
+    style A fill:#ccfbf1,color:#134e4a,stroke:#5eead4
+  </div>
+</div>
+
+<!-- ══ TAB 4 — TOOL ══ -->
+<div class="tab-panel" id="tab-tool">
+  <h2>🛠️ Tool — Tay chân của AI</h2>
+  <p class="tagline"><strong>Tool là khả năng hành động</strong> — AI không chỉ nói, mà còn làm được việc thật thông qua Tool.</p>
+
+  <h3>Các loại Tool phổ biến</h3>
+  <div class="card-grid">
+    <div class="card"><h4>🔍 Search & Retrieval</h4><ul><li>Web Search — tìm internet thời gian thực</li><li>Database Query — truy vấn CSDL</li><li>Document Search — tìm tài liệu nội bộ</li></ul></div>
+    <div class="card"><h4>📁 File & Data</h4><ul><li>File Read/Write — đọc, tạo, chỉnh sửa</li><li>Code Execution — chạy Python/JS</li><li>Image Generation — tạo hình ảnh</li></ul></div>
+    <div class="card"><h4>🌐 External Services</h4><ul><li>Email (Gmail/Outlook)</li><li>Calendar — tạo, tra lịch</li><li>CRM — cập nhật khách hàng</li><li>Slack/Teams — gửi thông báo</li></ul></div>
+    <div class="card"><h4>🔧 Utilities</h4><ul><li>Web Scraping — lấy dữ liệu website</li><li>PDF/Excel Processing</li><li>Browser Automation</li></ul></div>
+  </div>
+
+  <h3>Cách Tool hoạt động</h3>
+  <div class="mermaid">
+sequenceDiagram
+    participant U as Người dùng
+    participant AI as AI Model
+    participant T as Calendar Tool
+    participant G as Google Calendar
+    U->>AI: Lên lịch họp team vào thứ Tư 3h chiều
+    AI->>AI: Nhận diện cần Calendar Tool
+    AI->>T: calendar.create_event(title, date, time)
+    T->>G: API call
+    G-->>T: Event created ✅
+    T-->>AI: Success
+    AI-->>U: Đã tạo lịch họp Team Meeting thứ Tư 3h
+  </div>
+</div>
+
+<!-- ══ TAB 5 — SKILL ══ -->
+<div class="tab-panel" id="tab-skill">
+  <h2>🎯 Skill — Bộ kỹ năng chuyên biệt</h2>
+  <p class="tagline"><strong>Skill là gói kỹ năng chuyên biệt</strong> — tập hợp hướng dẫn + ví dụ + tool để AI làm tốt một nhiệm vụ cụ thể và nhất quán.</p>
+
+  <h3>Cấu trúc một Skill</h3>
+  <div class="skill-box">
+    <div class="skill-title">🎯 SKILL: Viết Email Sales</div>
+    <div class="skill-row"><span class="skill-label">📋 Instruction</span><span class="skill-value">Quy tắc &amp; format — Mở đầu bằng pain point · Tối đa 150 chữ · Kết bằng 1 CTA duy nhất</span></div>
+    <div class="skill-row"><span class="skill-label">📌 Examples</span><span class="skill-value">3 email mẫu tốt làm tham chiếu</span></div>
+    <div class="skill-row"><span class="skill-label">🛠️ Tools</span><span class="skill-value">Web search · CRM lookup</span></div>
+    <div class="skill-row"><span class="skill-label">📤 Output</span><span class="skill-value">Subject + Body + Follow-up gợi ý</span></div>
+  </div>
+
+  <h3>Ví dụ các Skill thực tế</h3>
+  <table>
+    <tr><th>Skill</th><th>Nhiệm vụ</th><th>Tool cần</th></tr>
+    <tr><td>📝 Email Sales Writer</td><td>Soạn email chào hàng</td><td>Web search, CRM</td></tr>
+    <tr><td>📊 Data Analyst</td><td>Phân tích số liệu, tạo biểu đồ</td><td>Code execution, file read</td></tr>
+    <tr><td>🎨 Image Creator</td><td>Tạo hình ảnh theo brief</td><td>Image generation</td></tr>
+    <tr><td>🔍 Market Researcher</td><td>Nghiên cứu đối thủ, thị trường</td><td>Web search, scraping</td></tr>
+    <tr><td>💬 Customer Support</td><td>Trả lời câu hỏi khách hàng</td><td>RAG, CRM lookup</td></tr>
+    <tr><td>📅 Meeting Summarizer</td><td>Tóm tắt cuộc họp</td><td>File read, transcript</td></tr>
+  </table>
+</div>
+
+<!-- ══ TAB 6 — AGENT ══ -->
+<div class="tab-panel" id="tab-agent">
+  <h2>🤖 Agent — AI biết tự hành động</h2>
+  <p class="tagline"><strong>Agent là AI tự chủ</strong> — nhận mục tiêu, tự lên kế hoạch, tự dùng tool, tự kiểm tra và hoàn thành nhiều bước mà không cần hướng dẫn từng bước.</p>
+
+  <h3>Chat vs Agent</h3>
+  <div class="card-grid">
+    <div class="card"><h4>💬 AI Chat thông thường</h4><p>Bạn hỏi → AI trả lời → Bạn hỏi tiếp → AI trả lời…<br><br><em>Bạn phải tự điều phối từng bước</em></p></div>
+    <div class="card"><h4>🤖 AI Agent</h4><p>Bạn đặt mục tiêu → Agent tự lập kế hoạch → Tự thực thi → Báo kết quả<br><br><em>Agent tự điều phối toàn bộ</em></p></div>
+  </div>
+
+  <h3>Vòng lặp ReAct Loop</h3>
+  <div class="mermaid">
+flowchart TD
+    G["🎯 Mục tiêu"] --> TH
+    TH["🧠 THINK<br>Tôi cần làm gì để đạt mục tiêu?"]
+    TH --> AC["⚡ ACT<br>Gọi Tool, thực hiện hành động"]
+    AC --> OB["👁️ OBSERVE<br>Kết quả là gì? Đúng chưa?"]
+    OB --> D{Hoàn thành?}
+    D -- Có --> DONE["✅ Xong - Báo kết quả"]
+    D -- Chưa --> TH
+    style G fill:#ede9fe,color:#4c1d95,stroke:#a78bfa
+    style TH fill:#e0f2fe,color:#0c4a6e,stroke:#7dd3fc
+    style AC fill:#dcfce7,color:#14532d,stroke:#86efac
+    style OB fill:#fef9c3,color:#854d0e,stroke:#fde047
+    style DONE fill:#dcfce7,color:#14532d,stroke:#86efac
+  </div>
+
+  <h3>Đặc điểm của Agent</h3>
+  <div class="card-grid">
+    <div class="card"><h4>🗺️ Tự lập kế hoạch</h4><p>Phân tích mục tiêu, chia nhỏ bước</p></div>
+    <div class="card"><h4>🛠️ Dùng Tool</h4><p>Hành động thật: tìm web, gửi email, chạy code…</p></div>
+    <div class="card"><h4>🔄 Tự sửa lỗi</h4><p>Nhận ra sai và thử lại cách khác</p></div>
+    <div class="card"><h4>🛑 Tự dừng</h4><p>Biết khi nào đã hoàn thành mục tiêu</p></div>
+  </div>
+</div>
+
+<!-- ══ TAB 7 — SUB-AGENT ══ -->
+<div class="tab-panel" id="tab-subagent">
+  <h2>👥 Sub-Agent — Đội nhóm AI</h2>
+  <p class="tagline"><strong>Sub-Agent là AI chuyên biệt</strong> được giao đảm nhiệm một phần công việc trong hệ thống lớn hơn. Nhận lệnh từ Orchestrator và báo cáo kết quả lại.</p>
+
+  <h3>So sánh Agent vs Sub-Agent</h3>
+  <table>
+    <tr><th></th><th>Agent</th><th>Sub-Agent</th></tr>
+    <tr><td><strong>Nhận lệnh từ</strong></td><td>Con người</td><td>Orchestrator Agent</td></tr>
+    <tr><td><strong>Phạm vi</strong></td><td>Toàn bộ task</td><td>Một phần cụ thể</td></tr>
+    <tr><td><strong>Chuyên môn</strong></td><td>Tổng quát</td><td>Chuyên sâu 1 lĩnh vực</td></tr>
+    <tr><td><strong>Quyết định</strong></td><td>Chiến lược</td><td>Chiến thuật</td></tr>
+  </table>
+
+  <h3>Ví dụ: Báo cáo phân tích đối thủ Q3</h3>
+  <div class="mermaid">
+flowchart TD
+    T["📋 Task: Tạo báo cáo phân tích đối thủ Q3"]
+    O["🧭 Orchestrator<br>Phân tích & Phân công"]
+    T --> O
+    O --> R["🔍 Research Sub-Agent<br>Tìm thông tin web<br>Đọc trang đối thủ"]
+    O --> AN["📊 Analysis Sub-Agent<br>Phân tích dữ liệu<br>So sánh & Insight"]
+    O --> W["✍️ Writing Sub-Agent<br>Viết báo cáo<br>Theo chuẩn công ty"]
+    O --> DS["🎨 Design Sub-Agent<br>Biểu đồ & Infographic"]
+    R --> OUT["📦 Báo cáo hoàn chỉnh"]
+    AN --> OUT
+    W --> OUT
+    DS --> OUT
+    style O fill:#e0e7ff,color:#3730a3,stroke:#6366f1
+    style OUT fill:#dcfce7,color:#14532d,stroke:#86efac
+  </div>
+</div>
+
+<!-- ══ TAB 8 — ORCHESTRATOR ══ -->
+<div class="tab-panel" id="tab-orchestrator">
+  <h2>🧭 Orchestrator — Người điều phối</h2>
+  <p class="tagline"><strong>Orchestrator là Agent điều phối</strong> — nhận mục tiêu lớn, chia nhỏ công việc, giao cho Sub-Agent phù hợp, rồi tổng hợp kết quả.</p>
+
+  <h3>Luồng điều phối</h3>
+  <div class="mermaid">
+flowchart TD
+    U["👤 Người dùng<br>Nghiên cứu thị trường và tạo pitch deck"]
+    U --> ORC
+    subgraph ORC["🧭 ORCHESTRATOR"]
+        P1["1. Phân tích task"]
+        P2["2. Lên kế hoạch"]
+        P3["3. Giao việc"]
+        P4["4. Tổng hợp"]
+        P1 --> P2 --> P3 --> P4
+    end
+    ORC --> SA1["🔍 Research Sub-Agent<br>Tìm thông tin"]
+    ORC --> SA2["📊 Analysis Sub-Agent<br>Phân tích"]
+    ORC --> SA3["🎨 Design Sub-Agent<br>Tạo slide"]
+    SA1 --> RESULT["📦 Pitch Deck hoàn chỉnh"]
+    SA2 --> RESULT
+    SA3 --> RESULT
+    style ORC fill:#f5f3ff,color:#4c1d95,stroke:#a78bfa
+    style RESULT fill:#dcfce7,color:#14532d,stroke:#86efac
+  </div>
+
+  <h3>Orchestrator làm gì?</h3>
+  <table>
+    <tr><th>Vai trò</th><th>Mô tả</th></tr>
+    <tr><td>🎯 <strong>Nhận & Hiểu</strong></td><td>Tiếp nhận và phân tích mục tiêu tổng thể</td></tr>
+    <tr><td>✂️ <strong>Decompose</strong></td><td>Chia nhỏ thành các task con có thể thực hiện</td></tr>
+    <tr><td>📨 <strong>Assign</strong></td><td>Giao đúng task cho đúng Sub-Agent</td></tr>
+    <tr><td>👁️ <strong>Monitor</strong></td><td>Theo dõi tiến độ các Sub-Agent</td></tr>
+    <tr><td>🔗 <strong>Integrate</strong></td><td>Tổng hợp kết quả từ các Sub-Agent</td></tr>
+    <tr><td>✅ <strong>QA</strong></td><td>Kiểm tra chất lượng đầu ra cuối cùng</td></tr>
+  </table>
+</div>
+
+<!-- ══ TAB 9 — MEMORY ══ -->
+<div class="tab-panel" id="tab-memory">
+  <h2>🧠 Memory — Bộ nhớ của AI</h2>
+  <p class="tagline"><strong>Memory là khả năng ghi nhớ</strong> — giúp AI nhớ thông tin qua nhiều phiên làm việc, không bị mất trí nhớ sau mỗi cuộc trò chuyện.</p>
+
+  <h3>4 Loại Memory</h3>
+  <div class="mem-box short">
+    <div class="mem-title">⚡ SHORT-TERM MEMORY (Working Memory)</div>
+    <p>Nhớ trong phiên hiện tại — chính là Context Window<br><em>"Bạn vừa nói muốn viết email cho khách VIP..."</em></p>
+  </div>
+  <div class="mem-box long">
+    <div class="mem-title">💾 LONG-TERM MEMORY</div>
+    <p>Lưu vào database, nhớ qua nhiều phiên<br><em>"Bạn thích tone văn bản trang trọng..."</em></p>
+  </div>
+  <div class="mem-box episodic">
+    <div class="mem-title">📖 EPISODIC MEMORY</div>
+    <p>Nhớ sự kiện, tương tác đã xảy ra<br><em>"Tuần trước bạn đã hỏi về chiến dịch X..."</em></p>
+  </div>
+  <div class="mem-box semantic">
+    <div class="mem-title">📚 SEMANTIC MEMORY</div>
+    <p>Nhớ kiến thức, thông tin được nạp vào<br><em>"Sản phẩm A có giá 500k, tính năng là..."</em></p>
+  </div>
+
+  <h3>Ứng dụng Memory</h3>
+  <table>
+    <tr><th>Tình huống</th><th>Loại Memory</th><th>Ví dụ</th></tr>
+    <tr><td>Chatbot hỗ trợ khách</td><td>Episodic + Semantic</td><td>Nhớ lịch sử mua hàng, vấn đề cũ</td></tr>
+    <tr><td>AI viết content</td><td>Long-term</td><td>Nhớ brand voice, sản phẩm</td></tr>
+    <tr><td>AI Assistant cá nhân</td><td>All types</td><td>Nhớ sở thích, thói quen làm việc</td></tr>
+    <tr><td>Sales AI</td><td>Episodic</td><td>Nhớ mọi lần tương tác với khách</td></tr>
+  </table>
+</div>
+
+<!-- ══ TAB 10 — RAG ══ -->
+<div class="tab-panel" id="tab-rag">
+  <h2>📚 RAG — AI học từ dữ liệu của bạn</h2>
+  <p class="tagline"><strong>RAG (Retrieval-Augmented Generation)</strong> = AI tìm kiếm trong kho tài liệu của bạn rồi trả lời dựa trên đó — thay vì chỉ dùng kiến thức sẵn có.</p>
+
+  <h3>RAG hoạt động như thế nào?</h3>
+  <div class="mermaid">
+flowchart LR
+    subgraph INDEX["📦 INDEXING - làm một lần"]
+        D["📄 Tài liệu"] --> C["✂️ Chia nhỏ Chunks"]
+        C --> V["🔢 Chuyển thành Vector"]
+        V --> DB[("🗄️ Vector DB")]
+    end
+    subgraph QUERY["🔍 Mỗi lần có câu hỏi"]
+        Q["❓ Câu hỏi"] --> EMB["🔢 Embed câu hỏi"]
+        EMB --> SR["🔎 Tìm đoạn liên quan"]
+        DB --> SR
+        SR --> GEN["🤖 AI đọc + Trả lời"]
+        Q --> GEN
+        GEN --> ANS["✅ Câu trả lời chính xác"]
+    end
+    style DB fill:#e0e7ff,color:#3730a3,stroke:#6366f1
+    style ANS fill:#dcfce7,color:#14532d,stroke:#86efac
+  </div>
+
+  <h3>Ví dụ trực quan</h3>
+  <pre><span class="bad">Không có RAG → AI đoán hoặc không biết</span>
+
+❓ "Chính sách đổi trả của công ty mình là bao nhiêu ngày?"
+
+<span class="good">Có RAG:
+→ Tìm trong "Chính sách công ty.pdf"
+→ Tìm thấy: "...đổi trả trong vòng 30 ngày..."
+→ Trả lời: "Theo chính sách công ty, thời hạn đổi trả là 30 ngày kể từ ngày mua"</span></pre>
+
+  <h3>Khi nào cần RAG?</h3>
+  <div class="card-grid">
+    <div class="card"><h4>🤖 Chatbot nội bộ</h4><p>Hỏi đáp dựa trên tài liệu công ty</p></div>
+    <div class="card"><h4>📦 Catalogue / FAQ</h4><p>AI trả lời từ danh mục sản phẩm</p></div>
+    <div class="card"><h4>⚖️ Văn bản pháp lý</h4><p>Tra cứu hợp đồng, quy định</p></div>
+    <div class="card"><h4>🎧 Customer Support</h4><p>Knowledge base cho đội hỗ trợ</p></div>
+  </div>
+</div>
+
+<!-- ══ TAB 11 — WORKFLOW ══ -->
+<div class="tab-panel" id="tab-workflow">
+  <h2>⚙️ Workflow / Pipeline — Quy trình tự động</h2>
+  <p class="tagline"><strong>Workflow là dây chuyền tự động</strong> — kết nối Hook + Agent + Tool + Skill thành quy trình chạy liên tục không cần con người can thiệp từng bước.</p>
+
+  <h3>Cấu trúc cơ bản</h3>
+  <div class="mermaid">
+flowchart TD
+    H["🔔 HOOK / TRIGGER"]
+    I["🧹 INPUT PROCESSING<br>Làm sạch, phân loại đầu vào"]
+    O["🧭 ORCHESTRATOR<br>Lên kế hoạch, điều phối"]
+    SA1["🤖 Sub-Agent 1"]
+    SA2["🤖 Sub-Agent 2"]
+    INT["🔗 INTEGRATION<br>Tổng hợp kết quả"]
+    OUT["📤 OUTPUT / ACTION<br>Email, DB, File"]
+    LOG["📊 LOGGING / MONITOR<br>Ghi log, Báo lỗi"]
+    H --> I --> O
+    O --> SA1
+    O --> SA2
+    SA1 --> INT
+    SA2 --> INT
+    INT --> OUT --> LOG
+    style H fill:#ede9fe,color:#4c1d95,stroke:#a78bfa
+    style O fill:#e0e7ff,color:#3730a3,stroke:#6366f1
+    style OUT fill:#dcfce7,color:#14532d,stroke:#86efac
+    style LOG fill:#f8fafc,color:#64748b,stroke:#cbd5e1
+  </div>
+
+  <h3>4 Workflow Patterns</h3>
+  <div class="pattern-grid">
+    <div class="pattern-card"><h4>1️⃣ LINEAR (Tuần tự)</h4><p>A → B → C → D<br><br>Mỗi bước cần kết quả của bước trước</p></div>
+    <div class="pattern-card"><h4>2️⃣ PARALLEL (Song song)</h4><p>A → [B, C, D] → E<br><br>Các task độc lập, chạy đồng thời để nhanh hơn</p></div>
+    <div class="pattern-card"><h4>3️⃣ CONDITIONAL (Điều kiện)</h4><p>A → Điều kiện? → B hoặc C<br><br>Xử lý khác nhau tùy tình huống</p></div>
+    <div class="pattern-card"><h4>4️⃣ LOOP (Vòng lặp)</h4><p>A → B → Đạt chưa? → C hoặc lại A<br><br>Tinh chỉnh đến khi đạt chất lượng</p></div>
+  </div>
+
+  <h3>Công cụ tạo Workflow</h3>
+  <table>
+    <tr><th>Công cụ</th><th>Loại</th><th>Độ phức tạp</th><th>Phù hợp với</th></tr>
+    <tr><td><strong>Zapier</strong></td><td>No-code</td><td>⭐ Dễ</td><td>Người dùng không kỹ thuật</td></tr>
+    <tr><td><strong>Make (Integromat)</strong></td><td>No-code</td><td>⭐⭐ Vừa</td><td>Workflow phức tạp hơn</td></tr>
+    <tr><td><strong>n8n</strong></td><td>Low-code</td><td>⭐⭐⭐ Khá</td><td>Tự host, linh hoạt</td></tr>
+    <tr><td><strong>LangChain</strong></td><td>Code</td><td>⭐⭐⭐⭐ Khó</td><td>Developer</td></tr>
+    <tr><td><strong>LlamaIndex</strong></td><td>Code</td><td>⭐⭐⭐⭐ Khó</td><td>Developer, RAG-heavy</td></tr>
+    <tr><td><strong>Dify / Manus</strong></td><td>Platform</td><td>⭐⭐ Vừa</td><td>AI Agent platform</td></tr>
+  </table>
+</div>
+
+<!-- ══ TAB 12 — TỔNG KẾT ══ -->
+<div class="tab-panel" id="tab-overview">
+  <h2>🗺️ Tổng kết hệ sinh thái</h2>
+  <p class="tagline">Bức tranh toàn cảnh — từ thế giới thật đến kết quả đầu ra.</p>
+
+  <h3>Sơ đồ hệ sinh thái đầy đủ</h3>
+  <div class="mermaid">
+flowchart TD
+    RW["🌍 THẾ GIỚI THẬT<br>Email, Form, Lịch hẹn, File, Đơn hàng"]
+    HK["🔔 HOOK / TRIGGER<br>Điểm kích hoạt"]
+    ORC["🧭 ORCHESTRATOR<br>System Prompt + Long-term Memory"]
+    SA1["🤖 Sub-Agent A + Skill A"]
+    SA2["🤖 Sub-Agent B + Skill B"]
+    SA3["🤖 Sub-Agent C + Skill C"]
+    T1["🛠️ Tools: Search, File, API"]
+    T2["🛠️ Tools: Email, CRM"]
+    T3["🛠️ Tools: Code, DB"]
+    R1["📚 RAG: Tài liệu nội bộ"]
+    R2["📚 RAG: FAQ, Catalogue"]
+    M3["💾 Memory: Lịch sử"]
+    OUT["📦 KẾT QUẢ<br>Email, File, DB cập nhật"]
+    RW --> HK --> ORC
+    ORC --> SA1
+    ORC --> SA2
+    ORC --> SA3
+    SA1 --> T1 --> R1
+    SA2 --> T2 --> R2
+    SA3 --> T3 --> M3
+    R1 --> OUT
+    R2 --> OUT
+    M3 --> OUT
+    style RW fill:#f1f5f9,color:#475569,stroke:#cbd5e1
+    style HK fill:#ede9fe,color:#4c1d95,stroke:#a78bfa
+    style ORC fill:#e0e7ff,color:#3730a3,stroke:#6366f1
+    style OUT fill:#dcfce7,color:#14532d,stroke:#86efac
+  </div>
+
+  <h3>Cheat Sheet — Dùng cái gì khi nào?</h3>
+  <div style="background:#fff;border:1px solid var(--border);border-radius:12px;padding:20px;">
+    <div class="cheat-row"><span class="cheat-situation">Muốn AI tự chạy khi có sự kiện</span><span class="cheat-answer">🔔 Hook / Trigger</span></div>
+    <div class="cheat-row"><span class="cheat-situation">Muốn AI làm đúng format cụ thể</span><span class="cheat-answer">✍️ Prompt Engineering</span></div>
+    <div class="cheat-row"><span class="cheat-situation">Muốn AI dùng dữ liệu riêng của mình</span><span class="cheat-answer">📚 RAG</span></div>
+    <div class="cheat-row"><span class="cheat-situation">Muốn AI nhớ qua nhiều phiên</span><span class="cheat-answer">💾 Long-term Memory</span></div>
+    <div class="cheat-row"><span class="cheat-situation">Muốn AI làm được việc thật (gửi email...)</span><span class="cheat-answer">🛠️ Tool</span></div>
+    <div class="cheat-row"><span class="cheat-situation">Muốn AI làm giỏi 1 việc cụ thể</span><span class="cheat-answer">🎯 Skill</span></div>
+    <div class="cheat-row"><span class="cheat-situation">Muốn AI tự hoàn thành task nhiều bước</span><span class="cheat-answer">🤖 Agent</span></div>
+    <div class="cheat-row"><span class="cheat-situation">Muốn nhiều AI phối hợp</span><span class="cheat-answer">🧭 Orchestrator + Sub-Agent</span></div>
+    <div class="cheat-row"><span class="cheat-situation">Muốn tự động hóa toàn bộ quy trình</span><span class="cheat-answer">⚙️ Workflow / Pipeline</span></div>
+  </div>
+  <p style="margin-top:28px;text-align:center;color:var(--text-muted);font-size:0.8rem;">Phiên bản 1.2 · Cập nhật 2026-06-02</p>
+</div>
+
+<!-- ══ TAB 13 — LỊCH SỬ ══ -->
+<div class="tab-panel" id="tab-history">
+  <h2>📋 Lịch sử chỉnh sửa</h2>
+  <p class="tagline">Ghi lại toàn bộ thay đổi của tài liệu qua các phiên bản.</p>
+
+  <div class="history-table">
+    <table>
+      <tr>
+        <th>Phiên bản</th>
+        <th>Ngày</th>
+        <th>Tác giả</th>
+        <th>Nội dung thay đổi</th>
+      </tr>
+      <tr>
+        <td><span class="version-badge">v1.0</span></td>
+        <td>2026-06-02</td>
+        <td>phong</td>
+        <td>
+          <span class="change-tag tag-new">New</span> Phiên bản đầu tiên dạng Markdown<br>
+          12 chủ đề: Model, Prompt, Hook, Tool, Skill, Agent, Sub-Agent, Orchestrator, Memory, RAG, Workflow, Tổng quan
+        </td>
+      </tr>
+      <tr>
+        <td><span class="version-badge">v1.1</span></td>
+        <td>2026-06-02</td>
+        <td>phong</td>
+        <td>
+          <span class="change-tag tag-update">Update</span> Chuyển từ Markdown sang HTML<br>
+          <span class="change-tag tag-new">New</span> Tab navigation (12 tabs)<br>
+          <span class="change-tag tag-new">New</span> Mermaid diagrams thay thế ASCII art<br>
+          <span class="change-tag tag-style">Style</span> Dark theme
+        </td>
+      </tr>
+      <tr>
+        <td><span class="version-badge">v1.2</span></td>
+        <td>2026-06-02</td>
+        <td>phong</td>
+        <td>
+          <span class="change-tag tag-new">New</span> Tab lịch sử chỉnh sửa<br>
+          <span class="change-tag tag-update">Update</span> Tách CSS ra file riêng (AI-Enduser-Knowledge.css)<br>
+          <span class="change-tag tag-update">Update</span> Tách JS ra file riêng (AI-Enduser-Knowledge.js)<br>
+          <span class="change-tag tag-style">Style</span> Chuyển sang Light theme<br>
+          <span class="change-tag tag-fix">Fix</span> Sửa Mermaid diagrams không hiển thị (lazy render + syntax errors)
+        </td>
+      </tr>
+      <tr>
+        <td><span class="version-badge">v1.3</span></td>
+        <td>2026-06-02</td>
+        <td>phong</td>
+        <td>
+          <span class="change-tag tag-new">New</span> Search bar: tìm kiếm toàn bộ nội dung<br>
+          <span class="change-tag tag-new">New</span> Hiển thị số lượng kết quả (n / tổng)<br>
+          <span class="change-tag tag-new">New</span> Nút ❮ ❯ để điều hướng giữa các kết quả<br>
+          <span class="change-tag tag-new">New</span> Hotkey: Enter (tiếp), Shift+Enter (lùi), Esc (xóa)<br>
+          <span class="change-tag tag-update">Update</span> Tự động chuyển tab khi jump đến kết quả ở tab khác
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <h3 style="margin-top:28px;">Ghi chú kỹ thuật</h3>
+  <table>
+    <tr><th>File</th><th>Vai trò</th></tr>
+    <tr><td>AI-Enduser-Knowledge.html</td><td>Nội dung chính, cấu trúc HTML, tabs</td></tr>
+    <tr><td>AI-Enduser-Knowledge.css</td><td>Toàn bộ style — light theme</td></tr>
+    <tr><td>AI-Enduser-Knowledge.js</td><td>Tab logic + Mermaid lazy render</td></tr>
+  </table>
+</div>
+
+</main>
+
+<script src="AI-Enduser-Knowledge.js"></script>
+</body>
+</html>
