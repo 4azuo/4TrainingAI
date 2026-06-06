@@ -1,0 +1,26 @@
+  <h2>🛠️ Tool — Tay chân của AI</h2>
+  <p class="tagline"><strong>Tool là khả năng hành động</strong> — AI không chỉ nói, mà còn làm được việc thật thông qua Tool.</p>
+
+  <h3>Các loại Tool phổ biến</h3>
+  <div class="card-grid">
+    <div class="card"><h4>🔍 Search & Retrieval</h4><ul><li>Web Search — tìm internet thời gian thực</li><li>Database Query — truy vấn CSDL</li><li>Document Search — tìm tài liệu nội bộ</li></ul></div>
+    <div class="card"><h4>📁 File & Data</h4><ul><li>File Read/Write — đọc, tạo, chỉnh sửa</li><li>Code Execution — chạy Python/JS</li><li>Image Generation — tạo hình ảnh</li></ul></div>
+    <div class="card"><h4>🌐 External Services</h4><ul><li>Email (Gmail/Outlook)</li><li>Calendar — tạo, tra lịch</li><li>CRM — cập nhật khách hàng</li><li>Slack/Teams — gửi thông báo</li></ul></div>
+    <div class="card"><h4>🔧 Utilities</h4><ul><li>Web Scraping — lấy dữ liệu website</li><li>PDF/Excel Processing</li><li>Browser Automation</li></ul></div>
+  </div>
+
+  <h3>Cách Tool hoạt động</h3>
+  <div class="mermaid">
+sequenceDiagram
+    participant U as Người dùng
+    participant AI as AI Model
+    participant T as Calendar Tool
+    participant G as Google Calendar
+    U->>AI: Lên lịch họp team vào thứ Tư 3h chiều
+    AI->>AI: Nhận diện cần Calendar Tool
+    AI->>T: calendar.create_event(title, date, time)
+    T->>G: API call
+    G-->>T: Event created ✅
+    T-->>AI: Success
+    AI-->>U: Đã tạo lịch họp Team Meeting thứ Tư 3h
+  </div>

@@ -1,0 +1,357 @@
+  <h2>🚀 Setup Project AI — Kinh nghiệm thực chiến</h2>
+  <p class="tagline"><strong>Kinh nghiệm dựng một dự án AI agent</strong> — từ chọn công cụ, thiết kế đội nhóm, viết instructions, đến tổ chức memory và RAG. Đúc kết để tránh các lỗi phổ biến.</p>
+
+  <h3>1. Chọn công cụ: Web · App · VSCode?</h3>
+  <p>Cùng là Claude/AI nhưng môi trường làm việc khác nhau rất nhiều. Bảng so sánh nhanh:</p>
+  <table>
+    <tr><th>Môi trường</th><th>Ưu điểm</th><th>Hạn chế</th><th>Hợp với</th></tr>
+    <tr>
+      <td>🌐 <strong>Web (chat)</strong></td>
+      <td>Mở nhanh, không cài đặt, tiện hỏi đáp &amp; brainstorm</td>
+      <td>Không truy cập file dự án, không chạy lệnh, khó duy trì ngữ cảnh dài</td>
+      <td>Hỏi nhanh, viết nháp, học khái niệm</td>
+    </tr>
+    <tr>
+      <td>💻 <strong>Claude Code App</strong></td>
+      <td>Chạy được trên máy, thao tác file &amp; lệnh, giao diện gọn</td>
+      <td>Tách rời khỏi editor, ít tích hợp với quy trình code hằng ngày</td>
+      <td>Tác vụ ngắn, máy không cài editor</td>
+    </tr>
+    <tr>
+      <td>🧩 <strong>Claude Code for VSCode</strong> ⭐</td>
+      <td>Ở ngay trong editor: đọc/sửa file, chạy terminal, xem git diff, click thẳng vào dòng code, tích hợp extension &amp; tool sẵn có</td>
+      <td>Cần cài đặt, làm quen ban đầu</td>
+      <td>Làm dự án thật, lâu dài</td>
+    </tr>
+  </table>
+  <div class="skill-box">
+    <div class="skill-title">💡 Khuyến nghị</div>
+    <div class="skill-row"><span class="skill-label">Nên dùng</span><span class="skill-value"><strong>Claude Code for VSCode</strong> khi làm dự án thật — vì tích hợp sẵn nhiều tool: file, terminal, git, debugger, extension. AI "nhìn" thấy đúng bối cảnh code và thao tác trực tiếp, ít copy-paste.</span></div>
+    <div class="skill-row"><span class="skill-label">Vẫn dùng Web</span><span class="skill-value">cho việc hỏi nhanh, brainstorm ý tưởng, học khái niệm — không cần ngữ cảnh dự án.</span></div>
+  </div>
+
+  <h3>2. Quy trình setup project AI</h3>
+  <p>Đừng tạo agent ngay. Thiết kế <strong>đội nhóm</strong> trước, giống như tuyển người cho một team thật.</p>
+  <div class="mermaid">
+flowchart TD
+    S1["1️⃣ Phân tích VAI TRÒ<br>Dự án cần những kỹ năng gì?"]
+    S2["2️⃣ Thiết kế ĐỘI NHÓM<br>Gom vai trò → các vị trí cần có"]
+    S3["3️⃣ Viết INSTRUCTIONS<br>CLAUDE.md cho Orchestrator"]
+    S4["4️⃣ Tạo SUB-AGENTS<br>Theo từng vai trò đã xác định"]
+    S5["5️⃣ PHÂN CÔNG<br>Ai làm gì, ranh giới rõ ràng"]
+    S1 --> S2 --> S3 --> S4 --> S5
+    style S1 fill:#ede9fe,color:#4c1d95,stroke:#a78bfa
+    style S3 fill:#e0e7ff,color:#3730a3,stroke:#6366f1
+    style S5 fill:#dcfce7,color:#14532d,stroke:#86efac
+  </div>
+  <table>
+    <tr><th>Bước</th><th>Làm gì</th><th>Kết quả</th></tr>
+    <tr><td><strong>Phân tích vai trò</strong></td><td>Liệt kê các loại công việc: nghiên cứu, code, review, viết doc, test...</td><td>Danh sách kỹ năng cần</td></tr>
+    <tr><td><strong>Thiết kế đội nhóm</strong></td><td>Gom vai trò gần nhau, xác định số vị trí tối thiểu</td><td>Sơ đồ tổ chức</td></tr>
+    <tr><td><strong>Instructions (CLAUDE.md)</strong></td><td>Viết "hiến pháp" cho Orchestrator: mục tiêu, quy tắc, cách phối hợp, khi nào hỏi user</td><td>File CLAUDE.md gốc</td></tr>
+    <tr><td><strong>Tạo sub-agents</strong></td><td>Mỗi vai trò = 1 sub-agent có instruction + tool riêng</td><td>Các file agent</td></tr>
+    <tr><td><strong>Phân công</strong></td><td>Định nghĩa rõ ranh giới: ai sở hữu việc gì, input/output là gì</td><td>Bảng phân công</td></tr>
+  </table>
+  <div class="skill-box">
+    <div class="skill-title">⚠️ Tránh OVER sub-agents</div>
+    <div class="skill-row"><span class="skill-label">Vấn đề</span><span class="skill-value">Tạo quá nhiều sub-agent nhỏ → tốn token, khó điều phối, chậm, dễ "tam sao thất bản" giữa các agent.</span></div>
+    <div class="skill-row"><span class="skill-label">Nguyên tắc</span><span class="skill-value">Bắt đầu ít — chỉ tách ra sub-agent khi vai trò <em>thật sự khác biệt</em> về kỹ năng/tool. Một agent giỏi nhiều việc liên quan tốt hơn 5 agent vụn vặt.</span></div>
+  </div>
+
+  <h3>3. Cấu trúc thư mục dự án Claude (mẫu)</h3>
+  <p>Claude Code đọc <code>CLAUDE.md</code> ở gốc và thư mục <code>.claude/</code>. Riêng <strong>memory</strong> và <strong>rag</strong> <em>không có cấu trúc cố định</em> — dưới đây là gợi ý của mình (đánh dấu 💡).</p>
+  <pre>my-ai-project/
+├── <strong>CLAUDE.md</strong>                  <span class="good"># Hiến pháp dự án — instructions cho Orchestrator</span>
+├── <strong>.vscode/</strong>                     <span class="good"># Cấu hình VSCode cho cả team</span>
+│   ├── tasks.json               <span class="good"># HOOK khởi động: tự chạy server khi mở VSCode (xem mục 10)</span>
+│   ├── settings.json            <span class="good"># Cấu hình editor (format, port Live Preview...)</span>
+│   └── extensions.json          <span class="good"># Gợi ý extension nên cài (Live Preview...)</span>
+├── .claude/
+│   ├── settings.json            <span class="good"># Cấu hình + HOOKS (PreToolUse, PostToolUse, Stop...)</span>
+│   ├── settings.local.json      <span class="good"># Cấu hình cá nhân (gitignore)</span>
+│   ├── <strong>agents/</strong>                  <span class="good"># SUB-AGENTS — mỗi file = 1 vai trò</span>
+│   │   ├── researcher.md
+│   │   ├── coder.md
+│   │   └── reviewer.md
+│   ├── <strong>skills/</strong>                  <span class="good"># SKILLS — mỗi skill = 1 thư mục</span>
+│   │   ├── write-email/
+│   │   │   ├── SKILL.md          <span class="good"># Frontmatter: name + description</span>
+│   │   │   └── examples/
+│   │   └── data-report/
+│   │       ├── SKILL.md
+│   │       └── scripts/
+│   │           └── build_report.py   <span class="good"># Script để CHẠY, không bắt agent tự nghĩ</span>
+│   ├── commands/                <span class="good"># Slash command tùy biến (tùy chọn)</span>
+│   └── <strong>hooks/</strong>                   <span class="good"># Script cho hooks (tùy chọn)</span>
+│       └── format-on-save.sh
+│
+├── <strong>memory/</strong>          💡             <span class="good"># Tự định nghĩa — bộ nhớ dài hạn</span>
+│   ├── MEMORY.md                <span class="good"># Index: 1 dòng / 1 memory</span>
+│   ├── user.md                  <span class="good"># Hồ sơ người dùng, sở thích</span>
+│   ├── decisions.md             <span class="good"># Quyết định lớn của dự án</span>
+│   └── state.json               <span class="good"># Trạng thái máy đọc (task, tiến độ)</span>
+│
+├── <strong>rag/</strong>             💡             <span class="good"># Tự định nghĩa — kho tài liệu</span>
+│   ├── docs/                    <span class="good"># Nguồn .md (policy.md, faq.md...)</span>
+│   ├── index.json               <span class="good"># Mục lục / metadata để định tuyến</span>
+│   └── db/                      <span class="good"># Khi nâng cấp: SQLite FTS / vector store</span>
+│       └── vectors.sqlite
+│
+├── <strong>scripts/</strong>                 <span class="good"># Script tự động hóa (ingest, build, deploy...)</span>
+│   ├── ingest_docs.py
+│   └── edit_server.py           <span class="good"># Server lưu chỉnh sửa từ Live Preview (mục 10)</span>
+├── data/                        <span class="good"># Dữ liệu chỉnh sửa lưu tạm (edits.json)</span>
+└── src/                         <span class="good"># Code dự án thật</span></pre>
+  <div class="skill-box">
+    <div class="skill-title">📌 Ghi nhớ</div>
+    <div class="skill-row"><span class="skill-label">Cố định</span><span class="skill-value"><code>CLAUDE.md</code>, <code>.claude/agents/</code>, <code>.claude/skills/&lt;tên&gt;/SKILL.md</code>, hooks trong <code>.claude/settings.json</code> — đây là quy ước Claude Code.</span></div>
+    <div class="skill-row"><span class="skill-label">Tự do (💡)</span><span class="skill-value"><code>memory/</code> và <code>rag/</code> do bạn tự thiết kế. Cứ giữ đơn giản: md cho phần người đọc/AI đọc, json cho trạng thái, lên db khi cần.</span></div>
+    <div class="skill-row"><span class="skill-label">Hook khởi động</span><span class="skill-value"><code>.vscode/tasks.json</code> với <code>"runOn": "folderOpen"</code> = một dạng <strong>hook</strong>: tự chạy lệnh (vd khởi động server) <em>ngay khi mở project trong VSCode</em> — không cần bấm tay.</span></div>
+  </div>
+
+  <h3>4. Nguyên tắc giao việc cho Sub-Agent</h3>
+  <p>Sub-agent <strong>có thể</strong> gọi sub-agent khác khi thực sự cần — nhưng phải <strong>kiểm soát chặt</strong> để tránh đệ quy không kiểm soát: chạy mãi không dừng, đốt token.</p>
+  <div class="card-grid">
+    <div class="card"><h4>✅ Nên</h4><ul>
+      <li>Sub-agent làm <strong>một việc cụ thể</strong> rồi <strong>báo cáo kết quả</strong> về nơi giao việc</li>
+      <li>Được gọi sub-agent con khi cần, nhưng <strong>giới hạn độ sâu</strong> (vd tối đa 1–2 cấp) và <strong>không tạo vòng</strong></li>
+      <li>Khi gặp quyết định lớn / mơ hồ → <strong>dừng và hỏi user</strong></li>
+      <li>Có điều kiện dừng rõ ràng (done / fail / cần input)</li>
+    </ul></div>
+    <div class="card"><h4>❌ Tránh</h4><ul>
+      <li>Đệ quy <strong>không giới hạn độ sâu</strong> — A gọi B gọi C gọi... vô tận</li>
+      <li>Tạo <strong>vòng</strong>: A → B → A, hoặc gọi ngược Orchestrator rồi quay lại chính nó</li>
+      <li>Tự ý quyết định việc lớn thay vì hỏi user</li>
+    </ul></div>
+  </div>
+  <div class="mermaid">
+flowchart TD
+    O["🧭 Orchestrator"] -->|giao việc| SA["🤖 Sub-Agent A"]
+    SA -->|"✅ gọi con (≤ 1–2 cấp)"| SB["🤖 Sub-Agent B"]
+    SB -->|"✅ trả kết quả"| SA
+    SA -->|"✅ báo cáo"| O
+    O -->|"❓ cần quyết định"| U["👤 User quyết định"]
+    SB -. "❌ đệ quy vô hạn / tạo vòng" .-> SX["♾️ A→B→A→..."]
+    style O fill:#e0e7ff,color:#3730a3,stroke:#6366f1
+    style U fill:#fef9c3,color:#854d0e,stroke:#fde047
+    style SX fill:#fee2e2,color:#991b1b,stroke:#fca5a5
+  </div>
+  <pre><span class="bad">❌ A → B → C → A → B → ... (đệ quy không giới hạn, đốt token vô tận)</span>
+<span class="good">✅ A gọi B (cấp 1) → B xong, trả kết quả → A tổng hợp → báo cáo lên.
+   Có giới hạn độ sâu (maxDepth) + phát hiện vòng + điều kiện dừng.</span></pre>
+
+  <h3>5. Viết Skills &amp; Tự động hóa bằng Script</h3>
+  <p>Một skill tốt = <code>SKILL.md</code> (frontmatter <code>name</code> + <code>description</code> rõ ràng) + tài nguyên đi kèm (examples, templates, <strong>script</strong>).</p>
+  <div class="card-grid">
+    <div class="card"><h4>✍️ Kinh nghiệm viết Skill</h4><ul>
+      <li><strong>Description quyết định</strong> skill có được kích hoạt đúng lúc không — mô tả rõ "khi nào dùng", thêm từ khóa gợi nhớ</li>
+      <li>Mỗi skill <strong>một việc</strong>, đừng nhồi nhiều mục đích</li>
+      <li>Kèm <strong>ví dụ mẫu</strong> (good/bad) để output nhất quán</li>
+      <li>Giữ SKILL.md ngắn; đẩy chi tiết dài vào file phụ, chỉ nạp khi cần</li>
+    </ul></div>
+    <div class="card"><h4>⚙️ Script &gt; "agent tự nghĩ"</h4><ul>
+      <li>Việc <strong>lặp lại &amp; xác định</strong> (deterministic) → viết <strong>script</strong> (Python/Bash) để agent CHẠY</li>
+      <li>Tiết kiệm token, chạy nhanh, kết quả <strong>ổn định</strong> mỗi lần</li>
+      <li>Dành "suy nghĩ" của agent cho việc cần <strong>phán đoán</strong>, không cho việc máy móc</li>
+      <li>Script còn <strong>test được</strong> và tái dùng — agent thì không đảm bảo</li>
+    </ul></div>
+  </div>
+  <pre><span class="bad">❌ Mỗi lần lại nhờ agent "đọc 200 file, lọc, đếm, tính tổng rồi format bảng"</span>
+   → tốn token khủng, chậm, mỗi lần ra kết quả hơi khác nhau
+
+<span class="good">✅ Viết 1 script: scripts/build_report.py — agent chỉ gọi: python build_report.py</span>
+   → rẻ, nhanh, kết quả y hệt nhau, dễ kiểm thử</pre>
+  <div class="skill-box">
+    <div class="skill-title">🧠 Quy tắc vàng</div>
+    <div class="skill-row"><span class="skill-label">Xác định được</span><span class="skill-value">→ Viết <strong>script</strong> (logic cố định, có input/output rõ).</span></div>
+    <div class="skill-row"><span class="skill-label">Cần phán đoán</span><span class="skill-value">→ Để <strong>agent</strong> xử lý (hiểu ngữ cảnh, ra quyết định, viết nội dung).</span></div>
+  </div>
+
+  <h3>6. Định dạng trình bày: dùng đúng loại cho đúng người đọc</h3>
+  <p>Chọn định dạng theo "ai/cái gì sẽ đọc" — sai định dạng vừa tốn token vừa khó bảo trì.</p>
+  <table>
+    <tr><th>Định dạng</th><th>Dành cho</th><th>Vì sao</th></tr>
+    <tr><td>📝 <strong>Markdown (.md)</strong></td><td><strong>AI đọc/ghi</strong>: instructions, memory, doc nội bộ</td><td>Ít token, ngữ nghĩa rõ, git-friendly, AI parse tốt</td></tr>
+    <tr><td>🌐 <strong>HTML</strong></td><td><strong>Người đọc</strong>: báo cáo, dashboard, trang trình bày</td><td>Đẹp, tương tác — nhưng nặng token, đừng bắt AI đọc cả khối</td></tr>
+    <tr><td>🎨 <strong>CSS</strong></td><td>Tách <strong>riêng</strong> khi dùng HTML</td><td>File HTML ngắn lại → dễ review, sửa style không đụng nội dung</td></tr>
+    <tr><td>🐍 <strong>JS / Python</strong></td><td><strong>Script</strong> tự động hóa, xử lý dữ liệu</td><td>Logic chạy được, test được, tái dùng</td></tr>
+    <tr><td>🗂️ <strong>JSON</strong></td><td><strong>Máy đọc</strong>: cấu hình, trạng thái, dữ liệu trao đổi</td><td>Cấu trúc chặt, dễ parse giữa các bước</td></tr>
+  </table>
+  <pre><span class="good">💡 Nguyên tắc: md cho AI · html cho người · css/js/py tách riêng từng vai trò.</span>
+Chính tài liệu này là ví dụ: nội dung tách .md-style từng tab, style để .css riêng,
+logic ở .js riêng → mỗi file ngắn, AI chỉ đọc đúng phần cần.</pre>
+
+  <h3>7. Tổ chức Memory cho Agent</h3>
+  <p>Cả Orchestrator và Sub-agent đều cần "nhớ". Chọn định dạng theo nhu cầu — đừng nhảy thẳng lên DB khi chưa cần.</p>
+  <table>
+    <tr><th>Định dạng</th><th>Khi nào dùng</th><th>Ưu / Nhược</th></tr>
+    <tr><td>📝 <strong>Markdown (.md)</strong></td><td>Ghi chú, quyết định, "facts" dạng người đọc được; bộ nhớ nhỏ &amp; vừa</td><td>+ Dễ đọc, dễ review, git-friendly · − Khó query cấu trúc</td></tr>
+    <tr><td>🗂️ <strong>JSON</strong></td><td>Dữ liệu có cấu trúc: cấu hình, trạng thái task, danh sách</td><td>+ Máy đọc tốt, dễ parse · − Người đọc kém hơn md</td></tr>
+    <tr><td>🗄️ <strong>Database (SQLite / Postgres)</strong></td><td>Nhiều bản ghi, cần query/lọc/đếm, nhiều agent ghi đồng thời</td><td>+ Mạnh, mở rộng tốt · − Phức tạp hơn, cần setup</td></tr>
+    <tr><td>🔢 <strong>Vector DB</strong></td><td>Bộ nhớ ngữ nghĩa lớn — tìm theo ý nghĩa (xem RAG)</td><td>+ Tìm theo nghĩa · − Hạ tầng nặng nhất</td></tr>
+  </table>
+  <div class="skill-box">
+    <div class="skill-title">🧭 Gợi ý phân tầng bộ nhớ</div>
+    <div class="skill-row"><span class="skill-label">Orchestrator</span><span class="skill-value">Giữ "bộ nhớ chung": mục tiêu dự án, quyết định lớn, trạng thái tổng — thường là <strong>.md</strong> (index) + JSON cho trạng thái.</span></div>
+    <div class="skill-row"><span class="skill-label">Sub-agent</span><span class="skill-value">Bộ nhớ cục bộ theo vai trò, ghi gọn rồi báo cáo lên. Tránh mỗi agent một kho riêng rời rạc.</span></div>
+    <div class="skill-row"><span class="skill-label">Quy tắc</span><span class="skill-value"><strong>1 fact = 1 mục</strong>, có mô tả ngắn để dễ "recall". Bắt đầu bằng md, nâng lên DB khi số lượng &amp; truy vấn tăng.</span></div>
+  </div>
+
+  <h3>8. Tạo RAG: từ đơn giản đến nâng cao</h3>
+  <p>Không cần Vector DB ngay từ đầu. Nâng cấp dần theo quy mô tài liệu.</p>
+  <div class="mermaid">
+flowchart LR
+    L1["📄 Cấp 1<br>Folder .md<br>+ tìm từ khóa"]
+    L2["🗂️ Cấp 2<br>Md + index/metadata<br>(JSON mục lục)"]
+    L3["🔎 Cấp 3<br>Full-text search<br>(SQLite FTS)"]
+    L4["🔢 Cấp 4<br>Vector DB<br>tìm theo ngữ nghĩa"]
+    L1 --> L2 --> L3 --> L4
+    style L1 fill:#dcfce7,color:#14532d,stroke:#86efac
+    style L2 fill:#e0f2fe,color:#0c4a6e,stroke:#7dd3fc
+    style L3 fill:#fef9c3,color:#854d0e,stroke:#fde047
+    style L4 fill:#e0e7ff,color:#3730a3,stroke:#6366f1
+  </div>
+  <table>
+    <tr><th>Cấp độ</th><th>Cách làm</th><th>Phù hợp khi</th></tr>
+    <tr><td><strong>1. Md thuần</strong></td><td>Để tài liệu trong folder .md, agent đọc + grep từ khóa</td><td>Ít file (&lt; vài chục), nội dung gọn</td></tr>
+    <tr><td><strong>2. Md + Index</strong></td><td>Thêm file mục lục (JSON/MD) mô tả từng tài liệu để agent biết đọc cái nào</td><td>Tài liệu nhiều chủ đề, cần định tuyến</td></tr>
+    <tr><td><strong>3. Full-text search</strong></td><td>SQLite FTS / công cụ search để tìm nhanh trong nhiều file</td><td>Hàng trăm tài liệu, cần tìm chính xác từ</td></tr>
+    <tr><td><strong>4. Vector DB</strong></td><td>Chunk → embed → vector store; tìm theo ý nghĩa (semantic)</td><td>Kho lớn, câu hỏi diễn đạt tự do</td></tr>
+  </table>
+  <pre><span class="good">💡 Lời khuyên: bắt đầu RAG bằng .md + tìm từ khóa.</span>
+Chỉ lên Vector DB khi: tài liệu lớn, người dùng hỏi bằng ngôn ngữ tự nhiên,
+hoặc tìm từ khóa bỏ sót quá nhiều kết quả liên quan.</pre>
+
+  <h3>9. Công cụ hữu ích: Live Preview (Microsoft)</h3>
+  <p>Extension <strong>Live Preview</strong> của Microsoft cho VSCode — chạy server xem trước HTML <em>ngay trong editor</em> (không cần mở trình duyệt ngoài).</p>
+  <div class="card-grid">
+    <div class="card"><h4>👁️ Xem trước trong editor</h4><ul>
+      <li>Render HTML real-time, tự reload khi sửa file</li>
+      <li>Chạy qua server cục bộ → <strong>fetch hoạt động</strong> (đúng vấn đề <code>file://</code> của tài liệu này)</li>
+    </ul></div>
+    <div class="card"><h4>🤝 Chia sẻ góc nhìn với AI</h4><ul>
+      <li>Tích hợp với <strong>GitHub Copilot / Codex / Claude</strong></li>
+      <li>Cho phép AI "thấy" trang <strong>đã render</strong> (giao diện thực) chứ không chỉ đọc code</li>
+      <li>AI hiểu UI hiển thị ra sao → sửa layout/style chính xác hơn</li>
+    </ul></div>
+  </div>
+  <div class="skill-box">
+    <div class="skill-title">💡 Vì sao hữu ích cho dự án AI</div>
+    <div class="skill-row"><span class="skill-label">Vòng lặp nhanh</span><span class="skill-value">Sửa → thấy ngay → nhờ AI chỉnh tiếp, không phải mô tả bằng lời "nút bị lệch".</span></div>
+    <div class="skill-row"><span class="skill-label">Đúng bối cảnh</span><span class="skill-value">AI nhìn được kết quả render thật → giảm đoán mò, ít vòng sửa lại.</span></div>
+    <div class="skill-row"><span class="skill-label">Tiện ngay đây</span><span class="skill-value">Mở chính trang này bằng Live Preview là chạy được luôn (nạp tab động qua fetch).</span></div>
+  </div>
+
+  <h3>10. Nâng cao: biến HTML tĩnh thành trang sửa được &amp; lưu trữ</h3>
+  <p>HTML tĩnh vốn <strong>read-only</strong> — chỉ để trình bày. Có thể "nâng cấp" nó thành trang vừa trình bày đẹp vừa <strong>sửa trực tiếp &amp; lưu lại</strong>: thêm một lớp lưu trữ qua <strong>Python server cục bộ</strong>, JS trên trang gọi API tới server, rồi <strong>ánh xạ (merge)</strong> phần sửa vào file HTML tĩnh.</p>
+
+  <h4>Kiến trúc</h4>
+  <div class="mermaid">
+flowchart LR
+    VS["🟦 Mở VSCode"] -->|".vscode/tasks.json<br>runOn folderOpen"| PY["🐍 edit_server.py<br>localhost:5000"]
+    LP["🌐 Live Preview / Browser"] -->|"sửa trực tiếp<br>(contenteditable)"| JS["📜 JS trên trang"]
+    JS -->|"POST /save<br>(autosave + beforeunload)"| PY
+    PY -->|ghi| ED[("📄 data/edits.json")]
+    PY -->|"GET /load khi mở lại"| JS
+    ED -->|"merge định kỳ / khi đóng"| HTML["📰 HTML tĩnh đã cập nhật"]
+    style PY fill:#e0e7ff,color:#3730a3,stroke:#6366f1
+    style HTML fill:#dcfce7,color:#14532d,stroke:#86efac
+  </div>
+
+  <h4>Luồng hoạt động</h4>
+  <table>
+    <tr><th>Bước</th><th>Diễn ra</th></tr>
+    <tr><td><strong>1. Khởi động</strong></td><td>Mở project → <code>tasks.json</code> tự chạy <code>edit_server.py</code> (server đã sẵn sàng, không bấm tay)</td></tr>
+    <tr><td><strong>2. Mở trang</strong></td><td>Live Preview / Browser mở HTML → JS gọi <code>GET /load</code> đổ nội dung đã lưu vào trang</td></tr>
+    <tr><td><strong>3. Sửa</strong></td><td>Người dùng sửa trực tiếp trên trang (<code>contenteditable</code>)</td></tr>
+    <tr><td><strong>4. Lưu</strong></td><td>JS <code>POST /save</code> → server ghi vào <code>data/edits.json</code> (autosave theo chu kỳ + khi đóng)</td></tr>
+    <tr><td><strong>5. Ánh xạ</strong></td><td>Định kỳ / khi đóng → merge <code>edits.json</code> ngược vào file <strong>HTML tĩnh</strong></td></tr>
+  </table>
+
+  <h4>① Hook khởi động — <code>.vscode/tasks.json</code></h4>
+  <pre>{
+  "version": "2.0.0",
+  "tasks": [{
+    "label": "edit-server",
+    "type": "shell",
+    "command": "python scripts/edit_server.py",
+    "runOptions": { "runOn": "folderOpen" },   <span class="good"># tự chạy khi mở VSCode</span>
+    "isBackground": true,
+    "presentation": { "reveal": "silent" }
+  }]
+}</pre>
+
+  <h4>② Server lưu trữ — <code>scripts/edit_server.py</code></h4>
+  <pre><span class="good"># pip install flask flask-cors</span>
+from flask import Flask, request, jsonify
+from flask_cors import CORS
+import json, pathlib
+
+app = Flask(__name__)
+CORS(app)                                   <span class="good"># Live Preview chạy khác port → cần CORS</span>
+STORE = pathlib.Path("data/edits.json")
+
+@app.post("/save")
+def save():
+    STORE.parent.mkdir(exist_ok=True)
+    edits = request.get_json()              <span class="good"># { "element-id": "nội dung mới" }</span>
+    STORE.write_text(json.dumps(edits, ensure_ascii=False, indent=2), encoding="utf-8")
+    return jsonify(ok=True)
+
+@app.get("/load")
+def load():
+    return STORE.read_text(encoding="utf-8") if STORE.exists() else "{}"
+
+app.run(port=5000)</pre>
+
+  <h4>③ JS trên trang — gọi API + autosave</h4>
+  <pre><span class="good">// Bật sửa cho các vùng đánh dấu data-editable</span>
+document.querySelectorAll("[data-editable]").forEach(el =&gt; el.contentEditable = "true");
+
+<span class="good">// Nạp nội dung đã lưu khi mở trang</span>
+fetch("http://localhost:5000/load").then(r =&gt; r.json()).then(saved =&gt; {
+  for (const id in saved) { const el = document.getElementById(id); if (el) el.innerHTML = saved[id]; }
+});
+
+function collectEdits() {
+  const out = {};
+  document.querySelectorAll("[data-editable]").forEach(el =&gt; out[el.id] = el.innerHTML);
+  return out;
+}
+
+<span class="good">// Autosave định kỳ 30s</span>
+setInterval(() =&gt; fetch("http://localhost:5000/save", {
+  method: "POST", headers: { "Content-Type": "application/json" },
+  body: JSON.stringify(collectEdits())
+}), 30000);
+
+<span class="good">// Lưu chắc chắn khi đóng tab/Live Preview (sendBeacon không bị hủy)</span>
+window.addEventListener("beforeunload", () =&gt; {
+  navigator.sendBeacon("http://localhost:5000/save",
+    new Blob([JSON.stringify(collectEdits())], { type: "application/json" }));
+});</pre>
+
+  <h4>④ Ánh xạ ngược vào HTML tĩnh</h4>
+  <p>Một script Python đọc <code>edits.json</code> rồi ghi nội dung vào đúng phần tử trong file <code>.html</code> (dùng <strong>BeautifulSoup</strong> để tìm theo <code>id</code> và thay <code>innerHTML</code>). Chạy theo chu kỳ hoặc khi đóng — để file tĩnh luôn phản ánh bản sửa mới nhất, vẫn mở được độc lập sau này.</p>
+  <pre><span class="good"># scripts/apply_edits.py  →  pip install beautifulsoup4</span>
+from bs4 import BeautifulSoup
+import json, pathlib
+
+edits = json.loads(pathlib.Path("data/edits.json").read_text(encoding="utf-8"))
+html  = pathlib.Path("tabs/12-setup.html").read_text(encoding="utf-8")
+soup  = BeautifulSoup(html, "html.parser")
+
+for el_id, content in edits.items():
+    node = soup.find(id=el_id)
+    if node:
+        node.clear()
+        node.append(BeautifulSoup(content, "html.parser"))   <span class="good"># ghi nội dung mới</span>
+
+pathlib.Path("tabs/12-setup.html").write_text(str(soup), encoding="utf-8")</pre>
+
+  <div class="skill-box">
+    <div class="skill-title">⚠️ Lưu ý quan trọng</div>
+    <div class="skill-row"><span class="skill-label">Chỉ cục bộ</span><span class="skill-value">Server này chạy <code>localhost</code> để tiện làm việc — <strong>đừng deploy public</strong> (cho ghi file là rủi ro bảo mật).</span></div>
+    <div class="skill-row"><span class="skill-label">Tránh mất dữ liệu</span><span class="skill-value">Dùng cả autosave định kỳ <em>và</em> <code>beforeunload</code>; cân nhắc backup <code>.html</code> trước khi merge (git là đủ).</span></div>
+    <div class="skill-row"><span class="skill-label">Tách lớp rõ ràng</span><span class="skill-value">HTML = trình bày · JS = gọi API · Python = lưu &amp; merge · JSON = dữ liệu trung gian — đúng tinh thần mục 6.</span></div>
+  </div>

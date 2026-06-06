@@ -1,5 +1,41 @@
+/* ════════════════════════════════════════════════════════════
+   TAB MANIFEST — nguồn duy nhất định nghĩa các tab.
+   Thêm tab mới = thêm 1 dòng ở đây + 1 file trong thư mục tabs/.
+   ════════════════════════════════════════════════════════════ */
+var TABS = [
+  { id: 'model',        label: '1. AI Model',           file: 'tabs/01-model.html' },
+  { id: 'prompt',       label: '2. Prompt',             file: 'tabs/02-prompt.html' },
+  { id: 'hook',         label: '3. Hook / Trigger',     file: 'tabs/03-hook.html' },
+  { id: 'tool',         label: '4. Tool',               file: 'tabs/04-tool.html' },
+  { id: 'skill',        label: '5. Skill',              file: 'tabs/05-skill.html' },
+  { id: 'agent',        label: '6. Agent',              file: 'tabs/06-agent.html' },
+  { id: 'subagent',     label: '7. Sub-Agent',          file: 'tabs/07-subagent.html' },
+  { id: 'orchestrator', label: '8. Orchestrator',       file: 'tabs/08-orchestrator.html' },
+  { id: 'memory',       label: '9. Memory',             file: 'tabs/09-memory.html' },
+  { id: 'rag',          label: '10. RAG',               file: 'tabs/10-rag.html' },
+  { id: 'workflow',     label: '11. Workflow',          file: 'tabs/11-workflow.html' },
+  { id: 'setup',        label: '12. Setup Project AI',  file: 'tabs/12-setup.html' },
+  { id: 'overview',     label: '13. Tổng kết',          file: 'tabs/13-overview.html' },
+  { id: 'history',      label: '📋 Lịch sử',            file: 'tabs/14-history.html' }
+];
+
+/* ── MERMAID: khởi tạo + lazy-render theo tab (tránh blank khi display:none) ── */
+mermaid.initialize({
+  startOnLoad: false,
+  theme: 'default',
+  flowchart: { curve: 'basis', htmlLabels: true },
+  sequence: { mirrorActors: false, messageAlign: 'center' }
+});
+
+function renderDiagramsIn(panel) {
+  var nodes = Array.from(panel.querySelectorAll('.mermaid')).filter(function (n) {
+    return !n.hasAttribute('data-processed');
+  });
+  if (nodes.length) mermaid.run({ nodes: nodes });
+}
+
 /* ── SEARCH ── */
-(function () {
+function initSearch() {
   var allMarks = [];
   var currentIdx = -1;
 
@@ -98,88 +134,125 @@
   function next() { if (allMarks.length) activateMark(currentIdx + 1); }
   function prev() { if (allMarks.length) activateMark(currentIdx - 1); }
 
-  document.addEventListener('DOMContentLoaded', function () {
-    var input = document.getElementById('search-input');
-    var btnNext = document.getElementById('btn-next');
-    var btnPrev = document.getElementById('btn-prev');
-    if (!input) return;
+  var input = document.getElementById('search-input');
+  var btnNext = document.getElementById('btn-next');
+  var btnPrev = document.getElementById('btn-prev');
+  if (!input) return;
 
-    btnNext.disabled = true;
-    btnPrev.disabled = true;
+  btnNext.disabled = true;
+  btnPrev.disabled = true;
 
-    var timer;
-    input.addEventListener('input', function () {
-      clearTimeout(timer);
-      timer = setTimeout(function () {
-        var q = input.value.trim();
-        var countEl = document.getElementById('search-count');
-        if (!q) {
-          clearHighlights();
-          if (countEl) { countEl.textContent = ''; countEl.className = 'search-count'; }
-          if (btnNext) btnNext.disabled = true;
-          if (btnPrev) btnPrev.disabled = true;
-          return;
-        }
-        var count = highlightAll(q);
-        if (count === 0) {
-          if (countEl) { countEl.textContent = 'Không tìm thấy'; countEl.className = 'search-count no-match'; }
-          if (btnNext) btnNext.disabled = true;
-          if (btnPrev) btnPrev.disabled = true;
-          return;
-        }
-        currentIdx = -1;
-        activateMark(0);
-      }, 200);
-    });
-
-    input.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        e.shiftKey ? prev() : next();
-      }
-      if (e.key === 'Escape') {
-        input.value = '';
+  var timer;
+  input.addEventListener('input', function () {
+    clearTimeout(timer);
+    timer = setTimeout(function () {
+      var q = input.value.trim();
+      var countEl = document.getElementById('search-count');
+      if (!q) {
         clearHighlights();
-        var countEl = document.getElementById('search-count');
         if (countEl) { countEl.textContent = ''; countEl.className = 'search-count'; }
         if (btnNext) btnNext.disabled = true;
         if (btnPrev) btnPrev.disabled = true;
-        input.blur();
+        return;
       }
-    });
-
-    if (btnNext) btnNext.addEventListener('click', next);
-    if (btnPrev) btnPrev.addEventListener('click', prev);
+      var count = highlightAll(q);
+      if (count === 0) {
+        if (countEl) { countEl.textContent = 'Không tìm thấy'; countEl.className = 'search-count no-match'; }
+        if (btnNext) btnNext.disabled = true;
+        if (btnPrev) btnPrev.disabled = true;
+        return;
+      }
+      currentIdx = -1;
+      activateMark(0);
+    }, 200);
   });
-})();
 
-/* Mermaid: lazy-render per tab (fixes display:none blank diagram issue) */
-mermaid.initialize({
-  startOnLoad: false,
-  theme: 'default',
-  flowchart: { curve: 'basis', htmlLabels: true },
-  sequence: { mirrorActors: false, messageAlign: 'center' }
-});
-
-function renderDiagramsIn(panel) {
-  var nodes = Array.from(panel.querySelectorAll('.mermaid')).filter(function(n) {
-    return !n.hasAttribute('data-processed');
+  input.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      e.shiftKey ? prev() : next();
+    }
+    if (e.key === 'Escape') {
+      input.value = '';
+      clearHighlights();
+      var countEl = document.getElementById('search-count');
+      if (countEl) { countEl.textContent = ''; countEl.className = 'search-count'; }
+      if (btnNext) btnNext.disabled = true;
+      if (btnPrev) btnPrev.disabled = true;
+      input.blur();
+    }
   });
-  if (nodes.length) mermaid.run({ nodes: nodes });
+
+  if (btnNext) btnNext.addEventListener('click', next);
+  if (btnPrev) btnPrev.addEventListener('click', prev);
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-  var activePanel = document.querySelector('.tab-panel.active');
-  if (activePanel) renderDiagramsIn(activePanel);
-
+/* ── TABS: chuyển tab + lazy render ── */
+function initTabs() {
   document.querySelectorAll('.tab-btn').forEach(function (btn) {
     btn.addEventListener('click', function () {
       document.querySelectorAll('.tab-btn').forEach(function (t) { t.classList.remove('active'); });
       document.querySelectorAll('.tab-panel').forEach(function (p) { p.classList.remove('active'); });
       btn.classList.add('active');
       var panel = document.getElementById('tab-' + btn.dataset.tab);
-      panel.classList.add('active');
-      renderDiagramsIn(panel);
+      if (panel) {
+        panel.classList.add('active');
+        renderDiagramsIn(panel);
+      }
     });
+  });
+}
+
+/* ── LOADER: sinh nav + nạp các fragment tab ── */
+function buildNav() {
+  var nav = document.getElementById('tab-nav');
+  if (!nav) return;
+  TABS.forEach(function (t, i) {
+    var btn = document.createElement('button');
+    btn.className = 'tab-btn' + (i === 0 ? ' active' : '');
+    btn.dataset.tab = t.id;
+    btn.textContent = t.label;
+    nav.appendChild(btn);
+  });
+}
+
+function loadTabs() {
+  var main = document.getElementById('tab-main');
+  if (!main) return Promise.resolve();
+
+  return Promise.all(TABS.map(function (t, i) {
+    return fetch(t.file)
+      .then(function (r) {
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        return r.text();
+      })
+      .then(function (html) { return { i: i, t: t, html: html, ok: true }; })
+      .catch(function (err) { return { i: i, t: t, err: err, ok: false }; });
+  })).then(function (results) {
+    results.forEach(function (res) {
+      var panel = document.createElement('div');
+      panel.className = 'tab-panel' + (res.i === 0 ? ' active' : '');
+      panel.id = 'tab-' + res.t.id;
+      if (res.ok) {
+        panel.innerHTML = res.html;
+      } else {
+        panel.innerHTML =
+          '<h2>⚠️ Không tải được nội dung</h2>' +
+          '<p class="tagline">Không nạp được <code>' + res.t.file + '</code> (' + res.err.message + ').</p>' +
+          '<p>Trang nạp nội dung động qua <code>fetch</code>, nên cần mở qua một server cục bộ ' +
+          '(ví dụ <strong>VSCode Live Server</strong>) thay vì mở thẳng file <code>file://</code>.</p>';
+      }
+      main.appendChild(panel);
+    });
+  });
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  buildNav();
+  loadTabs().then(function () {
+    initTabs();
+    initSearch();
+    var activePanel = document.querySelector('.tab-panel.active');
+    if (activePanel) renderDiagramsIn(activePanel);
   });
 });

@@ -1,0 +1,29 @@
+  <h2>👥 Sub-Agent — Đội nhóm AI</h2>
+  <p class="tagline"><strong>Sub-Agent là AI chuyên biệt</strong> được giao đảm nhiệm một phần công việc trong hệ thống lớn hơn. Nhận lệnh từ Orchestrator và báo cáo kết quả lại.</p>
+
+  <h3>So sánh Agent vs Sub-Agent</h3>
+  <table>
+    <tr><th></th><th>Agent</th><th>Sub-Agent</th></tr>
+    <tr><td><strong>Nhận lệnh từ</strong></td><td>Con người</td><td>Orchestrator Agent</td></tr>
+    <tr><td><strong>Phạm vi</strong></td><td>Toàn bộ task</td><td>Một phần cụ thể</td></tr>
+    <tr><td><strong>Chuyên môn</strong></td><td>Tổng quát</td><td>Chuyên sâu 1 lĩnh vực</td></tr>
+    <tr><td><strong>Quyết định</strong></td><td>Chiến lược</td><td>Chiến thuật</td></tr>
+  </table>
+
+  <h3>Ví dụ: Báo cáo phân tích đối thủ Q3</h3>
+  <div class="mermaid">
+flowchart TD
+    T["📋 Task: Tạo báo cáo phân tích đối thủ Q3"]
+    O["🧭 Orchestrator<br>Phân tích & Phân công"]
+    T --> O
+    O --> R["🔍 Research Sub-Agent<br>Tìm thông tin web<br>Đọc trang đối thủ"]
+    O --> AN["📊 Analysis Sub-Agent<br>Phân tích dữ liệu<br>So sánh & Insight"]
+    O --> W["✍️ Writing Sub-Agent<br>Viết báo cáo<br>Theo chuẩn công ty"]
+    O --> DS["🎨 Design Sub-Agent<br>Biểu đồ & Infographic"]
+    R --> OUT["📦 Báo cáo hoàn chỉnh"]
+    AN --> OUT
+    W --> OUT
+    DS --> OUT
+    style O fill:#e0e7ff,color:#3730a3,stroke:#6366f1
+    style OUT fill:#dcfce7,color:#14532d,stroke:#86efac
+  </div>

@@ -1,0 +1,40 @@
+  <h2>✍️ Prompt — Cách ra lệnh cho AI</h2>
+  <p class="tagline"><strong>Prompt là đầu vào bạn gửi cho AI.</strong> Prompt tốt = kết quả tốt. Đây là kỹ năng quan trọng nhất khi dùng AI.</p>
+
+  <h3>Cấu trúc Prompt hiệu quả (RCTFO)</h3>
+  <div class="mermaid">
+flowchart TD
+    R["🎭 ROLE<br>Bạn là chuyên gia marketing 10 năm"]
+    C["📍 CONTEXT<br>Công ty bán SaaS B2B, khách hàng SME"]
+    T["✅ TASK<br>Viết email chào hàng cho Giám đốc IT"]
+    F["📐 FORMAT<br>Gạch đầu dòng, tối đa 150 chữ, có subject"]
+    O["📌 OUTPUT<br>Dán ví dụ mẫu phong cách mong muốn"]
+    R --> C --> T --> F --> O
+    style R fill:#ede9fe,color:#4c1d95,stroke:#a78bfa
+    style C fill:#e0f2fe,color:#0c4a6e,stroke:#7dd3fc
+    style T fill:#dcfce7,color:#14532d,stroke:#86efac
+    style F fill:#fef9c3,color:#854d0e,stroke:#fde047
+    style O fill:#fce7f3,color:#831843,stroke:#fbcfe8
+  </div>
+
+  <h3>Kỹ thuật Prompt</h3>
+  <table>
+    <tr><th>Kỹ thuật</th><th>Cách dùng</th><th>Khi nào dùng</th></tr>
+    <tr><td><strong>Zero-shot</strong></td><td>Hỏi thẳng, không ví dụ</td><td>Task đơn giản, rõ ràng</td></tr>
+    <tr><td><strong>Few-shot</strong></td><td>Cho 2–3 ví dụ mẫu trước</td><td>Muốn output theo chuẩn nhất định</td></tr>
+    <tr><td><strong>Chain of Thought</strong></td><td>"Hãy suy nghĩ từng bước..."</td><td>Bài toán logic, phân tích</td></tr>
+    <tr><td><strong>Role Prompting</strong></td><td>Gán vai chuyên gia cụ thể</td><td>Muốn AI có góc nhìn chuyên sâu</td></tr>
+    <tr><td><strong>Negative Prompting</strong></td><td>"Không dùng jargon, không bullet..."</td><td>Kiểm soát thứ AI KHÔNG làm</td></tr>
+    <tr><td><strong>Iterative</strong></td><td>Hỏi → nhận → chỉnh → hỏi lại</td><td>Hoàn thiện dần kết quả</td></tr>
+    <tr><td><strong>Decomposition</strong></td><td>Chia task lớn thành nhiều prompt nhỏ</td><td>Task phức tạp nhiều bước</td></tr>
+  </table>
+
+  <h3>Lỗi thường gặp</h3>
+  <pre><span class="bad">❌ "Viết cho tôi một bài"</span>           → Quá mơ hồ
+<span class="good">✅ "Viết bài LinkedIn 200 chữ về X, tone chuyên nghiệp, kết bằng câu hỏi"</span>
+
+<span class="bad">❌ "Làm tốt hơn"</span>                    → AI không biết tốt hơn theo hướng nào
+<span class="good">✅ "Rút ngắn xuống 100 chữ, giữ 3 điểm chính, bỏ phần mở đầu"</span>
+
+<span class="bad">❌ Một prompt dài 2000 chữ lộn xộn</span>  → AI dễ bỏ sót yêu cầu
+<span class="good">✅ Tách thành nhiều prompt rõ ràng, từng bước</span></pre>

@@ -1,0 +1,49 @@
+  <h2>🗺️ Tổng kết hệ sinh thái</h2>
+  <p class="tagline">Bức tranh toàn cảnh — từ thế giới thật đến kết quả đầu ra.</p>
+
+  <h3>Sơ đồ hệ sinh thái đầy đủ</h3>
+  <div class="mermaid">
+flowchart TD
+    RW["🌍 THẾ GIỚI THẬT<br>Email, Form, Lịch hẹn, File, Đơn hàng"]
+    HK["🔔 HOOK / TRIGGER<br>Điểm kích hoạt"]
+    ORC["🧭 ORCHESTRATOR<br>System Prompt + Long-term Memory"]
+    SA1["🤖 Sub-Agent A + Skill A"]
+    SA2["🤖 Sub-Agent B + Skill B"]
+    SA3["🤖 Sub-Agent C + Skill C"]
+    T1["🛠️ Tools: Search, File, API"]
+    T2["🛠️ Tools: Email, CRM"]
+    T3["🛠️ Tools: Code, DB"]
+    R1["📚 RAG: Tài liệu nội bộ"]
+    R2["📚 RAG: FAQ, Catalogue"]
+    M3["💾 Memory: Lịch sử"]
+    OUT["📦 KẾT QUẢ<br>Email, File, DB cập nhật"]
+    RW --> HK --> ORC
+    ORC --> SA1
+    ORC --> SA2
+    ORC --> SA3
+    SA1 --> T1 --> R1
+    SA2 --> T2 --> R2
+    SA3 --> T3 --> M3
+    R1 --> OUT
+    R2 --> OUT
+    M3 --> OUT
+    style RW fill:#f1f5f9,color:#475569,stroke:#cbd5e1
+    style HK fill:#ede9fe,color:#4c1d95,stroke:#a78bfa
+    style ORC fill:#e0e7ff,color:#3730a3,stroke:#6366f1
+    style OUT fill:#dcfce7,color:#14532d,stroke:#86efac
+  </div>
+
+  <h3>Cheat Sheet — Dùng cái gì khi nào?</h3>
+  <div style="background:#fff;border:1px solid var(--border);border-radius:12px;padding:20px;">
+    <div class="cheat-row"><span class="cheat-situation">Muốn AI tự chạy khi có sự kiện</span><span class="cheat-answer">🔔 Hook / Trigger</span></div>
+    <div class="cheat-row"><span class="cheat-situation">Muốn AI làm đúng format cụ thể</span><span class="cheat-answer">✍️ Prompt Engineering</span></div>
+    <div class="cheat-row"><span class="cheat-situation">Muốn AI dùng dữ liệu riêng của mình</span><span class="cheat-answer">📚 RAG</span></div>
+    <div class="cheat-row"><span class="cheat-situation">Muốn AI nhớ qua nhiều phiên</span><span class="cheat-answer">💾 Long-term Memory</span></div>
+    <div class="cheat-row"><span class="cheat-situation">Muốn AI làm được việc thật (gửi email...)</span><span class="cheat-answer">🛠️ Tool</span></div>
+    <div class="cheat-row"><span class="cheat-situation">Muốn AI làm giỏi 1 việc cụ thể</span><span class="cheat-answer">🎯 Skill</span></div>
+    <div class="cheat-row"><span class="cheat-situation">Muốn AI tự hoàn thành task nhiều bước</span><span class="cheat-answer">🤖 Agent</span></div>
+    <div class="cheat-row"><span class="cheat-situation">Muốn nhiều AI phối hợp</span><span class="cheat-answer">🧭 Orchestrator + Sub-Agent</span></div>
+    <div class="cheat-row"><span class="cheat-situation">Muốn tự động hóa toàn bộ quy trình</span><span class="cheat-answer">⚙️ Workflow / Pipeline</span></div>
+    <div class="cheat-row"><span class="cheat-situation">Muốn dựng dự án AI bài bản</span><span class="cheat-answer">🚀 Setup Project AI</span></div>
+  </div>
+  <p style="margin-top:28px;text-align:center;color:var(--text-muted);font-size:0.8rem;">Phiên bản 1.4 · Cập nhật 2026-06-07</p>

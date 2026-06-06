@@ -1,0 +1,44 @@
+  <h2>⚙️ Workflow / Pipeline — Quy trình tự động</h2>
+  <p class="tagline"><strong>Workflow là dây chuyền tự động</strong> — kết nối Hook + Agent + Tool + Skill thành quy trình chạy liên tục không cần con người can thiệp từng bước.</p>
+
+  <h3>Cấu trúc cơ bản</h3>
+  <div class="mermaid">
+flowchart TD
+    H["🔔 HOOK / TRIGGER"]
+    I["🧹 INPUT PROCESSING<br>Làm sạch, phân loại đầu vào"]
+    O["🧭 ORCHESTRATOR<br>Lên kế hoạch, điều phối"]
+    SA1["🤖 Sub-Agent 1"]
+    SA2["🤖 Sub-Agent 2"]
+    INT["🔗 INTEGRATION<br>Tổng hợp kết quả"]
+    OUT["📤 OUTPUT / ACTION<br>Email, DB, File"]
+    LOG["📊 LOGGING / MONITOR<br>Ghi log, Báo lỗi"]
+    H --> I --> O
+    O --> SA1
+    O --> SA2
+    SA1 --> INT
+    SA2 --> INT
+    INT --> OUT --> LOG
+    style H fill:#ede9fe,color:#4c1d95,stroke:#a78bfa
+    style O fill:#e0e7ff,color:#3730a3,stroke:#6366f1
+    style OUT fill:#dcfce7,color:#14532d,stroke:#86efac
+    style LOG fill:#f8fafc,color:#64748b,stroke:#cbd5e1
+  </div>
+
+  <h3>4 Workflow Patterns</h3>
+  <div class="pattern-grid">
+    <div class="pattern-card"><h4>1️⃣ LINEAR (Tuần tự)</h4><p>A → B → C → D<br><br>Mỗi bước cần kết quả của bước trước</p></div>
+    <div class="pattern-card"><h4>2️⃣ PARALLEL (Song song)</h4><p>A → [B, C, D] → E<br><br>Các task độc lập, chạy đồng thời để nhanh hơn</p></div>
+    <div class="pattern-card"><h4>3️⃣ CONDITIONAL (Điều kiện)</h4><p>A → Điều kiện? → B hoặc C<br><br>Xử lý khác nhau tùy tình huống</p></div>
+    <div class="pattern-card"><h4>4️⃣ LOOP (Vòng lặp)</h4><p>A → B → Đạt chưa? → C hoặc lại A<br><br>Tinh chỉnh đến khi đạt chất lượng</p></div>
+  </div>
+
+  <h3>Công cụ tạo Workflow</h3>
+  <table>
+    <tr><th>Công cụ</th><th>Loại</th><th>Độ phức tạp</th><th>Phù hợp với</th></tr>
+    <tr><td><strong>Zapier</strong></td><td>No-code</td><td>⭐ Dễ</td><td>Người dùng không kỹ thuật</td></tr>
+    <tr><td><strong>Make (Integromat)</strong></td><td>No-code</td><td>⭐⭐ Vừa</td><td>Workflow phức tạp hơn</td></tr>
+    <tr><td><strong>n8n</strong></td><td>Low-code</td><td>⭐⭐⭐ Khá</td><td>Tự host, linh hoạt</td></tr>
+    <tr><td><strong>LangChain</strong></td><td>Code</td><td>⭐⭐⭐⭐ Khó</td><td>Developer</td></tr>
+    <tr><td><strong>LlamaIndex</strong></td><td>Code</td><td>⭐⭐⭐⭐ Khó</td><td>Developer, RAG-heavy</td></tr>
+    <tr><td><strong>Dify / Manus</strong></td><td>Platform</td><td>⭐⭐ Vừa</td><td>AI Agent platform</td></tr>
+  </table>

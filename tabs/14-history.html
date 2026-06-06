@@ -1,0 +1,81 @@
+  <h2>📋 Lịch sử chỉnh sửa</h2>
+  <p class="tagline">Ghi lại toàn bộ thay đổi của tài liệu qua các phiên bản.</p>
+
+  <div class="history-table">
+    <table>
+      <tr>
+        <th>Phiên bản</th>
+        <th>Ngày</th>
+        <th>Tác giả</th>
+        <th>Nội dung thay đổi</th>
+      </tr>
+      <tr>
+        <td><span class="version-badge">v1.0</span></td>
+        <td>2026-06-02</td>
+        <td>phong</td>
+        <td>
+          <span class="change-tag tag-new">New</span> Phiên bản đầu tiên dạng Markdown<br>
+          12 chủ đề: Model, Prompt, Hook, Tool, Skill, Agent, Sub-Agent, Orchestrator, Memory, RAG, Workflow, Tổng quan
+        </td>
+      </tr>
+      <tr>
+        <td><span class="version-badge">v1.1</span></td>
+        <td>2026-06-02</td>
+        <td>phong</td>
+        <td>
+          <span class="change-tag tag-update">Update</span> Chuyển từ Markdown sang HTML<br>
+          <span class="change-tag tag-new">New</span> Tab navigation (12 tabs)<br>
+          <span class="change-tag tag-new">New</span> Mermaid diagrams thay thế ASCII art<br>
+          <span class="change-tag tag-style">Style</span> Dark theme
+        </td>
+      </tr>
+      <tr>
+        <td><span class="version-badge">v1.2</span></td>
+        <td>2026-06-02</td>
+        <td>phong</td>
+        <td>
+          <span class="change-tag tag-new">New</span> Tab lịch sử chỉnh sửa<br>
+          <span class="change-tag tag-update">Update</span> Tách CSS ra file riêng (AI-Enduser-Knowledge.css)<br>
+          <span class="change-tag tag-update">Update</span> Tách JS ra file riêng (AI-Enduser-Knowledge.js)<br>
+          <span class="change-tag tag-style">Style</span> Chuyển sang Light theme<br>
+          <span class="change-tag tag-fix">Fix</span> Sửa Mermaid diagrams không hiển thị (lazy render + syntax errors)
+        </td>
+      </tr>
+      <tr>
+        <td><span class="version-badge">v1.3</span></td>
+        <td>2026-06-02</td>
+        <td>phong</td>
+        <td>
+          <span class="change-tag tag-new">New</span> Search bar: tìm kiếm toàn bộ nội dung<br>
+          <span class="change-tag tag-new">New</span> Hiển thị số lượng kết quả (n / tổng)<br>
+          <span class="change-tag tag-new">New</span> Nút ❮ ❯ để điều hướng giữa các kết quả<br>
+          <span class="change-tag tag-new">New</span> Hotkey: Enter (tiếp), Shift+Enter (lùi), Esc (xóa)<br>
+          <span class="change-tag tag-update">Update</span> Tự động chuyển tab khi jump đến kết quả ở tab khác
+        </td>
+      </tr>
+      <tr>
+        <td><span class="version-badge">v1.4</span></td>
+        <td>2026-06-07</td>
+        <td>phong</td>
+        <td>
+          <span class="change-tag tag-update">Update</span> Tách mỗi tab ra 1 file HTML riêng trong thư mục <code>tabs/</code><br>
+          <span class="change-tag tag-update">Update</span> Loader trong JS tự sinh nav + nạp các fragment qua <code>fetch</code> (manifest 1 chỗ)<br>
+          <span class="change-tag tag-new">New</span> Tab "Setup Project AI" — kinh nghiệm chọn công cụ, thiết kế đội nhóm, memory, RAG<br>
+          <span class="change-tag tag-fix">Fix</span> Dễ review &amp; chỉnh sửa: mỗi chủ đề là 1 file ngắn, độc lập
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <h3 style="margin-top:28px;">Ghi chú kỹ thuật</h3>
+  <table>
+    <tr><th>File</th><th>Vai trò</th></tr>
+    <tr><td>AI-Enduser-Knowledge.html</td><td>Khung trang (shell): head, header, search, nav rỗng + main rỗng</td></tr>
+    <tr><td>AI-Enduser-Knowledge.css</td><td>Toàn bộ style — light theme</td></tr>
+    <tr><td>AI-Enduser-Knowledge.js</td><td>Manifest tab + loader (fetch fragment) + tab logic + search + Mermaid lazy render</td></tr>
+    <tr><td>tabs/*.html</td><td>Nội dung từng tab — mỗi chủ đề 1 file độc lập</td></tr>
+  </table>
+  <p style="margin-top:16px;color:var(--text-muted);font-size:0.85rem;">
+    ⚠️ Lưu ý: vì nội dung nạp động qua <code>fetch</code>, hãy mở trang qua một server cục bộ
+    (VD: <strong>VSCode Live Server</strong>) thay vì mở thẳng file <code>file://</code> — trình duyệt chặn fetch trên giao thức file.
+  </p>

@@ -1,0 +1,28 @@
+  <h2>🔔 Hook / Trigger — Điểm kích hoạt</h2>
+  <p class="tagline"><strong>Hook là điểm kích hoạt</strong> — sự kiện xảy ra trong thế giới thật làm AI bắt đầu chạy tự động, không cần ra lệnh thủ công.</p>
+
+  <h3>Phân loại Hook</h3>
+  <div class="card-grid">
+    <div class="card"><h4>⏰ Time-based</h4><ul><li>Mỗi sáng 8h, tóm tắt tin tức và gửi email</li><li>Mỗi thứ Hai, tạo báo cáo tuần</li></ul></div>
+    <div class="card"><h4>📩 Event-based</h4><ul><li>Email mới từ khách → phân loại + trả lời</li><li>Form submit → gửi email chào mừng</li></ul></div>
+    <div class="card"><h4>🔗 Webhook</h4><ul><li>Đơn hàng Shopify mới → xử lý tự động</li><li>Slack nhận tin → AI phản hồi</li></ul></div>
+    <div class="card"><h4>📊 Condition-based</h4><ul><li>Doanh thu giảm &gt;10% → tạo alert</li><li>Ticket chưa trả lời sau 2h → escalate</li></ul></div>
+  </div>
+
+  <h3>Luồng kích hoạt</h3>
+  <div class="mermaid">
+flowchart LR
+    E1["📧 Email đến"] --> H["🔔 HOOK"]
+    E2["📝 Form submit"] --> H
+    E3["🛒 Đơn hàng mới"] --> H
+    E4["📁 File upload"] --> H
+    E5["⏰ Lịch đến hạn"] --> H
+    H --> A["🤖 AI bắt đầu chạy"]
+    A --> R1["Phân loại & Trả lời"]
+    A --> R2["Tạo lead & Email"]
+    A --> R3["Xác nhận & Kho"]
+    A --> R4["Tóm tắt & Lưu"]
+    A --> R5["Báo cáo & Slack"]
+    style H fill:#ede9fe,color:#4c1d95,stroke:#a78bfa
+    style A fill:#ccfbf1,color:#134e4a,stroke:#5eead4
+  </div>

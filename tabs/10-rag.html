@@ -1,0 +1,40 @@
+  <h2>📚 RAG — AI học từ dữ liệu của bạn</h2>
+  <p class="tagline"><strong>RAG (Retrieval-Augmented Generation)</strong> = AI tìm kiếm trong kho tài liệu của bạn rồi trả lời dựa trên đó — thay vì chỉ dùng kiến thức sẵn có.</p>
+
+  <h3>RAG hoạt động như thế nào?</h3>
+  <div class="mermaid">
+flowchart LR
+    subgraph INDEX["📦 INDEXING - làm một lần"]
+        D["📄 Tài liệu"] --> C["✂️ Chia nhỏ Chunks"]
+        C --> V["🔢 Chuyển thành Vector"]
+        V --> DB[("🗄️ Vector DB")]
+    end
+    subgraph QUERY["🔍 Mỗi lần có câu hỏi"]
+        Q["❓ Câu hỏi"] --> EMB["🔢 Embed câu hỏi"]
+        EMB --> SR["🔎 Tìm đoạn liên quan"]
+        DB --> SR
+        SR --> GEN["🤖 AI đọc + Trả lời"]
+        Q --> GEN
+        GEN --> ANS["✅ Câu trả lời chính xác"]
+    end
+    style DB fill:#e0e7ff,color:#3730a3,stroke:#6366f1
+    style ANS fill:#dcfce7,color:#14532d,stroke:#86efac
+  </div>
+
+  <h3>Ví dụ trực quan</h3>
+  <pre><span class="bad">Không có RAG → AI đoán hoặc không biết</span>
+
+❓ "Chính sách đổi trả của công ty mình là bao nhiêu ngày?"
+
+<span class="good">Có RAG:
+→ Tìm trong "Chính sách công ty.pdf"
+→ Tìm thấy: "...đổi trả trong vòng 30 ngày..."
+→ Trả lời: "Theo chính sách công ty, thời hạn đổi trả là 30 ngày kể từ ngày mua"</span></pre>
+
+  <h3>Khi nào cần RAG?</h3>
+  <div class="card-grid">
+    <div class="card"><h4>🤖 Chatbot nội bộ</h4><p>Hỏi đáp dựa trên tài liệu công ty</p></div>
+    <div class="card"><h4>📦 Catalogue / FAQ</h4><p>AI trả lời từ danh mục sản phẩm</p></div>
+    <div class="card"><h4>⚖️ Văn bản pháp lý</h4><p>Tra cứu hợp đồng, quy định</p></div>
+    <div class="card"><h4>🎧 Customer Support</h4><p>Knowledge base cho đội hỗ trợ</p></div>
+  </div>

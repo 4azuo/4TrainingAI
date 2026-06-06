@@ -1,0 +1,33 @@
+  <h2>🤖 Agent — AI biết tự hành động</h2>
+  <p class="tagline"><strong>Agent là AI tự chủ</strong> — nhận mục tiêu, tự lên kế hoạch, tự dùng tool, tự kiểm tra và hoàn thành nhiều bước mà không cần hướng dẫn từng bước.</p>
+
+  <h3>Chat vs Agent</h3>
+  <div class="card-grid">
+    <div class="card"><h4>💬 AI Chat thông thường</h4><p>Bạn hỏi → AI trả lời → Bạn hỏi tiếp → AI trả lời…<br><br><em>Bạn phải tự điều phối từng bước</em></p></div>
+    <div class="card"><h4>🤖 AI Agent</h4><p>Bạn đặt mục tiêu → Agent tự lập kế hoạch → Tự thực thi → Báo kết quả<br><br><em>Agent tự điều phối toàn bộ</em></p></div>
+  </div>
+
+  <h3>Vòng lặp ReAct Loop</h3>
+  <div class="mermaid">
+flowchart TD
+    G["🎯 Mục tiêu"] --> TH
+    TH["🧠 THINK<br>Tôi cần làm gì để đạt mục tiêu?"]
+    TH --> AC["⚡ ACT<br>Gọi Tool, thực hiện hành động"]
+    AC --> OB["👁️ OBSERVE<br>Kết quả là gì? Đúng chưa?"]
+    OB --> D{Hoàn thành?}
+    D -- Có --> DONE["✅ Xong - Báo kết quả"]
+    D -- Chưa --> TH
+    style G fill:#ede9fe,color:#4c1d95,stroke:#a78bfa
+    style TH fill:#e0f2fe,color:#0c4a6e,stroke:#7dd3fc
+    style AC fill:#dcfce7,color:#14532d,stroke:#86efac
+    style OB fill:#fef9c3,color:#854d0e,stroke:#fde047
+    style DONE fill:#dcfce7,color:#14532d,stroke:#86efac
+  </div>
+
+  <h3>Đặc điểm của Agent</h3>
+  <div class="card-grid">
+    <div class="card"><h4>🗺️ Tự lập kế hoạch</h4><p>Phân tích mục tiêu, chia nhỏ bước</p></div>
+    <div class="card"><h4>🛠️ Dùng Tool</h4><p>Hành động thật: tìm web, gửi email, chạy code…</p></div>
+    <div class="card"><h4>🔄 Tự sửa lỗi</h4><p>Nhận ra sai và thử lại cách khác</p></div>
+    <div class="card"><h4>🛑 Tự dừng</h4><p>Biết khi nào đã hoàn thành mục tiêu</p></div>
+  </div>
