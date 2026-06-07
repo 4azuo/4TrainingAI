@@ -1,13 +1,33 @@
-  <h2>🤖 Agent — AI biết tự hành động</h2>
-  <p class="tagline"><strong>Agent là AI tự chủ</strong> — nhận mục tiêu, tự lên kế hoạch, tự dùng tool, tự kiểm tra và hoàn thành nhiều bước mà không cần hướng dẫn từng bước.</p>
+  <h2>🤖 Agent · Sub-Agent · Orchestrator</h2>
+  <p class="tagline"><strong>Từ một AI tự chủ đến cả một đội nhóm AI</strong> — Agent là cá nhân tự làm việc; khi việc lớn, một Orchestrator điều phối nhiều Sub-Agent chuyên biệt cùng làm.</p>
 
-  <h3>Chat vs Agent</h3>
+  <h3>Quan hệ tổng quát</h3>
+  <div class="mermaid">
+flowchart LR
+    subgraph Agent Types
+      A["🤖 AGENT<br>1 AI tự chủ<br>tự làm trọn task"]
+    end
+    subgraph Team of Agents
+      O["🧭 ORCHESTRATOR<br>Agent điều phối<br>chia &amp; gom việc"]
+      S["👥 SUB-AGENT<br>Agent chuyên biệt<br>làm 1 phần"]
+    end
+    A -->|"việc lớn hơn →<br>cần nhiều người"| O
+    O -->|"giao việc"| S
+    S -->|"báo cáo"| O
+    style A fill:#dcfce7,color:#14532d,stroke:#86efac
+    style O fill:#e0e7ff,color:#3730a3,stroke:#6366f1
+    style S fill:#ede9fe,color:#4c1d95,stroke:#a78bfa
+  </div>
+  <p>Cả ba <strong>cùng là Agent</strong> — khác nhau ở <em>vai trò</em>: làm một mình (Agent), điều phối (Orchestrator), hay nhận phần việc con (Sub-Agent).</p>
+
+  <h3>1. Agent — AI biết tự hành động</h3>
+  <p><strong>Agent là AI tự chủ</strong>: nhận mục tiêu, tự lên kế hoạch, tự dùng tool, tự kiểm tra và hoàn thành nhiều bước mà không cần hướng dẫn từng bước.</p>
   <div class="card-grid">
     <div class="card"><h4>💬 AI Chat thông thường</h4><p>Bạn hỏi → AI trả lời → Bạn hỏi tiếp → AI trả lời…<br><br><em>Bạn phải tự điều phối từng bước</em></p></div>
     <div class="card"><h4>🤖 AI Agent</h4><p>Bạn đặt mục tiêu → Agent tự lập kế hoạch → Tự thực thi → Báo kết quả<br><br><em>Agent tự điều phối toàn bộ</em></p></div>
   </div>
 
-  <h3>Vòng lặp ReAct Loop</h3>
+  <h4>Vòng lặp ReAct Loop</h4>
   <div class="mermaid">
 flowchart TD
     G["🎯 Mục tiêu"] --> TH
@@ -24,10 +44,72 @@ flowchart TD
     style DONE fill:#dcfce7,color:#14532d,stroke:#86efac
   </div>
 
-  <h3>Đặc điểm của Agent</h3>
+  <h4>Đặc điểm của Agent</h4>
   <div class="card-grid">
     <div class="card"><h4>🗺️ Tự lập kế hoạch</h4><p>Phân tích mục tiêu, chia nhỏ bước</p></div>
     <div class="card"><h4>🛠️ Dùng Tool</h4><p>Hành động thật: tìm web, gửi email, chạy code…</p></div>
     <div class="card"><h4>🔄 Tự sửa lỗi</h4><p>Nhận ra sai và thử lại cách khác</p></div>
     <div class="card"><h4>🛑 Tự dừng</h4><p>Biết khi nào đã hoàn thành mục tiêu</p></div>
   </div>
+
+  <h3>2. Sub-Agent — Đội nhóm AI</h3>
+  <p><strong>Sub-Agent là AI chuyên biệt</strong> đảm nhiệm một phần công việc trong hệ thống lớn hơn: nhận lệnh từ Orchestrator và báo cáo kết quả lại.</p>
+  <table>
+    <tr><th></th><th>Agent</th><th>Sub-Agent</th></tr>
+    <tr><td><strong>Nhận lệnh từ</strong></td><td>Con người</td><td>Orchestrator Agent</td></tr>
+    <tr><td><strong>Phạm vi</strong></td><td>Toàn bộ task</td><td>Một phần cụ thể</td></tr>
+    <tr><td><strong>Chuyên môn</strong></td><td>Tổng quát</td><td>Chuyên sâu 1 lĩnh vực</td></tr>
+    <tr><td><strong>Quyết định</strong></td><td>Chiến lược</td><td>Chiến thuật</td></tr>
+  </table>
+
+  <h4>Ví dụ: Báo cáo phân tích đối thủ Q3</h4>
+  <div class="mermaid">
+flowchart TD
+    T["📋 Task: Tạo báo cáo phân tích đối thủ Q3"]
+    O["🧭 Orchestrator<br>Phân tích & Phân công"]
+    T --> O
+    O --> R["🔍 Research Sub-Agent<br>Tìm thông tin web<br>Đọc trang đối thủ"]
+    O --> AN["📊 Analysis Sub-Agent<br>Phân tích dữ liệu<br>So sánh & Insight"]
+    O --> W["✍️ Writing Sub-Agent<br>Viết báo cáo<br>Theo chuẩn công ty"]
+    O --> DS["🎨 Design Sub-Agent<br>Biểu đồ & Infographic"]
+    R --> OUT["📦 Báo cáo hoàn chỉnh"]
+    AN --> OUT
+    W --> OUT
+    DS --> OUT
+    style O fill:#e0e7ff,color:#3730a3,stroke:#6366f1
+    style OUT fill:#dcfce7,color:#14532d,stroke:#86efac
+  </div>
+
+  <h3>3. Orchestrator — Người điều phối</h3>
+  <p><strong>Orchestrator là Agent điều phối</strong>: nhận mục tiêu lớn, chia nhỏ công việc, giao cho Sub-Agent phù hợp, rồi tổng hợp kết quả.</p>
+  <div class="mermaid">
+flowchart TD
+    U["👤 Người dùng<br>Nghiên cứu thị trường và tạo pitch deck"]
+    U --> ORC
+    subgraph ORC["🧭 ORCHESTRATOR"]
+        P1["1. Phân tích task"]
+        P2["2. Lên kế hoạch"]
+        P3["3. Giao việc"]
+        P4["4. Tổng hợp"]
+        P1 --> P2 --> P3 --> P4
+    end
+    ORC --> SA1["🔍 Research Sub-Agent<br>Tìm thông tin"]
+    ORC --> SA2["📊 Analysis Sub-Agent<br>Phân tích"]
+    ORC --> SA3["🎨 Design Sub-Agent<br>Tạo slide"]
+    SA1 --> RESULT["📦 Pitch Deck hoàn chỉnh"]
+    SA2 --> RESULT
+    SA3 --> RESULT
+    style ORC fill:#f5f3ff,color:#4c1d95,stroke:#a78bfa
+    style RESULT fill:#dcfce7,color:#14532d,stroke:#86efac
+  </div>
+
+  <h4>Orchestrator làm gì?</h4>
+  <table>
+    <tr><th>Vai trò</th><th>Mô tả</th></tr>
+    <tr><td>🎯 <strong>Nhận & Hiểu</strong></td><td>Tiếp nhận và phân tích mục tiêu tổng thể</td></tr>
+    <tr><td>✂️ <strong>Decompose</strong></td><td>Chia nhỏ thành các task con có thể thực hiện</td></tr>
+    <tr><td>📨 <strong>Assign</strong></td><td>Giao đúng task cho đúng Sub-Agent</td></tr>
+    <tr><td>👁️ <strong>Monitor</strong></td><td>Theo dõi tiến độ các Sub-Agent</td></tr>
+    <tr><td>🔗 <strong>Integrate</strong></td><td>Tổng hợp kết quả từ các Sub-Agent</td></tr>
+    <tr><td>✅ <strong>QA</strong></td><td>Kiểm tra chất lượng đầu ra cuối cùng</td></tr>
+  </table>

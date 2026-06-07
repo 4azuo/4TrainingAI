@@ -8,15 +8,13 @@ var TABS = [
   { id: 'hook',         label: '3. Hook / Trigger',     file: 'tabs/03-hook.html' },
   { id: 'tool',         label: '4. Tool',               file: 'tabs/04-tool.html' },
   { id: 'skill',        label: '5. Skill',              file: 'tabs/05-skill.html' },
-  { id: 'agent',        label: '6. Agent',              file: 'tabs/06-agent.html' },
-  { id: 'subagent',     label: '7. Sub-Agent',          file: 'tabs/07-subagent.html' },
-  { id: 'orchestrator', label: '8. Orchestrator',       file: 'tabs/08-orchestrator.html' },
-  { id: 'memory',       label: '9. Memory',             file: 'tabs/09-memory.html' },
-  { id: 'rag',          label: '10. RAG',               file: 'tabs/10-rag.html' },
-  { id: 'workflow',     label: '11. Workflow',          file: 'tabs/11-workflow.html' },
-  { id: 'setup',        label: '12. Setup Project AI',  file: 'tabs/12-setup.html' },
-  { id: 'overview',     label: '13. Tổng kết',          file: 'tabs/13-overview.html' },
-  { id: 'history',      label: '📋 Lịch sử',            file: 'tabs/14-history.html' }
+  { id: 'agent',        label: '6. Agent & Đội nhóm',   file: 'tabs/06-agent.html' },
+  { id: 'memory',       label: '7. Memory',             file: 'tabs/07-memory.html' },
+  { id: 'rag',          label: '8. RAG',                file: 'tabs/08-rag.html' },
+  { id: 'workflow',     label: '9. Workflow',           file: 'tabs/09-workflow.html' },
+  { id: 'experiences',  label: '10. Experiences',       file: 'tabs/10-experiences.html' },
+  { id: 'overview',     label: '11. Tổng kết',          file: 'tabs/11-overview.html' },
+  { id: 'history',      label: '📋 Lịch sử',            file: 'tabs/12-history.html' }
 ];
 
 /* ── MERMAID: khởi tạo + lazy-render theo tab (tránh blank khi display:none) ── */

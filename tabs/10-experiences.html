@@ -1,5 +1,5 @@
-  <h2>🚀 Setup Project AI — Kinh nghiệm thực chiến</h2>
-  <p class="tagline"><strong>Kinh nghiệm dựng một dự án AI agent</strong> — từ chọn công cụ, thiết kế đội nhóm, viết instructions, đến tổ chức memory và RAG. Đúc kết để tránh các lỗi phổ biến.</p>
+  <h2>🧰 Chia sẻ kinh nghiệm — Dựng &amp; vận hành dự án AI</h2>
+  <p class="tagline"><strong>Đúc kết thực chiến khi dựng một dự án AI agent</strong> — từ chọn công cụ, thiết kế đội nhóm, viết instructions, tổ chức memory/RAG, đến dùng MCP. Gom lại để tránh các lỗi phổ biến.</p>
 
   <h3>1. Chọn công cụ: Web · App · VSCode?</h3>
   <p>Cùng là Claude/AI nhưng môi trường làm việc khác nhau rất nhiều. Bảng so sánh nhanh:</p>
@@ -8,7 +8,7 @@
     <tr>
       <td>🌐 <strong>Web (chat)</strong></td>
       <td>Mở nhanh, không cài đặt, tiện hỏi đáp &amp; brainstorm</td>
-      <td>Không truy cập file dự án, không chạy lệnh, khó duy trì ngữ cảnh dài</td>
+      <td>Khó truy cập file dự án, không chạy lệnh, khó duy trì ngữ cảnh dài</td>
       <td>Hỏi nhanh, viết nháp, học khái niệm</td>
     </tr>
     <tr>
@@ -268,90 +268,50 @@ flowchart LR
     <tr><td><strong>5. Ánh xạ</strong></td><td>Định kỳ / khi đóng → merge <code>edits.json</code> ngược vào file <strong>HTML tĩnh</strong></td></tr>
   </table>
 
-  <h4>① Hook khởi động — <code>.vscode/tasks.json</code></h4>
-  <pre>{
-  "version": "2.0.0",
-  "tasks": [{
-    "label": "edit-server",
-    "type": "shell",
-    "command": "python scripts/edit_server.py",
-    "runOptions": { "runOn": "folderOpen" },   <span class="good"># tự chạy khi mở VSCode</span>
-    "isBackground": true,
-    "presentation": { "reveal": "silent" }
-  }]
-}</pre>
-
-  <h4>② Server lưu trữ — <code>scripts/edit_server.py</code></h4>
-  <pre><span class="good"># pip install flask flask-cors</span>
-from flask import Flask, request, jsonify
-from flask_cors import CORS
-import json, pathlib
-
-app = Flask(__name__)
-CORS(app)                                   <span class="good"># Live Preview chạy khác port → cần CORS</span>
-STORE = pathlib.Path("data/edits.json")
-
-@app.post("/save")
-def save():
-    STORE.parent.mkdir(exist_ok=True)
-    edits = request.get_json()              <span class="good"># { "element-id": "nội dung mới" }</span>
-    STORE.write_text(json.dumps(edits, ensure_ascii=False, indent=2), encoding="utf-8")
-    return jsonify(ok=True)
-
-@app.get("/load")
-def load():
-    return STORE.read_text(encoding="utf-8") if STORE.exists() else "{}"
-
-app.run(port=5000)</pre>
-
-  <h4>③ JS trên trang — gọi API + autosave</h4>
-  <pre><span class="good">// Bật sửa cho các vùng đánh dấu data-editable</span>
-document.querySelectorAll("[data-editable]").forEach(el =&gt; el.contentEditable = "true");
-
-<span class="good">// Nạp nội dung đã lưu khi mở trang</span>
-fetch("http://localhost:5000/load").then(r =&gt; r.json()).then(saved =&gt; {
-  for (const id in saved) { const el = document.getElementById(id); if (el) el.innerHTML = saved[id]; }
-});
-
-function collectEdits() {
-  const out = {};
-  document.querySelectorAll("[data-editable]").forEach(el =&gt; out[el.id] = el.innerHTML);
-  return out;
-}
-
-<span class="good">// Autosave định kỳ 30s</span>
-setInterval(() =&gt; fetch("http://localhost:5000/save", {
-  method: "POST", headers: { "Content-Type": "application/json" },
-  body: JSON.stringify(collectEdits())
-}), 30000);
-
-<span class="good">// Lưu chắc chắn khi đóng tab/Live Preview (sendBeacon không bị hủy)</span>
-window.addEventListener("beforeunload", () =&gt; {
-  navigator.sendBeacon("http://localhost:5000/save",
-    new Blob([JSON.stringify(collectEdits())], { type: "application/json" }));
-});</pre>
-
-  <h4>④ Ánh xạ ngược vào HTML tĩnh</h4>
-  <p>Một script Python đọc <code>edits.json</code> rồi ghi nội dung vào đúng phần tử trong file <code>.html</code> (dùng <strong>BeautifulSoup</strong> để tìm theo <code>id</code> và thay <code>innerHTML</code>). Chạy theo chu kỳ hoặc khi đóng — để file tĩnh luôn phản ánh bản sửa mới nhất, vẫn mở được độc lập sau này.</p>
-  <pre><span class="good"># scripts/apply_edits.py  →  pip install beautifulsoup4</span>
-from bs4 import BeautifulSoup
-import json, pathlib
-
-edits = json.loads(pathlib.Path("data/edits.json").read_text(encoding="utf-8"))
-html  = pathlib.Path("tabs/12-setup.html").read_text(encoding="utf-8")
-soup  = BeautifulSoup(html, "html.parser")
-
-for el_id, content in edits.items():
-    node = soup.find(id=el_id)
-    if node:
-        node.clear()
-        node.append(BeautifulSoup(content, "html.parser"))   <span class="good"># ghi nội dung mới</span>
-
-pathlib.Path("tabs/12-setup.html").write_text(str(soup), encoding="utf-8")</pre>
+  <h4>4 mảnh ghép của cơ chế</h4>
+  <p>Ý tưởng gồm 4 mảnh, mỗi mảnh đúng một vai trò (xem mục 6 — đúng định dạng cho đúng người đọc). Đây là <em>khái niệm</em>, không cần sa đà vào code:</p>
+  <table>
+    <tr><th>Mảnh</th><th>Vai trò</th><th>Điểm mấu chốt</th></tr>
+    <tr><td>① <strong>Hook khởi động</strong><br><code>.vscode/tasks.json</code></td><td>Tự chạy server khi mở project</td><td><code>runOn: folderOpen</code> + <code>isBackground</code> → không phải bấm tay</td></tr>
+    <tr><td>② <strong>Server lưu trữ</strong><br>(Python, vd Flask)</td><td>Nhận nội dung sửa, ghi xuống <code>data/edits.json</code></td><td>Có <code>/save</code> &amp; <code>/load</code>; bật <strong>CORS</strong> vì Live Preview chạy khác port</td></tr>
+    <tr><td>③ <strong>JS trên trang</strong></td><td>Bật vùng sửa, gọi API, autosave</td><td><code>contenteditable</code> + autosave định kỳ + <code>sendBeacon</code> khi đóng để không mất dữ liệu</td></tr>
+    <tr><td>④ <strong>Ánh xạ ngược</strong><br>(script Python)</td><td>Merge <code>edits.json</code> vào file <code>.html</code> tĩnh</td><td>Tìm phần tử theo <code>id</code>, thay nội dung → file tĩnh vẫn mở độc lập sau này</td></tr>
+  </table>
 
   <div class="skill-box">
     <div class="skill-title">⚠️ Lưu ý quan trọng</div>
     <div class="skill-row"><span class="skill-label">Chỉ cục bộ</span><span class="skill-value">Server này chạy <code>localhost</code> để tiện làm việc — <strong>đừng deploy public</strong> (cho ghi file là rủi ro bảo mật).</span></div>
     <div class="skill-row"><span class="skill-label">Tránh mất dữ liệu</span><span class="skill-value">Dùng cả autosave định kỳ <em>và</em> <code>beforeunload</code>; cân nhắc backup <code>.html</code> trước khi merge (git là đủ).</span></div>
     <div class="skill-row"><span class="skill-label">Tách lớp rõ ràng</span><span class="skill-value">HTML = trình bày · JS = gọi API · Python = lưu &amp; merge · JSON = dữ liệu trung gian — đúng tinh thần mục 6.</span></div>
+  </div>
+
+  <h3>11. Kinh nghiệm dùng MCP</h3>
+  <p><strong>MCP (Model Context Protocol)</strong> là một <em>chuẩn mở</em> để "cắm" thêm tool &amp; nguồn dữ liệu bên ngoài vào AI — giống ổ cắm USB-C: một chuẩn, nhiều thiết bị. Một MCP server (filesystem, git, GitHub, DB...) cắm vào là AI có thêm vài tool gọi được ngay.</p>
+  <div class="skill-box">
+    <div class="skill-title">🔍 Phân biệt nhanh: MCP vs Tool vs RAG</div>
+    <div class="skill-row"><span class="skill-label">🛠️ Tool</span><span class="skill-value">Một <strong>hành động</strong> AI gọi được (gửi mail, query DB). "AI <em>làm được</em> gì?"</span></div>
+    <div class="skill-row"><span class="skill-label">🔌 MCP</span><span class="skill-value"><strong>Ổ cắm chuẩn</strong> để mang tool/data từ ngoài vào — không phải hành động khác, mà là <em>cách lắp</em> tool mới. Một server = thêm vài tool.</span></div>
+    <div class="skill-row"><span class="skill-label">📚 RAG</span><span class="skill-value"><strong>Tra cứu</strong> tài liệu rồi nhồi vào ngữ cảnh — chỉ <em>đọc</em>, không hành động. "AI <em>biết</em> dựa trên data nào?"</span></div>
+    <div class="skill-row"><span class="skill-label">Chốt</span><span class="skill-value">Tool/MCP nói về <strong>LÀM</strong> · RAG nói về <strong>BIẾT</strong>. MCP là ổ cắm, Tool là thứ được cắm vào.</span></div>
+  </div>
+  <p>Dưới đây là các đúc kết khi đưa MCP vào dự án thật:</p>
+  <div class="card-grid">
+    <div class="card"><h4>✅ Nên</h4><ul>
+      <li><strong>Chỉ dùng khi server thật sự cần</strong> — mỗi MCP server nạp thêm tool vào ngữ cảnh, càng nhiều càng tốn token &amp; dễ chọn nhầm tool</li>
+      <li>Ưu tiên <strong>server chính thức/uy tín</strong> (filesystem, git, GitHub, DB...) hơn server lạ</li>
+      <li>Chạy <strong>read-only</strong> khi chỉ cần đọc (vd DB) — giảm rủi ro AI ghi/xóa nhầm</li>
+      <li>Đặt cấu hình ở <strong>scope đúng</strong>: dự án (<code>.mcp.json</code> share cho team) vs cá nhân (user scope)</li>
+    </ul></div>
+    <div class="card"><h4>❌ Tránh</h4><ul>
+      <li>Bật <strong>cả chục server</strong> "cho chắc" → menu tool phình to, AI lẫn lộn, chậm</li>
+      <li>Nhét <strong>secret/token</strong> thẳng vào file cấu hình commit lên git — dùng biến môi trường</li>
+      <li>Cấp <strong>quyền ghi rộng</strong> (toàn ổ đĩa, DB production) khi không cần</li>
+      <li>Tin tưởng mù quáng server bên thứ ba — nó thấy được dữ liệu bạn gửi qua</li>
+    </ul></div>
+  </div>
+  <div class="skill-box">
+    <div class="skill-title">🧭 Khi nào đáng thêm MCP?</div>
+    <div class="skill-row"><span class="skill-label">Đáng</span><span class="skill-value">Khi AI cần thao tác lặp lại với <strong>một hệ thống ngoài</strong> (GitHub, DB, Jira, hệ thống file...) — MCP biến nó thành tool gọi được, thay vì copy-paste thủ công.</span></div>
+    <div class="skill-row"><span class="skill-label">Chưa cần</span><span class="skill-value">Việc một lần, hoặc đã có sẵn CLI/script đơn giản → cứ để agent chạy lệnh, khỏi dựng MCP cho nặng.</span></div>
+    <div class="skill-row"><span class="skill-label">Bảo mật</span><span class="skill-value">Coi mỗi MCP server như một "nhân viên có chìa khóa" — chỉ trao đúng quyền tối thiểu &amp; chọn nguồn tin cậy.</span></div>
   </div>

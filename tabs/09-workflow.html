@@ -1,0 +1,95 @@
+  <h2>⚙️ Workflow / Pipeline — Quy trình tự động</h2>
+  <p class="tagline"><strong>Workflow là dây chuyền tự động</strong> — kết nối Hook + Agent + Tool + Skill thành quy trình chạy liên tục không cần con người can thiệp từng bước.</p>
+
+  <h3>Cấu trúc cơ bản</h3>
+  <div class="mermaid">
+flowchart TD
+    H["🔔 HOOK / TRIGGER"]
+    I["🧹 INPUT PROCESSING<br>Làm sạch, phân loại đầu vào"]
+    O["🧭 ORCHESTRATOR<br>Lên kế hoạch, điều phối"]
+    SA1["🤖 Sub-Agent 1"]
+    SA2["🤖 Sub-Agent 2"]
+    INT["🔗 INTEGRATION<br>Tổng hợp kết quả"]
+    OUT["📤 OUTPUT / ACTION<br>Email, DB, File"]
+    LOG["📊 LOGGING / MONITOR<br>Ghi log, Báo lỗi"]
+    H --> I --> O
+    O --> SA1
+    O --> SA2
+    SA1 --> INT
+    SA2 --> INT
+    INT --> OUT --> LOG
+    style H fill:#ede9fe,color:#4c1d95,stroke:#a78bfa
+    style O fill:#e0e7ff,color:#3730a3,stroke:#6366f1
+    style OUT fill:#dcfce7,color:#14532d,stroke:#86efac
+    style LOG fill:#f8fafc,color:#64748b,stroke:#cbd5e1
+  </div>
+
+  <h3>4 Workflow Patterns</h3>
+  <div class="pattern-grid">
+    <div class="pattern-card"><h4>1️⃣ LINEAR (Tuần tự)</h4><p>A → B → C → D<br><br>Mỗi bước cần kết quả của bước trước</p></div>
+    <div class="pattern-card"><h4>2️⃣ PARALLEL (Song song)</h4><p>A → [B, C, D] → E<br><br>Các task độc lập, chạy đồng thời để nhanh hơn</p></div>
+    <div class="pattern-card"><h4>3️⃣ CONDITIONAL (Điều kiện)</h4><p>A → Điều kiện? → B hoặc C<br><br>Xử lý khác nhau tùy tình huống</p></div>
+    <div class="pattern-card"><h4>4️⃣ LOOP (Vòng lặp)</h4><p>A → B → Đạt chưa? → C hoặc lại A<br><br>Tinh chỉnh đến khi đạt chất lượng</p></div>
+  </div>
+
+  <h3>Công cụ tạo Workflow</h3>
+  <table>
+    <tr><th>Công cụ</th><th>Loại</th><th>Độ phức tạp</th><th>Phù hợp với</th></tr>
+    <tr><td><strong>Zapier</strong></td><td>No-code</td><td>⭐ Dễ</td><td>Người dùng không kỹ thuật</td></tr>
+    <tr><td><strong>Make (Integromat)</strong></td><td>No-code</td><td>⭐⭐ Vừa</td><td>Workflow phức tạp hơn</td></tr>
+    <tr><td><strong>n8n</strong></td><td>Low-code</td><td>⭐⭐⭐ Khá</td><td>Tự host, linh hoạt</td></tr>
+    <tr><td><strong>LangChain</strong></td><td>Code</td><td>⭐⭐⭐⭐ Khó</td><td>Developer</td></tr>
+    <tr><td><strong>LlamaIndex</strong></td><td>Code</td><td>⭐⭐⭐⭐ Khó</td><td>Developer, RAG-heavy</td></tr>
+    <tr><td><strong>Dify / Manus</strong></td><td>Platform</td><td>⭐⭐ Vừa</td><td>AI Agent platform</td></tr>
+  </table>
+
+  <h3>Ví dụ: cùng một việc, 3 cách dựng</h3>
+  <p>Bài toán: <strong>"Có email khách hàng mới → AI tóm tắt &amp; phân loại → báo vào Slack"</strong>. Cùng workflow này dựng được ở cả 3 cấp độ:</p>
+
+  <h4>① Zapier — No-code (kéo thả, không viết code)</h4>
+  <p>Một "Zap" = <strong>1 Trigger + các Action</strong> nối tiếp. Bạn chọn từ menu, không lập trình:</p>
+  <pre><span class="good"># Pattern: LINEAR (tuần tự)</span>
+TRIGGER : Gmail — "New Email" (lọc theo nhãn "khách hàng")
+   ↓
+ACTION 1: ChatGPT (Zapier tích hợp sẵn)
+          Prompt: "Tóm tắt email sau trong 2 câu và phân loại
+                   [Khiếu nại / Hỏi giá / Hỗ trợ]: {{email_body}}"
+   ↓
+ACTION 2: Slack — "Send Channel Message" tới #cskh
+          Nội dung: {{tóm tắt}} · Loại: {{phân loại}}</pre>
+  <p class="tagline">👉 Toàn bộ làm bằng giao diện kéo thả — hợp người không kỹ thuật.</p>
+
+  <h4>② n8n — Low-code (node + chút logic)</h4>
+  <p>Mỗi bước là một <strong>node</strong>; có node điều kiện (IF) để rẽ nhánh. Workflow lưu dạng JSON, có thể tự host:</p>
+  <pre><span class="good"># Pattern: CONDITIONAL (rẽ nhánh theo loại email)</span>
+[Webhook]  →  [OpenAI: phân loại]  →  [IF: loại == "Khiếu nại"?]
+                                          ├─ TRUE  → [Slack: cảnh báo gấp #urgent]
+                                          └─ FALSE → [Google Sheets: ghi log]</pre>
+  <pre><span class="good">// Cấu hình rút gọn 1 node OpenAI trong n8n (JSON)</span>
+{
+  "node": "OpenAI",
+  "operation": "message",
+  "prompt": "Phân loại email, chỉ trả về 1 từ: {{ $json.body }}"
+}</pre>
+
+  <h4>③ LangChain — Code (Python, linh hoạt nhất)</h4>
+  <p>Khi cần kiểm soát chặt / tích hợp sâu, viết bằng code. LangChain nối các bước thành "chain":</p>
+  <pre><span class="good"># Pattern: LINEAR — pip install langchain-anthropic</span>
+from langchain_anthropic import ChatAnthropic
+from langchain_core.prompts import ChatPromptTemplate
+
+model  = ChatAnthropic(model="claude-haiku-4-5-20251001")
+prompt = ChatPromptTemplate.from_template(
+    "Tóm tắt 2 câu và phân loại email sau: {email}"
+)
+
+chain = prompt | model            <span class="good"># nối: prompt → model thành 1 workflow</span>
+ket_qua = chain.invoke({"email": noi_dung_email})
+<span class="good"># → bước tiếp: gọi Slack API gửi ket_qua.content</span></pre>
+
+  <div class="skill-box">
+    <div class="skill-title">🧭 Chọn cấp độ nào?</div>
+    <div class="skill-row"><span class="skill-label">No-code (Zapier)</span><span class="skill-value">Việc đơn giản, cần nhanh, không muốn đụng code — nhưng tốn phí theo số lần chạy &amp; khó tùy biến sâu.</span></div>
+    <div class="skill-row"><span class="skill-label">Low-code (n8n/Make)</span><span class="skill-value">Logic rẽ nhánh vừa phải, muốn tự host &amp; tiết kiệm — đánh đổi bằng việc phải học giao diện node.</span></div>
+    <div class="skill-row"><span class="skill-label">Code (LangChain)</span><span class="skill-value">Cần kiểm soát chặt, tích hợp hệ thống riêng, test &amp; version bằng git — đổi lại tốn công lập trình.</span></div>
+  </div>
