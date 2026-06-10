@@ -1,0 +1,46 @@
+  <h2>📋 Lịch sử chỉnh sửa</h2>
+  <p class="tagline">Ghi lại toàn bộ thay đổi của trang "AI Engineering" qua các phiên bản.</p>
+
+  <div class="history-table">
+    <table>
+      <tr>
+        <th>Phiên bản</th>
+        <th>Ngày</th>
+        <th>Tác giả</th>
+        <th>Nội dung thay đổi</th>
+      </tr>
+      <tr>
+        <td><span class="version-badge">v1.0</span></td>
+        <td>2026-06-10</td>
+        <td>phong</td>
+        <td>
+          <span class="change-tag tag-new">New</span> Phiên bản đầu tiên — thang kỹ năng vận hành AI<br>
+          <span class="change-tag tag-new">New</span> 6 tab: Thang kỹ năng, Prompt Engineering, Context Engineering, Loop Engineering, Workflow khép kín, Lịch sử<br>
+          <span class="change-tag tag-new">New</span> Dùng chung <code>common.css</code> + <code>common.js</code> với các trang khác; thêm style "thang cấp độ" riêng
+        </td>
+      </tr>
+      <tr>
+        <td><span class="version-badge">v1.1</span></td>
+        <td>2026-06-10</td>
+        <td>phong</td>
+        <td>
+          <span class="change-tag tag-update">Update</span> Đổi tên trang "Kỹ năng vận hành AI" → <strong>"AI Engineering"</strong>; đổi tên file/thư mục <code>AIWorkflowEngineering.*</code> → <code>AI-Engineering.*</code><br>
+          <span class="change-tag tag-style">Style</span> Thu gọn header (giảm chiều cao) ở <code>common.css</code>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <h3 style="margin-top:28px;">Ghi chú kỹ thuật</h3>
+  <table>
+    <tr><th>File</th><th>Vai trò</th></tr>
+    <tr><td>AI-Engineering.html</td><td>Khung trang (shell): head, header, search, nav rỗng + main rỗng</td></tr>
+    <tr><td>AI-Engineering.js</td><td>Chỉ chứa manifest <code>TABS</code> của trang này</td></tr>
+    <tr><td>AI-Engineering.css</td><td>Style riêng (level ladder, step list)</td></tr>
+    <tr><td>AI-Engineering/*.html</td><td>Nội dung từng tab — mỗi chủ đề 1 file độc lập</td></tr>
+    <tr><td>common.css / common.js</td><td>Theme + layout + logic (nav, search, tabs, Mermaid, nhớ tab) — dùng chung mọi trang</td></tr>
+  </table>
+  <p style="margin-top:16px;color:var(--text-muted);font-size:0.85rem;">
+    ⚠️ Lưu ý: vì nội dung nạp động qua <code>fetch</code>, hãy mở trang qua một server cục bộ
+    (VD: <strong>VSCode Live Server</strong>) thay vì mở thẳng file <code>file://</code>.
+  </p>

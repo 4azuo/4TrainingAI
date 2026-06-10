@@ -1,0 +1,56 @@
+  <h2>💻 Dùng AI trên VSCode / IDE — Ưu & Nhược</h2>
+  <p class="tagline">
+    Đây là cách "vibe coding" gắn với <strong>môi trường dev thật</strong>: AI là extension/agent phủ lên IDE,
+    còn code, Git, terminal, test… vẫn là của bạn và nằm trên máy bạn.
+  </p>
+
+  <h3>Các lựa chọn trên VSCode</h3>
+  <table>
+    <tr><th>Công cụ</th><th>Kiểu</th><th>Điểm mạnh</th></tr>
+    <tr><td>GitHub Copilot</td><td>Extension</td><td>Autocomplete + Chat + Agent; tích hợp GitHub, phổ biến nhất.</td></tr>
+    <tr><td>Cursor / Windsurf</td><td>IDE riêng (fork VSCode)</td><td>AI là trung tâm: hiểu cả codebase, agent sửa nhiều file.</td></tr>
+    <tr><td>Cline / Roo Code</td><td>Extension agent (OSS)</td><td>Tự cắm API key; agent đọc/sửa file, chạy lệnh; minh bạch.</td></tr>
+    <tr><td>Continue</td><td>Extension (OSS)</td><td>Autocomplete + chat, chọn model tùy ý, chạy cả model local.</td></tr>
+    <tr><td>Claude Code</td><td>CLI + tích hợp IDE</td><td>Agent thao tác repo trực tiếp; chạy được trong terminal của VSCode.</td></tr>
+  </table>
+
+  <div class="pc-grid">
+    <div class="pc-box pc-pros">
+      <h4>✅ Ưu điểm</h4>
+      <ul>
+        <li><strong>Toàn quyền với code</strong> — file nằm trên máy bạn, sửa/đọc/refactor tùy ý.</li>
+        <li><strong>Git, test, debug, terminal đầy đủ</strong> — đúng quy trình dev chuyên nghiệp.</li>
+        <li><strong>Tích hợp hệ sinh thái</strong> — extension, linter, formatter, debugger sẵn có.</li>
+        <li><strong>Linh hoạt model</strong> — đổi/tự cắm model, kể cả model chạy local cho dữ liệu nhạy cảm.</li>
+        <li><strong>Hiểu ngữ cảnh dự án lớn</strong> tốt hơn nền tảng text-to-app.</li>
+        <li><strong>Mở rộng ngoài web</strong> — backend, script, data, mobile, DevOps… không bó vào web app.</li>
+      </ul>
+    </div>
+    <div class="pc-box pc-cons">
+      <h4>❌ Nhược điểm</h4>
+      <ul>
+        <li><strong>Cần biết lập trình</strong> ở mức cơ bản để dùng hiệu quả & review.</li>
+        <li><strong>Phải tự lo môi trường</strong> — cài đặt, dependency, cấu hình.</li>
+        <li><strong>Không "1-click deploy"</strong> — tự dựng pipeline triển khai.</li>
+        <li><strong>Dễ "tin mù" gợi ý AI</strong> — chấp nhận code sai/không an toàn nếu không review.</li>
+        <li><strong>Quản lý chi phí token/quyền truy cập</strong> cần chú ý, nhất là theo nhóm.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>VSCode + AI vs 3rd-party Text-to-App</h3>
+  <div class="mermaid">
+flowchart TD
+    Q{"Bạn cần gì?"}
+    Q -- "App demo gấp,<br>không rành code" --> T["🧩 Text-to-App<br>Lovable / Bolt / v0"]
+    Q -- "Codebase thật,<br>cần kiểm soát" --> V["💻 VSCode + AI<br>Cursor / Copilot / Claude Code"]
+    T --> T2["Nhanh · Deploy sẵn<br>Trần phức tạp thấp"]
+    V --> V2["Toàn quyền · Git/test đủ<br>Cần biết code"]
+    style T fill:#dcfce7,color:#166534,stroke:#86efac
+    style V fill:#e0e7ff,color:#3730a3,stroke:#6366f1
+  </div>
+
+  <div class="callout">
+    🧭 Tóm lại: VSCode + AI cho bạn <strong>"trần phức tạp" cao nhất và quyền kiểm soát tối đa</strong>,
+    đổi lại bạn phải hiểu code và tự lo môi trường + deploy. Đây là lựa chọn mặc định cho dev và đội kỹ thuật.
+  </div>

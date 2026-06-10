@@ -1,0 +1,68 @@
+  <h2>📚 Ngoài làm app — tổ chức mọi project bằng agent</h2>
+  <p class="tagline">
+    "Ngoài coding" không chỉ là làm app. Cùng bộ công cụ vibe coding (IDE + agent + file + sub-agent)
+    có thể dùng để <strong>tự tổ chức bất kỳ project tri thức nào</strong>: viết tiểu thuyết, nghiên cứu,
+    biên soạn tài liệu, dựng giáo trình…
+  </p>
+
+  <h3>Vì sao agent coding lại dùng được cho việc không phải code?</h3>
+  <p>
+    Vì bản chất các agent (Claude Code, Cursor…) chỉ làm 3 việc: <strong>đọc/ghi file</strong>,
+    <strong>chạy task nhiều bước</strong>, và <strong>điều phối sub-agent theo vai</strong>.
+    Bất kỳ "project" nào gồm nhiều file văn bản + nhiều bước + cần phối hợp đều hợp — dù nội dung là code hay chữ.
+  </p>
+  <div class="callout">
+    🧩 Một project = một thư mục đầy file. Code hay truyện đều vậy. Agent không phân biệt —
+    nó đọc file, làm theo yêu cầu, ghi lại. Vậy nên "vibe writing" cũng thật như "vibe coding".
+  </div>
+
+  <h3>Ví dụ: viết một cuốn tiểu thuyết bằng agent</h3>
+  <p>Bạn tổ chức project thành các file, rồi giao cho các sub-agent phù hợp từng vai:</p>
+  <pre>tieu-thuyet/
+├── the-gioi.md        # world-building: bối cảnh, quy tắc
+├── nhan-vat.md        # hồ sơ nhân vật, động cơ
+├── outline.md         # dàn ý tổng + theo chương
+├── chuong/
+│   ├── 01.md
+│   └── 02.md
+└── GUIDE.md           # giọng văn, ngôi kể, quy ước (như "system prompt")</pre>
+
+  <div class="mermaid">
+flowchart TD
+    ORC["🧭 Bạn (đạo diễn)<br>+ GUIDE.md (giọng văn, quy ước)"]
+    A1["✍️ Sub-agent: Viết chương<br>bám outline + nhân vật"]
+    A2["🔎 Sub-agent: Kiểm tra liên tục<br>(continuity: tên, mốc thời gian)"]
+    A3["📝 Sub-agent: Biên tập<br>(văn phong, nhịp, lỗi)"]
+    A4["👓 Sub-agent: Beta-reader<br>(góp ý cảm xúc, chỗ khó hiểu)"]
+    ORC --> A1 --> A2 --> A3 --> A4 --> ORC
+    style ORC fill:#e0e7ff,color:#3730a3,stroke:#6366f1
+    style A2 fill:#fef3c7,color:#92400e,stroke:#fcd34d
+  </div>
+  <p>
+    Đây chính là mô hình <strong>orchestrator + sub-agent</strong> của coding, áp cho viết lách:
+    mỗi agent giỏi một vai, bạn điều phối và duyệt kết quả.
+  </p>
+
+  <h3>Tự tổ chức project — chọn agent phù hợp từng vai</h3>
+  <table>
+    <tr><th>Loại project</th><th>Cấu trúc file</th><th>Các vai (sub-agent) phù hợp</th></tr>
+    <tr><td>📖 Tiểu thuyết / truyện</td><td>world, nhân vật, outline, chương</td><td>Người viết · kiểm continuity · biên tập · beta-reader</td></tr>
+    <tr><td>🔬 Nghiên cứu / báo cáo</td><td>nguồn, ghi chú, dàn ý, bản thảo</td><td>Thu thập nguồn · tóm tắt · phản biện · viết &amp; trích dẫn</td></tr>
+    <tr><td>🎓 Giáo trình / khóa học</td><td>syllabus, bài, slide, quiz</td><td>Thiết kế chương trình · soạn bài · ra đề · review độ khó</td></tr>
+    <tr><td>📣 Nội dung marketing</td><td>brief, persona, draft, lịch đăng</td><td>Lên ý tưởng · viết bài · chỉnh giọng thương hiệu · SEO</td></tr>
+    <tr><td>📋 Quản lý dự án</td><td>plan, task, ghi chú họp</td><td>Lập kế hoạch · chia task · tổng hợp tiến độ</td></tr>
+  </table>
+
+  <h3>Cùng vòng lặp — áp dụng khắp nơi</h3>
+  <p>Ngoài agent IDE, các app AI khác cũng dùng đúng mẫu "mô tả → AI làm → mình duyệt":</p>
+  <div class="card-grid">
+    <div class="card"><h4>✍️ Viết &amp; nội dung</h4><p>ChatGPT, Claude, Gemini, Notion AI — soạn, biên tập, dịch, tóm tắt.</p></div>
+    <div class="card"><h4>📊 Dữ liệu</h4><p>AI trong Excel/Sheets, code interpreter — hỏi bằng lời, kiểm số liệu.</p></div>
+    <div class="card"><h4>🎨 Thiết kế</h4><p>Figma AI, Canva, Midjourney — prompt hình ảnh, tinh chỉnh.</p></div>
+    <div class="card"><h4>⚙️ Tự động hóa</h4><p>Zapier, Make, n8n + AI — mô tả luồng, nối tool, giám sát.</p></div>
+  </div>
+
+  <div class="callout warn">
+    ⚠️ Giới hạn không đổi: AI vẫn có thể bịa, vẫn cần ngữ cảnh đúng, và
+    <strong>bạn vẫn là người chịu trách nhiệm cuối</strong> — dù là code, một chương truyện hay một báo cáo.
+  </div>

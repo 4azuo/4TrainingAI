@@ -1,0 +1,83 @@
+/* ════════════════════════════════════════════════════════════
+   INDEX (SHELL) CSS — layout "vỏ": header cố định + iframe nạp trang con.
+   Tái sử dụng biến theme + reset chung từ common.css; ở đây chỉ định
+   nghĩa phần RIÊNG của vỏ (shell). Không trùng lặp với trang con.
+   ════════════════════════════════════════════════════════════ */
+
+/* ── Shell layout: header cố định + iframe chiếm phần còn lại ── */
+html, body { height: 100%; }
+body { display: flex; flex-direction: column; overflow: hidden; }
+
+.shell-header {
+  background: linear-gradient(135deg, #eef2ff 0%, #e0f2fe 100%);
+  border-bottom: 2px solid var(--border);
+  padding: 12px 32px 0;
+  flex-shrink: 0;
+}
+.shell-header h1 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, #4f46e5, #0284c7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 1px;
+}
+.shell-header p { color: var(--text-muted); font-size: 0.82rem; margin-bottom: 10px; }
+
+/* ── Tab bar cấp cao (3 trang) ── */
+.shell-nav { display: flex; gap: 6px; flex-wrap: wrap; }
+.shell-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 16px;
+  border: 1.5px solid var(--border);
+  border-bottom: none;
+  border-radius: 10px 10px 0 0;
+  background: var(--surface2);
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 0.92rem;
+  font-weight: 600;
+  font-family: inherit;
+  line-height: 1.2;
+  transition: all 0.15s;
+  position: relative;
+  top: 2px;
+}
+.shell-tab:hover { color: var(--primary); background: var(--primary-light); }
+.shell-tab.active {
+  background: var(--surface);
+  color: var(--primary);
+  border-color: var(--border);
+  top: 2px;
+  box-shadow: 0 -2px 8px rgba(79,70,229,.06);
+}
+.shell-tab .ico { font-size: 1.1rem; }
+
+/* ── Vùng nội dung: iframe nạp từng trang ──
+   QUAN TRỌNG: vỏ dùng thẻ <main>, nên dính selector `main {}` của
+   common.css (max-width / margin:auto / padding:32px) khiến vùng iframe
+   bị co cụm + canh giữa. Reset lại để iframe phủ kín (full-bleed). */
+.shell-main {
+  flex: 1;
+  position: relative;
+  background: var(--bg);
+  max-width: none;
+  margin: 0;
+  padding: 0;
+}
+.shell-frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+@media (max-width: 600px) {
+  .shell-header { padding: 16px 16px 0; }
+  .shell-tab { padding: 9px 12px; font-size: 0.82rem; }
+  .shell-tab .label-full { display: none; }
+}

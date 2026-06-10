@@ -1,0 +1,91 @@
+  <h2>🏗️ Vibe Coding qua 3rd-party tool — Ưu & Nhược</h2>
+  <p class="tagline">
+    "3rd-party tool" ở đây = nền tảng Text-to-App như <strong>Lovable, Bolt, v0, Replit</strong>:
+    bạn không tự cài môi trường, mọi thứ (code, preview, hosting) nằm trên nền tảng của họ.
+  </p>
+
+  <div class="pc-grid">
+    <div class="pc-box pc-pros">
+      <h4>✅ Ưu điểm</h4>
+      <ul>
+        <li><strong>Khởi động tức thì</strong> — không cài Node, không config; mở trình duyệt là chạy.</li>
+        <li><strong>Từ prompt ra app chạy được</strong> trong vài phút, kèm preview trực quan.</li>
+        <li><strong>Deploy tích hợp sẵn</strong> — 1 click ra URL công khai (Vercel/Netlify/hosting nội bộ).</li>
+        <li><strong>Lo giùm hạ tầng</strong> — DB, auth, hosting thường được dựng sẵn (vd Supabase trong Lovable).</li>
+        <li><strong>Hợp người không chuyên</strong> — founder, designer, PM tự dựng MVP mà không cần dev.</li>
+      </ul>
+    </div>
+    <div class="pc-box pc-cons">
+      <h4>❌ Nhược điểm</h4>
+      <ul>
+        <li><strong>Vendor lock-in</strong> — kiến trúc theo "khuôn" nền tảng; rời đi tốn công.</li>
+        <li><strong>Trần độ phức tạp thấp</strong> — app lớn/logic đặc thù thì AI bí, khó sửa sâu.</li>
+        <li><strong>Khó kiểm soát code</strong> — bạn có thể không hiểu/không sửa được phần AI sinh.</li>
+        <li><strong>Dữ liệu chạy qua bên thứ ba</strong> — vướng bảo mật/tuân thủ với code nhạy cảm.</li>
+        <li><strong>Chi phí leo thang</strong> — tính theo "credit"/message; sửa nhiều vòng tốn tiền nhanh.</li>
+        <li><strong>Test/CI/CD còn sơ khai</strong> so với quy trình dev chuẩn.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>So sánh các năng lực vận hành</h3>
+  <table>
+    <tr><th>Năng lực</th><th>Text-to-App (Lovable/Bolt/v0)</th><th>IDE + AI (Cursor/Copilot)</th><th>CLI Agent (Claude Code)</th></tr>
+    <tr>
+      <td><strong>Deploy</strong></td>
+      <td><span class="pill yes">1-click tích hợp</span> Vercel/Netlify/hosting sẵn</td>
+      <td><span class="pill mid">Tự cấu hình</span> qua pipeline của bạn</td>
+      <td><span class="pill mid">Tự động hóa được</span> nếu bạn dựng lệnh deploy</td>
+    </tr>
+    <tr>
+      <td><strong>Liên kết Git</strong></td>
+      <td><span class="pill mid">Đồng bộ GitHub</span> (Lovable/Bolt có), nhưng workflow đơn giản</td>
+      <td><span class="pill yes">Git đầy đủ</span> — branch, PR, review như bình thường</td>
+      <td><span class="pill yes">Git đầy đủ</span> — commit/PR ngay trong repo</td>
+    </tr>
+    <tr>
+      <td><strong>Test</strong></td>
+      <td><span class="pill no">Hạn chế</span> — chủ yếu "chạy thử mắt thường"</td>
+      <td><span class="pill yes">Đủ</span> — chạy test framework, AI viết test</td>
+      <td><span class="pill yes">Mạnh</span> — tự chạy test, đọc lỗi, tự sửa</td>
+    </tr>
+    <tr>
+      <td><strong>Kiểm soát code</strong></td>
+      <td><span class="pill no">Thấp</span></td>
+      <td><span class="pill yes">Cao</span></td>
+      <td><span class="pill yes">Cao</span></td>
+    </tr>
+    <tr>
+      <td><strong>Đường cong học</strong></td>
+      <td><span class="pill yes">Rất dễ</span></td>
+      <td><span class="pill mid">Trung bình</span> (cần biết code)</td>
+      <td><span class="pill mid">Trung bình</span> (cần quen terminal/git)</td>
+    </tr>
+  </table>
+
+  <h3>Khi nào nên / không nên dùng 3rd-party tool</h3>
+  <div class="card-grid">
+    <div class="card">
+      <h4>👍 Nên dùng khi…</h4>
+      <ul>
+        <li>Cần MVP / demo / landing page gấp.</li>
+        <li>Validate ý tưởng trước khi đầu tư dev.</li>
+        <li>Công cụ nội bộ nhỏ, vòng đời ngắn.</li>
+        <li>Người dùng không phải lập trình viên.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>👎 Cân nhắc khi…</h4>
+      <ul>
+        <li>Sản phẩm cần scale, logic phức tạp lâu dài.</li>
+        <li>Code/dữ liệu nhạy cảm, ràng buộc tuân thủ.</li>
+        <li>Cần CI/CD, review, test nghiêm ngặt.</li>
+        <li>Đội đã có codebase & quy trình riêng.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout tip">
+    🔁 Mẫu hình phổ biến: <strong>dựng nhanh trên Lovable/Bolt → export sang GitHub → tiếp tục bằng Cursor/Claude Code</strong>
+    khi app lớn dần. Tận dụng tốc độ ban đầu của 3rd-party rồi chuyển sang môi trường kiểm soát cao.
+  </div>

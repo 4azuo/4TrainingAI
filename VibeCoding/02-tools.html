@@ -1,0 +1,80 @@
+  <h2>🧰 Bản đồ công cụ Vibe Coding</h2>
+  <p class="tagline">
+    Các tool chia thành 4 nhóm theo <strong>nơi bạn làm việc</strong>: IDE thông minh, Text-to-App (prompt ra cả app),
+    Agent dòng lệnh (CLI), và Cloud/Autonomous. Biết nhóm nào hợp việc gì quan trọng hơn nhớ tên từng tool.
+  </p>
+
+  <h3>① IDE thông minh — viết code có AI hỗ trợ</h3>
+  <p>Bạn vẫn ở trong một trình soạn thảo code đầy đủ, AI là lớp trợ lý phủ lên trên.</p>
+  <div class="card-grid">
+    <div class="card">
+      <span class="badge b-ide">IDE</span>
+      <h4>Cursor</h4>
+      <p>Bản fork của VSCode, AI-first. Có Tab (autocomplete mạnh), Cmd+K (sửa inline), Chat hiểu cả codebase, và Agent (Composer) sửa nhiều file. Trả phí theo tháng.</p>
+    </div>
+    <div class="card">
+      <span class="badge b-ide">IDE</span>
+      <h4>Windsurf</h4>
+      <p>IDE AI của Codeium, nổi bật với agent "Cascade" có khả năng theo dõi ngữ cảnh và tự chạy nhiều bước.</p>
+    </div>
+    <div class="card">
+      <span class="badge b-ide">Extension</span>
+      <h4>GitHub Copilot</h4>
+      <p>Cắm vào VSCode / JetBrains / Visual Studio. Autocomplete + Chat + chế độ Agent. Quen thuộc, tích hợp sâu GitHub.</p>
+    </div>
+    <div class="card">
+      <span class="badge b-ide">Open-source</span>
+      <h4>Cline / Roo Code / Continue</h4>
+      <p>Extension mã nguồn mở cho VSCode. Bạn tự cắm API key của model (Claude, GPT…). Kiểm soát chi phí & dữ liệu tốt hơn.</p>
+    </div>
+  </div>
+
+  <h3>② Text-to-App — prompt ra cả ứng dụng (3rd-party platform)</h3>
+  <p>Bạn gõ mô tả trong trình duyệt, nền tảng dựng <strong>cả app full-stack</strong> kèm preview, thường có deploy & Git tích hợp.</p>
+  <div class="card-grid">
+    <div class="card">
+      <span class="badge b-prompt">Text-to-App</span>
+      <h4>Lovable</h4>
+      <p>Mô tả → app web full-stack (React + Supabase). Preview trực tiếp, đồng bộ GitHub, deploy 1 click. Hợp người không chuyên dựng MVP nhanh.</p>
+    </div>
+    <div class="card">
+      <span class="badge b-prompt">Text-to-App</span>
+      <h4>Bolt.new (StackBlitz)</h4>
+      <p>Chạy full-stack ngay trong trình duyệt (WebContainers). Sửa code được, deploy lên Netlify. Nhanh để thử ý tưởng.</p>
+    </div>
+    <div class="card">
+      <span class="badge b-prompt">UI gen</span>
+      <h4>v0 (Vercel)</h4>
+      <p>Thiên về sinh giao diện: React + Tailwind + shadcn/ui từ prompt hoặc ảnh. Deploy thẳng lên Vercel.</p>
+    </div>
+    <div class="card">
+      <span class="badge b-cloud">Cloud IDE</span>
+      <h4>Replit Agent</h4>
+      <p>IDE trên cloud + agent dựng và deploy app, có sẵn hosting/DB. Làm việc hoàn toàn trên trình duyệt, kể cả trên điện thoại.</p>
+    </div>
+  </div>
+
+  <h3>③ Agent dòng lệnh (CLI) — AI làm việc trong terminal/repo của bạn</h3>
+  <div class="card-grid">
+    <div class="card">
+      <span class="badge b-cli">CLI Agent</span>
+      <h4>Claude Code</h4>
+      <p>Agent của Anthropic chạy trong terminal/IDE, thao tác trực tiếp trên repo: đọc/sửa file, chạy test, commit, tạo PR. Mạnh cho codebase thật.</p>
+    </div>
+    <div class="card">
+      <span class="badge b-cli">CLI Agent</span>
+      <h4>Gemini CLI / Codex CLI</h4>
+      <p>Các agent dòng lệnh tương tự từ Google / OpenAI. Cùng triết lý: AI sống trong môi trường dev của bạn.</p>
+    </div>
+    <div class="card">
+      <span class="badge b-cloud">Autonomous</span>
+      <h4>Devin (Cognition)</h4>
+      <p>"Kỹ sư AI" tự chủ: nhận task, tự lập kế hoạch, code, test trong môi trường cloud riêng. Hướng tới giao việc trọn gói.</p>
+    </div>
+  </div>
+
+  <div class="callout tip">
+    ✅ Quy tắc chọn nhanh: <strong>cần app demo gấp & không rành code</strong> → Lovable/Bolt/v0.
+    <strong>Đang có codebase & muốn kiểm soát</strong> → Cursor/Copilot/Claude Code.
+    <strong>Tự động hóa task lập trình lặp lại</strong> → CLI agent.
+  </div>

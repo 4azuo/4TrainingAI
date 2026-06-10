@@ -1,0 +1,59 @@
+  <h2>📋 Lịch sử chỉnh sửa</h2>
+  <p class="tagline">Ghi lại toàn bộ thay đổi của trang VibeCoding qua các phiên bản.</p>
+
+  <div class="history-table">
+    <table>
+      <tr>
+        <th>Phiên bản</th>
+        <th>Ngày</th>
+        <th>Tác giả</th>
+        <th>Nội dung thay đổi</th>
+      </tr>
+      <tr>
+        <td><span class="version-badge">v1.0</span></td>
+        <td>2026-06-10</td>
+        <td>phong</td>
+        <td>
+          <span class="change-tag tag-new">New</span> Phiên bản đầu tiên — trang so sánh Vibe Coding<br>
+          <span class="change-tag tag-new">New</span> 8 tab: Vibe Coding là gì, Bản đồ công cụ, 3rd-party Ưu/Nhược, AI trên VSCode/IDE, Personal vs Enterprise, Thuật ngữ, Ngoài coding, Tổng kết<br>
+          <span class="change-tag tag-new">New</span> Mỗi tab tách thành 1 file trong thư mục <code>VibeCoding/</code>, nạp động qua <code>fetch</code>
+        </td>
+      </tr>
+      <tr>
+        <td><span class="version-badge">v1.1</span></td>
+        <td>2026-06-10</td>
+        <td>phong</td>
+        <td>
+          <span class="change-tag tag-update">Update</span> Common-hóa: tách style &amp; logic dùng chung ra <code>common.css</code> + <code>common.js</code> (dùng chung với AI-Enduser-Knowledge); mỗi trang chỉ giữ manifest <code>TABS</code> + CSS riêng<br>
+          <span class="change-tag tag-new">New</span> Nhớ tab đang xem qua refresh (localStorage, key riêng theo trang)<br>
+          <span class="change-tag tag-update">Update</span> Tab 6 đổi trọng tâm sang "Vì sao cần học?" — động lực học kiến thức nền + thuật ngữ; bỏ phần trùng với tab 3/4<br>
+          <span class="change-tag tag-update">Update</span> Tab 7 đổi sang "Ngoài làm app" — tự tổ chức project (viết truyện, nghiên cứu…) bằng agent &amp; sub-agent<br>
+          <span class="change-tag tag-new">New</span> Tab "Lịch sử"<br>
+          <span class="change-tag tag-fix">Fix</span> Cheat Sheet ở tab Tổng kết: bỏ phần trùng với bản đồ quyết định, thống nhất nhãn "Text-to-App"
+        </td>
+      </tr>
+      <tr>
+        <td><span class="version-badge">v1.2</span></td>
+        <td>2026-06-10</td>
+        <td>phong</td>
+        <td>
+          <span class="change-tag tag-update">Update</span> Đổi tiêu đề "Vibe Coding — So sánh" → <strong>"Vibe Coding"</strong> (định vị là điểm khởi đầu, học nền trước khi vào IDE)<br>
+          <span class="change-tag tag-style">Style</span> Thu gọn header (giảm chiều cao) ở <code>common.css</code>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <h3 style="margin-top:28px;">Ghi chú kỹ thuật</h3>
+  <table>
+    <tr><th>File</th><th>Vai trò</th></tr>
+    <tr><td>VibeCoding.html</td><td>Khung trang (shell): head, header, search, nav rỗng + main rỗng</td></tr>
+    <tr><td>VibeCoding.js</td><td>Chỉ chứa manifest <code>TABS</code> của trang này</td></tr>
+    <tr><td>VibeCoding.css</td><td>Style riêng của trang (badge, pros/cons, callout, pill)</td></tr>
+    <tr><td>VibeCoding/*.html</td><td>Nội dung từng tab — mỗi chủ đề 1 file độc lập</td></tr>
+    <tr><td>common.css / common.js</td><td>Theme + layout + logic (nav, search, tabs, Mermaid, nhớ tab) — dùng chung mọi trang</td></tr>
+  </table>
+  <p style="margin-top:16px;color:var(--text-muted);font-size:0.85rem;">
+    ⚠️ Lưu ý: vì nội dung nạp động qua <code>fetch</code>, hãy mở trang qua một server cục bộ
+    (VD: <strong>VSCode Live Server</strong>) thay vì mở thẳng file <code>file://</code> — trình duyệt chặn fetch trên giao thức file.
+  </p>

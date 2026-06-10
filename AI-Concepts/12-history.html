@@ -58,7 +58,7 @@
         <td>2026-06-07</td>
         <td>phong</td>
         <td>
-          <span class="change-tag tag-update">Update</span> Tách mỗi tab ra 1 file HTML riêng trong thư mục <code>tabs/</code><br>
+          <span class="change-tag tag-update">Update</span> Tách mỗi tab ra 1 file HTML riêng trong thư mục <code>AI-Enduser-Knowledge/</code><br>
           <span class="change-tag tag-update">Update</span> Loader trong JS tự sinh nav + nạp các fragment qua <code>fetch</code> (manifest 1 chỗ)<br>
           <span class="change-tag tag-new">New</span> Tab "Setup Project AI" — kinh nghiệm chọn công cụ, thiết kế đội nhóm, memory, RAG<br>
           <span class="change-tag tag-fix">Fix</span> Dễ review &amp; chỉnh sửa: mỗi chủ đề là 1 file ngắn, độc lập
@@ -76,16 +76,25 @@
           <span class="change-tag tag-update">Update</span> Rút còn 12 tab; đánh số lại file cho liền mạch
         </td>
       </tr>
+      <tr>
+        <td><span class="version-badge">v1.6</span></td>
+        <td>2026-06-10</td>
+        <td>phong</td>
+        <td>
+          <span class="change-tag tag-update">Update</span> Đổi tên trang "AI End-User Knowledge" → <strong>"AI Concepts"</strong>; đổi tên file/thư mục <code>AI-Enduser-Knowledge.*</code> → <code>AI-Concepts.*</code><br>
+          <span class="change-tag tag-style">Style</span> Thu gọn header (giảm chiều cao) ở <code>common.css</code>
+        </td>
+      </tr>
     </table>
   </div>
 
   <h3 style="margin-top:28px;">Ghi chú kỹ thuật</h3>
   <table>
     <tr><th>File</th><th>Vai trò</th></tr>
-    <tr><td>AI-Enduser-Knowledge.html</td><td>Khung trang (shell): head, header, search, nav rỗng + main rỗng</td></tr>
-    <tr><td>AI-Enduser-Knowledge.css</td><td>Toàn bộ style — light theme</td></tr>
-    <tr><td>AI-Enduser-Knowledge.js</td><td>Manifest tab + loader (fetch fragment) + tab logic + search + Mermaid lazy render</td></tr>
-    <tr><td>tabs/*.html</td><td>Nội dung từng tab — mỗi chủ đề 1 file độc lập</td></tr>
+    <tr><td>AI-Concepts.html</td><td>Khung trang (shell): head, header, search, nav rỗng + main rỗng</td></tr>
+    <tr><td>AI-Concepts.css</td><td>Toàn bộ style — light theme</td></tr>
+    <tr><td>AI-Concepts.js</td><td>Manifest tab + loader (fetch fragment) + tab logic + search + Mermaid lazy render</td></tr>
+    <tr><td>AI-Concepts/*.html</td><td>Nội dung từng tab — mỗi chủ đề 1 file độc lập</td></tr>
   </table>
   <p style="margin-top:16px;color:var(--text-muted);font-size:0.85rem;">
     ⚠️ Lưu ý: vì nội dung nạp động qua <code>fetch</code>, hãy mở trang qua một server cục bộ

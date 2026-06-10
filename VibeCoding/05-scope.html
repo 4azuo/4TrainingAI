@@ -1,0 +1,63 @@
+  <h2>🏢 Personal hay Enterprise?</h2>
+  <p class="tagline">
+    Cùng một tool có thể tuyệt vời cho cá nhân nhưng rủi ro cho doanh nghiệp.
+    Khác biệt nằm ở <strong>bảo mật dữ liệu, kiểm soát, tuân thủ, cộng tác và vận hành dài hạn</strong>.
+  </p>
+
+  <h3>Bảng định hướng theo quy mô</h3>
+  <table>
+    <tr><th>Tiêu chí</th><th>👤 Personal / Indie</th><th>🏢 Enterprise</th></tr>
+    <tr><td>Ưu tiên</td><td>Tốc độ, chi phí thấp, làm một mình</td><td>Bảo mật, tuân thủ, kiểm soát, cộng tác</td></tr>
+    <tr><td>Text-to-App (Lovable/Bolt/v0)</td><td><span class="pill yes">Rất hợp</span> MVP, side-project</td><td><span class="pill mid">Hạn chế</span> — lock-in & dữ liệu là rào cản</td></tr>
+    <tr><td>IDE + AI (Cursor/Copilot)</td><td><span class="pill yes">Hợp</span></td><td><span class="pill yes">Hợp</span> — chọn bản Business/Enterprise</td></tr>
+    <tr><td>CLI Agent (Claude Code)</td><td><span class="pill yes">Hợp</span></td><td><span class="pill yes">Hợp</span> — kiểm soát qua repo & policy</td></tr>
+    <tr><td>Dữ liệu gửi ra ngoài?</td><td>Chấp nhận được với code không nhạy cảm</td><td>Phải kiểm soát: zero-retention, không train trên dữ liệu</td></tr>
+  </table>
+
+  <h3>Doanh nghiệp cần kiểm gì trước khi duyệt một tool?</h3>
+  <div class="card-grid">
+    <div class="card">
+      <h4>🔐 Bảo mật & dữ liệu</h4>
+      <ul>
+        <li>Code có bị dùng để train model không?</li>
+        <li>Chính sách lưu trữ (retention), zero data retention?</li>
+        <li>Chứng chỉ SOC 2 / ISO 27001, hỗ trợ SSO.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>⚖️ Tuân thủ & pháp lý</h4>
+      <ul>
+        <li>Bản quyền/giấy phép của code AI sinh ra.</li>
+        <li>GDPR / quy định ngành (tài chính, y tế).</li>
+        <li>Lọc/đối chiếu với code có bản quyền (Copilot có).</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>👥 Quản trị & cộng tác</h4>
+      <ul>
+        <li>Quản lý license, phân quyền theo team.</li>
+        <li>Audit log, kiểm soát chi phí tập trung.</li>
+        <li>Tích hợp Git/CI/CD/review sẵn có.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>🧱 Bền vững & vận hành</h4>
+      <ul>
+        <li>Tránh lock-in: code export ra được, chuẩn mở.</li>
+        <li>Code maintainable, có test, review bắt buộc.</li>
+        <li>Khả năng tự host / dùng model riêng.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout warn">
+    ⚠️ Rủi ro enterprise lớn nhất của vibe coding: <strong>"shadow IT"</strong> — nhân viên tự dựng app trên nền tảng ngoài,
+    dữ liệu công ty rò ra ngoài, không ai bảo trì được. Cần policy rõ ràng về tool nào được dùng cho dữ liệu nào.
+  </div>
+
+  <div class="callout tip">
+    ✅ Khuyến nghị thực tế:
+    <strong>Personal</strong> → ưu tiên tốc độ, dùng Text-to-App để thử nghiệm thoải mái.
+    <strong>Enterprise</strong> → chuẩn hóa quanh IDE+AI/CLI agent bản doanh nghiệp (SSO, no-train, audit),
+    dùng Text-to-App chỉ cho prototype rồi đưa về codebase nội bộ.
+  </div>

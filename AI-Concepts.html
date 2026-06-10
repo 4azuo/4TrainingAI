@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Concepts</title>
+<link rel="stylesheet" href="common.css">
+<link rel="stylesheet" href="AI-Concepts.css">
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+</head>
+<body>
+
+<header>
+  <div class="header-top">
+    <div class="header-brand">
+      <h1>🧠 AI Concepts</h1>
+      <p>Kiến thức tổng quát về Sử dụng AI — Dành cho người dùng cuối</p>
+    </div>
+    <div class="search-bar">
+      <input type="search" id="search-input" class="search-input"
+             placeholder="🔍 Tìm kiếm..." autocomplete="off" spellcheck="false">
+      <span id="search-count" class="search-count"></span>
+      <button class="search-nav-btn" id="btn-prev" title="Trước (Shift+Enter)" disabled>&#10094;</button>
+      <button class="search-nav-btn" id="btn-next" title="Tiếp theo (Enter)" disabled>&#10095;</button>
+    </div>
+  </div>
+  <!-- Nav được sinh động từ manifest trong AI-Concepts.js -->
+  <nav class="tab-nav" id="tab-nav"></nav>
+</header>
+
+<!-- Nội dung từng tab nạp động từ thư mục AI-Concepts/ (xem manifest trong JS) -->
+<main id="tab-main"></main>
+
+<!-- AI-Concepts.js định nghĩa TABS; common.js chứa logic chung (nạp sau) -->
+<script src="AI-Concepts.js"></script>
+<script src="common.js"></script>
+</body>
+</html>

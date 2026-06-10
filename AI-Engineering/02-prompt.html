@@ -1,0 +1,57 @@
+  <h2>✍️ Cấp 1 — Prompt Engineering</h2>
+  <p class="tagline">
+    Kỹ năng nền: viết yêu cầu sao cho AI hiểu đúng và làm đúng ngay trong <strong>một lượt</strong>.
+    Đây là thứ ai dùng AI cũng cần, và là viên gạch của mọi cấp trên.
+  </p>
+
+  <h3>Một prompt tốt gồm gì?</h3>
+  <table>
+    <tr><th>Thành phần</th><th>Vai trò</th><th>Ví dụ</th></tr>
+    <tr><td><strong>Vai trò / bối cảnh</strong></td><td>Đặt "góc nhìn" cho AI</td><td>"Bạn là kỹ sư backend Python…"</td></tr>
+    <tr><td><strong>Nhiệm vụ</strong></td><td>Việc cụ thể cần làm</td><td>"Viết hàm validate email"</td></tr>
+    <tr><td><strong>Ràng buộc</strong></td><td>Giới hạn, quy tắc</td><td>"Không dùng thư viện ngoài, có type hint"</td></tr>
+    <tr><td><strong>Định dạng đầu ra</strong></td><td>Hình thức kết quả</td><td>"Chỉ trả code, kèm 3 test case"</td></tr>
+    <tr><td><strong>Ví dụ (few-shot)</strong></td><td>Mẫu để bắt chước</td><td>"Theo style như đoạn này: …"</td></tr>
+  </table>
+
+  <div class="pc-grid">
+    <div class="pc-box pc-pros">
+      <h4>✅ Nên</h4>
+      <ul>
+        <li>Cụ thể: nêu rõ input, output, ràng buộc.</li>
+        <li>Cho ví dụ mẫu (few-shot) khi cần đúng format.</li>
+        <li>Yêu cầu AI "suy nghĩ từng bước" với việc khó.</li>
+        <li>Chia task lớn thành các prompt nhỏ.</li>
+      </ul>
+    </div>
+    <div class="pc-box pc-cons">
+      <h4>❌ Tránh</h4>
+      <ul>
+        <li>Mơ hồ: "làm cho đẹp", "tối ưu giúp tôi".</li>
+        <li>Nhồi 10 yêu cầu mâu thuẫn vào 1 prompt.</li>
+        <li>Giả định AI "tự hiểu" bối cảnh chưa nói.</li>
+        <li>Tin ngay kết quả mà không kiểm.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Ví dụ: mơ hồ vs rõ ràng</h3>
+  <pre><span class="bad">❌ "Viết API cho user."</span>
+
+<span class="good">✅ "Bạn là kỹ sư FastAPI. Viết endpoint POST /users tạo user mới.
+   - Input: JSON {name, email}; validate email đúng định dạng.
+   - Lưu vào DB qua hàm db.create_user() (đã có).
+   - Trả 201 + user_id khi OK, 400 khi email sai.
+   - Kèm 2 test với pytest. Chỉ trả code."</span></pre>
+
+  <div class="callout tip">
+    💡 Quy tắc 1 phút: trước khi gửi, đọc lại prompt và tự hỏi <em>"nếu đưa cho một người lạ, họ có làm đúng ý mình không?"</em>
+    Nếu còn chỗ đoán mò → bổ sung.
+  </div>
+
+  <h3>Giới hạn của riêng Prompt</h3>
+  <p>
+    Prompt chỉ điều khiển <strong>1 lượt</strong> và chỉ dựa trên thứ AI đang "thấy". Khi việc cần
+    <em>dữ liệu riêng của bạn</em> (codebase, tài liệu) hoặc <em>nhiều bước</em>, prompt giỏi mấy cũng chưa đủ —
+    đó là lúc bước lên <strong>Context Engineering</strong> (cấp 2).
+  </p>

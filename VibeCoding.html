@@ -3,8 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI End-User Knowledge</title>
-<link rel="stylesheet" href="AI-Enduser-Knowledge.css">
+<title>Vibe Coding</title>
+<link rel="stylesheet" href="common.css">
+<link rel="stylesheet" href="VibeCoding.css">
 <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
 </head>
 <body>
@@ -12,8 +13,8 @@
 <header>
   <div class="header-top">
     <div class="header-brand">
-      <h1>🧠 AI End-User Knowledge</h1>
-      <p>Kiến thức tổng quát về Sử dụng AI — Dành cho người dùng cuối</p>
+      <h1>🌀 Vibe Coding</h1>
+      <p>Cursor · Lovable · Bolt · v0 · Copilot · Claude Code… — ưu/nhược, deploy, Git, test, personal vs enterprise</p>
     </div>
     <div class="search-bar">
       <input type="search" id="search-input" class="search-input"
@@ -23,13 +24,15 @@
       <button class="search-nav-btn" id="btn-next" title="Tiếp theo (Enter)" disabled>&#10095;</button>
     </div>
   </div>
-  <!-- Nav được sinh động từ manifest trong AI-Enduser-Knowledge.js -->
+  <!-- Nav sinh động từ manifest trong VibeCoding.js -->
   <nav class="tab-nav" id="tab-nav"></nav>
 </header>
 
-<!-- Nội dung từng tab nạp động từ thư mục tabs/ (xem manifest trong JS) -->
+<!-- Nội dung từng tab nạp động từ thư mục VibeCoding/ (xem manifest trong JS) -->
 <main id="tab-main"></main>
 
-<script src="AI-Enduser-Knowledge.js"></script>
+<!-- VibeCoding.js định nghĩa TABS; common.js chứa logic chung (nạp sau) -->
+<script src="VibeCoding.js"></script>
+<script src="common.js"></script>
 </body>
 </html>

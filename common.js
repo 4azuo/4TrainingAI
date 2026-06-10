@@ -1,21 +1,11 @@
 /* ════════════════════════════════════════════════════════════
-   TAB MANIFEST — nguồn duy nhất định nghĩa các tab.
-   Thêm tab mới = thêm 1 dòng ở đây + 1 file trong thư mục tabs/.
+   COMMON JS — logic dùng chung cho mọi trang dạng "tab + search".
+   Mỗi trang chỉ cần định nghĩa biến toàn cục `TABS` (mảng manifest)
+   TRƯỚC khi nạp file này. Ví dụ:
+     <script src="VibeCoding.js"></script>  // định nghĩa TABS
+     <script src="common.js"></script>             // logic chung
+   Mỗi phần tử TABS: { id, label, file }.
    ════════════════════════════════════════════════════════════ */
-var TABS = [
-  { id: 'model',        label: '1. AI Model',           file: 'tabs/01-model.html' },
-  { id: 'prompt',       label: '2. Prompt',             file: 'tabs/02-prompt.html' },
-  { id: 'hook',         label: '3. Hook / Trigger',     file: 'tabs/03-hook.html' },
-  { id: 'tool',         label: '4. Tool',               file: 'tabs/04-tool.html' },
-  { id: 'skill',        label: '5. Skill',              file: 'tabs/05-skill.html' },
-  { id: 'agent',        label: '6. Agent & Đội nhóm',   file: 'tabs/06-agent.html' },
-  { id: 'memory',       label: '7. Memory',             file: 'tabs/07-memory.html' },
-  { id: 'rag',          label: '8. RAG',                file: 'tabs/08-rag.html' },
-  { id: 'workflow',     label: '9. Workflow',           file: 'tabs/09-workflow.html' },
-  { id: 'experiences',  label: '10. Experiences',       file: 'tabs/10-experiences.html' },
-  { id: 'overview',     label: '11. Tổng kết',          file: 'tabs/11-overview.html' },
-  { id: 'history',      label: '📋 Lịch sử',            file: 'tabs/12-history.html' }
-];
 
 /* ── MERMAID: khởi tạo + lazy-render theo tab (tránh blank khi display:none) ── */
 mermaid.initialize({
@@ -185,10 +175,20 @@ function initSearch() {
   if (btnPrev) btnPrev.addEventListener('click', prev);
 }
 
+/* ── PERSIST: nhớ tab đang xem qua refresh (key riêng theo từng trang) ── */
+function storageKey() { return 'activeTab:' + location.pathname; }
+
+function getInitialTabId() {
+  var saved = localStorage.getItem(storageKey());
+  var ok = TABS.some(function (t) { return t.id === saved; }); // tab còn tồn tại?
+  return ok ? saved : TABS[0].id;
+}
+
 /* ── TABS: chuyển tab + lazy render ── */
 function initTabs() {
   document.querySelectorAll('.tab-btn').forEach(function (btn) {
     btn.addEventListener('click', function () {
+      localStorage.setItem(storageKey(), btn.dataset.tab);
       document.querySelectorAll('.tab-btn').forEach(function (t) { t.classList.remove('active'); });
       document.querySelectorAll('.tab-panel').forEach(function (p) { p.classList.remove('active'); });
       btn.classList.add('active');
@@ -205,9 +205,10 @@ function initTabs() {
 function buildNav() {
   var nav = document.getElementById('tab-nav');
   if (!nav) return;
-  TABS.forEach(function (t, i) {
+  var activeId = getInitialTabId();
+  TABS.forEach(function (t) {
     var btn = document.createElement('button');
-    btn.className = 'tab-btn' + (i === 0 ? ' active' : '');
+    btn.className = 'tab-btn' + (t.id === activeId ? ' active' : '');
     btn.dataset.tab = t.id;
     btn.textContent = t.label;
     nav.appendChild(btn);
@@ -227,9 +228,10 @@ function loadTabs() {
       .then(function (html) { return { i: i, t: t, html: html, ok: true }; })
       .catch(function (err) { return { i: i, t: t, err: err, ok: false }; });
   })).then(function (results) {
+    var activeId = getInitialTabId();
     results.forEach(function (res) {
       var panel = document.createElement('div');
-      panel.className = 'tab-panel' + (res.i === 0 ? ' active' : '');
+      panel.className = 'tab-panel' + (res.t.id === activeId ? ' active' : '');
       panel.id = 'tab-' + res.t.id;
       if (res.ok) {
         panel.innerHTML = res.html;
@@ -246,6 +248,10 @@ function loadTabs() {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
+  if (typeof TABS === 'undefined' || !Array.isArray(TABS)) {
+    console.error('common.js: cần định nghĩa biến toàn cục `TABS` trước khi nạp file này.');
+    return;
+  }
   buildNav();
   loadTabs().then(function () {
     initTabs();

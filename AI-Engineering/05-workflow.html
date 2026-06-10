@@ -1,0 +1,76 @@
+  <h2>⚙️ Cấp 4 — Workflow khép kín</h2>
+  <p class="tagline">
+    Cấp cao nhất: ghép Prompt + Context + Loop thành một <strong>quy trình tự chạy</strong> —
+    có sự kiện kích hoạt, agent xử lý, tạo ra kết quả thật, và vòng về giám sát. AI <em>tự hoạt động</em>, người chỉ canh.
+  </p>
+
+  <h3>"Khép kín" nghĩa là gì?</h3>
+  <p>
+    Là vòng đời không cần người bấm nút từng bước: <strong>Trigger → Xử lý → Kết quả → Quan sát → (lặp lại)</strong>.
+    Con người chuyển từ "người thực thi" sang "người thiết kế &amp; giám sát" quy trình.
+  </p>
+
+  <div class="mermaid">
+flowchart LR
+    TRG["🔔 Trigger<br>(hook: email tới, cron, webhook, PR mới)"] --> ORC["🧭 Orchestrator<br>+ system prompt + memory"]
+    ORC --> A1["🤖 Sub-agent A"]
+    ORC --> A2["🤖 Sub-agent B"]
+    A1 --> T1["🛠️ Tools / MCP"]
+    A2 --> T2["🛠️ Tools / MCP"]
+    T1 --> OUT["📦 Kết quả thật<br>(commit, email, bản ghi DB)"]
+    T2 --> OUT
+    OUT --> MON["📊 Giám sát + log"]
+    MON -. "cảnh báo / cần duyệt" .-> HUMAN["🧑 Người"]
+    HUMAN -. "tinh chỉnh" .-> ORC
+    style TRG fill:#ede9fe,color:#5b21b6,stroke:#c4b5fd
+    style ORC fill:#e0e7ff,color:#3730a3,stroke:#6366f1
+    style OUT fill:#dcfce7,color:#166534,stroke:#86efac
+    style HUMAN fill:#fef3c7,color:#92400e,stroke:#fcd34d
+  </div>
+
+  <h3>Các mảnh ghép</h3>
+  <table>
+    <tr><th>Mảnh</th><th>Vai trò</th><th>Đến từ cấp</th></tr>
+    <tr><td><strong>Trigger / Hook</strong></td><td>Tự khởi động khi có sự kiện (cron, webhook, email, commit)</td><td>mới ở cấp 4</td></tr>
+    <tr><td><strong>Orchestrator</strong></td><td>Điều phối, chia việc cho sub-agent</td><td>Loop (3)</td></tr>
+    <tr><td><strong>Sub-agent + Tool</strong></td><td>Mỗi agent giỏi 1 vai, dùng tool làm việc thật</td><td>Loop (3)</td></tr>
+    <tr><td><strong>Context/Memory/RAG</strong></td><td>Cấp dữ liệu &amp; quy ước cho agent</td><td>Context (2)</td></tr>
+    <tr><td><strong>Prompt mỗi bước</strong></td><td>Hướng dẫn từng agent làm đúng</td><td>Prompt (1)</td></tr>
+    <tr><td><strong>Giám sát + Guardrail</strong></td><td>Log, cảnh báo, chốt duyệt, giới hạn chi phí</td><td>mới ở cấp 4</td></tr>
+  </table>
+
+  <h3>Ví dụ workflow khép kín</h3>
+  <div class="card-grid">
+    <div class="card">
+      <h4>🐛 Triage issue tự động</h4>
+      <p>Issue mới trên GitHub → agent đọc, gắn nhãn, hỏi lại thông tin thiếu, gợi ý hướng sửa, tag người phụ trách.</p>
+    </div>
+    <div class="card">
+      <h4>📧 Xử lý email đến</h4>
+      <p>Email tới → phân loại → soạn nháp trả lời → tạo task/lịch → chờ người duyệt trước khi gửi.</p>
+    </div>
+    <div class="card">
+      <h4>📊 Báo cáo định kỳ</h4>
+      <p>Cron mỗi sáng → query dữ liệu → tổng hợp → sinh báo cáo → đăng lên Slack/Notion.</p>
+    </div>
+    <div class="card">
+      <h4>✅ Bot review PR</h4>
+      <p>PR mới → agent đọc diff → chạy test → để lại nhận xét → gắn nhãn pass/cần sửa.</p>
+    </div>
+  </div>
+
+  <div class="callout warn">
+    ⚠️ Càng tự động, sai sót càng <strong>lan nhanh &amp; âm thầm</strong>. Bắt buộc: giám sát/log, giới hạn chi phí,
+    chốt duyệt ở hành động không thể hoàn tác (xóa, gửi, deploy, chi tiền), và nút "tắt" khẩn cấp.
+  </div>
+
+  <div class="callout tip">
+    ✅ Lộ trình thực tế: <strong>chạy tay nhiều lần</strong> (cấp 1–3) cho thật ổn → <strong>thêm trigger + giám sát</strong> để khép kín →
+    <strong>nới quyền tự chủ từ từ</strong> khi đã tin tưởng. Đừng tự động hóa thứ bạn chưa từng làm tay thành công.
+  </div>
+
+  <h3>Kết: con người ở đâu trong vòng khép kín?</h3>
+  <p>
+    Không biến mất — mà lên vai <strong>thiết kế &amp; giám sát</strong>: định nghĩa mục tiêu, đặt hàng rào,
+    đọc log, can thiệp khi cần, và chịu trách nhiệm cuối cùng cho kết quả. Tự động hóa giỏi nhất vẫn cần một người làm chủ nó.
+  </p>

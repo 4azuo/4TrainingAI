@@ -1,0 +1,76 @@
+  <h2>🧠 Cấp 2 — Context Engineering</h2>
+  <p class="tagline">
+    Prompt giỏi mà AI thiếu thông tin thì vẫn sai. Context Engineering là nghệ thuật
+    <strong>đưa đúng thông tin, vừa đủ, vào "tầm nhìn" của AI</strong> (context window) tại đúng thời điểm.
+  </p>
+
+  <h3>Context window — "bàn làm việc" của AI</h3>
+  <p>
+    AI chỉ "thấy" những gì nằm trong context window của lượt đó. Cửa sổ này <strong>có hạn</strong>:
+    nhồi quá nhiều → tốn token, chậm, và AI dễ "lạc" giữa biển thông tin (mất tập trung vào phần quan trọng).
+    Mục tiêu không phải <em>nhiều</em> ngữ cảnh, mà là <em>đúng</em> ngữ cảnh.
+  </p>
+
+  <h3>Các nguồn ngữ cảnh bạn có thể "nạp"</h3>
+  <div class="card-grid">
+    <div class="card">
+      <h4>📄 File &amp; code trực tiếp</h4>
+      <p>Đưa thẳng đoạn code/tài liệu liên quan. Chính xác nhất, nhưng tốn chỗ — chỉ đưa phần cần.</p>
+    </div>
+    <div class="card">
+      <h4>📚 RAG (truy hồi)</h4>
+      <p>Tự động tìm &amp; chèn đoạn tài liệu liên quan từ kho riêng. Hợp khi dữ liệu lớn, không thể nhồi hết.</p>
+    </div>
+    <div class="card">
+      <h4>💾 Memory (bộ nhớ)</h4>
+      <p>Ghi nhớ sự thật/sở thích qua nhiều phiên (vd file CLAUDE.md, memory của agent). Bền vững, gọn.</p>
+    </div>
+    <div class="card">
+      <h4>🔌 Tool / MCP</h4>
+      <p>Để AI tự lấy ngữ cảnh khi cần (đọc file, query DB, gọi API) thay vì nạp sẵn tất cả.</p>
+    </div>
+  </div>
+
+  <h3>Đưa ngữ cảnh đúng cách</h3>
+  <div class="pc-grid">
+    <div class="pc-box pc-pros">
+      <h4>✅ Nên</h4>
+      <ul>
+        <li>Chọn lọc: chỉ phần liên quan trực tiếp.</li>
+        <li>Cấu trúc rõ: tiêu đề, đường dẫn file, ranh giới đoạn.</li>
+        <li>Đặt quy ước dự án vào "bộ nhớ" (CLAUDE.md / system prompt) để khỏi lặp lại.</li>
+        <li>Để agent tự đọc file qua tool khi cần, thay vì dán cả repo.</li>
+      </ul>
+    </div>
+    <div class="pc-box pc-cons">
+      <h4>❌ Tránh</h4>
+      <ul>
+        <li>Dán nguyên cả codebase "cho chắc".</li>
+        <li>Để rác/ngữ cảnh cũ tích tụ làm AI lẫn lộn.</li>
+        <li>Trộn nhiều task không liên quan trong 1 phiên.</li>
+        <li>Quên rằng ngữ cảnh quá dài làm AI "quên" phần đầu.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="mermaid">
+flowchart LR
+    Q["❓ Nhiệm vụ"] --> SEL{"Chọn ngữ cảnh"}
+    F["📄 File liên quan"] --> SEL
+    R["📚 RAG: tài liệu"] --> SEL
+    M["💾 Memory: quy ước"] --> SEL
+    SEL --> CW["🪟 Context window<br>(đúng &amp; vừa đủ)"]
+    CW --> AI["🤖 AI trả lời sát việc"]
+    style CW fill:#cffafe,color:#155e75,stroke:#67e8f9
+    style AI fill:#dcfce7,color:#166534,stroke:#86efac
+  </div>
+
+  <div class="callout tip">
+    💡 Câu thần chú: <strong>"Right context, right time, minimal noise."</strong>
+    Đưa đúng thứ cần, đúng lúc, càng ít nhiễu càng tốt.
+  </div>
+
+  <p>
+    Khi ngữ cảnh đã chuẩn nhưng việc cần <em>nhiều bước, tự sửa lỗi</em> — ta lên
+    <strong>Loop Engineering</strong> (cấp 3).
+  </p>

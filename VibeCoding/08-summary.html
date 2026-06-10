@@ -1,0 +1,55 @@
+  <h2>🗺️ Tổng kết</h2>
+  <p class="tagline">Toàn cảnh: chọn công cụ theo nhu cầu, hiểu đánh đổi, và nhớ vai trò của con người.</p>
+
+  <h3>Bản đồ quyết định</h3>
+  <div class="mermaid">
+flowchart TD
+    S{"Mục tiêu của bạn?"}
+    S -- "Demo/MVP nhanh,<br>ít/không code" --> A["🧩 Text-to-App<br>Lovable · Bolt · v0 · Replit"]
+    S -- "Làm trên codebase,<br>cần kiểm soát" --> B["💻 IDE + AI<br>Cursor · Copilot · Windsurf"]
+    S -- "Tự động hóa task<br>trong repo/terminal" --> C["⌨️ CLI Agent<br>Claude Code · Gemini CLI"]
+    A --> A2["Nhanh + deploy sẵn<br>Lock-in, trần phức tạp thấp"]
+    B --> B2["Toàn quyền + Git/test đủ<br>Cần biết code"]
+    C --> C2["Tự chạy nhiều bước<br>Mạnh khi giám sát tốt"]
+    A2 --> ENT{"Enterprise?"}
+    B2 --> ENT
+    C2 --> ENT
+    ENT -- "Có" --> P["🔐 Kiểm: no-train, SSO,<br>audit, export, tuân thủ"]
+    style A fill:#dcfce7,color:#166534,stroke:#86efac
+    style B fill:#e0e7ff,color:#3730a3,stroke:#6366f1
+    style C fill:#fef3c7,color:#92400e,stroke:#fcd34d
+    style P fill:#fee2e2,color:#991b1b,stroke:#fca5a5
+  </div>
+
+  <p>Sơ đồ trên trả lời <em>"chọn nhóm công cụ nào"</em>. Bảng dưới tra nhanh theo <strong>nhu cầu cụ thể</strong> và trỏ tới tab đọc thêm — không lặp lại 3 nhánh ở trên.</p>
+  <h3>Tra nhanh theo nhu cầu</h3>
+  <div style="background:#fff;border:1px solid var(--border);border-radius:12px;padding:20px;">
+    <div class="cheat-row"><span class="cheat-situation">Cần deploy 1-click, hosting sẵn</span><span class="cheat-answer">🧩 Text-to-App (tab 3)</span></div>
+    <div class="cheat-row"><span class="cheat-situation">Cần Git / PR / test nghiêm ngặt</span><span class="cheat-answer">💻 IDE+AI hoặc ⌨️ CLI Agent (tab 4)</span></div>
+    <div class="cheat-row"><span class="cheat-situation">Code / dữ liệu nhạy cảm, doanh nghiệp</span><span class="cheat-answer">🔐 Bản Enterprise: no-train, SSO, audit (tab 5)</span></div>
+    <div class="cheat-row"><span class="cheat-situation">Chưa rành thuật ngữ, muốn hiểu sâu</span><span class="cheat-answer">📖 Học kiến thức nền (tab 6)</span></div>
+    <div class="cheat-row"><span class="cheat-situation">Việc ngoài làm app (viết truyện, nghiên cứu…)</span><span class="cheat-answer">📚 Tổ chức project bằng agent (tab 7)</span></div>
+  </div>
+
+  <div class="callout">
+    🔁 Muốn đi xa hơn vibe coding — để AI <strong>tự vận hành theo quy trình khép kín</strong>?
+    Xem trang <strong>"AI Engineering"</strong> (<code>AI-Engineering.html</code>):
+    Prompt → Context → Loop Engineering → Workflow tự động.
+    Nền tảng khái niệm ở bộ <strong>AI Concepts</strong> (<code>AI-Concepts.html</code>).
+  </div>
+
+  <h3>3 điều nên nhớ</h3>
+  <div class="card-grid">
+    <div class="card">
+      <h4>1. Không có tool "tốt nhất"</h4>
+      <p>Chỉ có tool hợp với <em>việc</em> và <em>bối cảnh</em> (personal vs enterprise). Thường là kết hợp nhiều tool.</p>
+    </div>
+    <div class="card">
+      <h4>2. Hiểu đánh đổi</h4>
+      <p>Tốc độ ↔ kiểm soát; dễ dùng ↔ trần phức tạp; tích hợp sẵn ↔ lock-in. Chọn có chủ đích.</p>
+    </div>
+    <div class="card">
+      <h4>3. Con người vẫn chịu trách nhiệm</h4>
+      <p>AI sinh code/nội dung, nhưng review, test và quyết định cuối là của bạn. Đừng "vibe" mù.</p>
+    </div>
+  </div>

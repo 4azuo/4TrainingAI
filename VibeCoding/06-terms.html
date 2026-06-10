@@ -1,0 +1,59 @@
+  <h2>🎓 Vì sao cần học kiến thức này?</h2>
+  <p class="tagline">
+    Dùng được tool chỉ là bề mặt. Hiểu <strong>kiến thức nền + thuật ngữ AI</strong> mới giúp bạn
+    điều khiển công cụ chính xác, chọn đúng cách làm và biết khi nào nên tin — khi nào phải kiểm.
+  </p>
+
+  <h3>3 lý do nên học bài bản, không chỉ "vibe"</h3>
+  <div class="card-grid">
+    <div class="card">
+      <h4>① Để điều khiển tool đúng</h4>
+      <p>Biết "context window", "agent mode", "MCP", "system prompt" giúp bạn bật đúng tính năng và ra lệnh chuẩn — thay vì dùng sai rồi tưởng "AI dở".</p>
+    </div>
+    <div class="card">
+      <h4>② Để hiểu cái đang chạy bên dưới</h4>
+      <p>Tool vibe coding chỉ là lớp vỏ bọc quanh <em>model, prompt, tool, RAG, memory, agent</em>. Hiểu các khối này → biết vì sao kết quả vậy và mở rộng được.</p>
+    </div>
+    <div class="card">
+      <h4>③ Để chọn đúng cách làm</h4>
+      <p>Hiểu đánh đổi giúp bạn quyết định: 3rd-party hay IDE, model nào, personal hay enterprise — có chủ đích thay vì làm theo cảm tính.</p>
+    </div>
+  </div>
+
+  <div class="callout">
+    📚 Đây chính là lý do có bộ <strong>"AI Concepts"</strong> (trang anh em):
+    nó giải thích nền tảng — Model, Prompt, Hook, Tool, Skill, Agent, Memory, RAG, Workflow.
+    Vibe coding là <em>ứng dụng</em> của những khối đó; học nền giúp bạn không bị giới hạn ở một tool cụ thể.
+  </div>
+
+  <h3>Vì sao nên ưu tiên IDE thay vì làm qua 3rd-party tool?</h3>
+  <p>
+    Lý do chi tiết đã có ở <strong>tab 3 (3rd-party: Ưu &amp; Nhược)</strong> và <strong>tab 4 (AI trên VSCode/IDE)</strong>.
+    Tóm tắt một dòng:
+  </p>
+  <ul>
+    <li><strong>Kiểm soát &amp; trần phức tạp cao hơn</strong> — toàn quyền với code, Git/test/debug đầy đủ, không lock-in.</li>
+    <li><strong>Hiểu &amp; chịu trách nhiệm được</strong> — bạn đọc/sửa/review được phần AI sinh, không phụ thuộc nền tảng.</li>
+    <li><strong>3rd-party vẫn tốt cho prototype</strong> — nhưng việc nghiêm túc, dài hạn nên đưa về IDE.</li>
+  </ul>
+
+  <h3>Từ điển tối thiểu khi làm việc với AI</h3>
+  <p>Không cần thuộc lòng — chỉ cần <strong>nhận ra từ và biết nó ảnh hưởng tới gì</strong> (chi phí, chất lượng, rủi ro).</p>
+  <table>
+    <tr><th>Thuật ngữ</th><th>Nghĩa dễ hiểu</th><th>Vì sao bạn cần biết</th></tr>
+    <tr><td><strong>Prompt</strong></td><td>Lời mô tả/yêu cầu bạn gửi cho AI</td><td>Prompt rõ = kết quả tốt. "Ngôn ngữ lập trình mới".</td></tr>
+    <tr><td><strong>Token</strong></td><td>Mẩu chữ AI xử lý (~¾ từ tiếng Anh)</td><td>Chi phí &amp; giới hạn tính theo token.</td></tr>
+    <tr><td><strong>Context window</strong></td><td>Lượng thông tin AI "nhớ" trong 1 phiên</td><td>Quá dài → AI quên đầu; biết để chia nhỏ việc.</td></tr>
+    <tr><td><strong>Model</strong></td><td>"Bộ não" AI (Opus, Sonnet, GPT…)</td><td>Chọn model mạnh/nhanh/rẻ tùy việc.</td></tr>
+    <tr><td><strong>Agent</strong></td><td>AI tự lập kế hoạch &amp; làm nhiều bước</td><td>Khác hẳn chat thường; cần giám sát.</td></tr>
+    <tr><td><strong>Tool / Function calling</strong></td><td>AI gọi công cụ ngoài (chạy lệnh, đọc file)</td><td>Thứ cho phép AI "làm việc thật".</td></tr>
+    <tr><td><strong>MCP</strong></td><td>Chuẩn chung để cắm dữ liệu/tool ngoài vào AI</td><td>Mở rộng AI tới hệ thống của bạn.</td></tr>
+    <tr><td><strong>RAG</strong></td><td>Cho AI tra tài liệu riêng trước khi trả lời</td><td>Dùng kiến thức nội bộ, bớt bịa.</td></tr>
+    <tr><td><strong>Hallucination</strong></td><td>AI "bịa" thông tin/hàm/API không có thật</td><td>Lý do bắt buộc phải review &amp; test.</td></tr>
+    <tr><td><strong>System prompt</strong></td><td>Chỉ dẫn nền định hình cách AI hành xử</td><td>Đặt quy tắc/chuẩn cho cả phiên (vd CLAUDE.md).</td></tr>
+  </table>
+
+  <div class="callout tip">
+    ✅ Quy tắc vàng: học nền <em>một lần</em>, dùng được với <em>mọi tool</em>. Tool sẽ đổi tên, đổi giao diện —
+    nhưng Model/Prompt/Agent/RAG thì còn mãi.
+  </div>

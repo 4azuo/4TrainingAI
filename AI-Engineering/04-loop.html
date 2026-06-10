@@ -1,0 +1,70 @@
+  <h2>🔄 Cấp 3 — Loop Engineering</h2>
+  <p class="tagline">
+    Đây là bước biến AI từ "trả lời 1 phát" thành <strong>agent tự làm nhiều bước</strong>:
+    lập kế hoạch → hành động → quan sát kết quả → tự điều chỉnh, lặp đến khi xong.
+  </p>
+
+  <h3>Vòng lặp agent cơ bản</h3>
+  <div class="mermaid">
+flowchart TD
+    G["🎯 Mục tiêu"] --> PL["🗺️ Plan: chia bước"]
+    PL --> ACT["🛠️ Act: gọi tool / sửa file"]
+    ACT --> OBS["👁️ Observe: đọc kết quả / lỗi"]
+    OBS --> CHK{"Đạt mục tiêu?"}
+    CHK -- "Chưa" --> REF["🤔 Reflect: chỉnh kế hoạch"]
+    REF --> ACT
+    CHK -- "Rồi" --> DONE["✅ Trả kết quả"]
+    style G fill:#fef3c7,color:#92400e,stroke:#fcd34d
+    style DONE fill:#dcfce7,color:#166534,stroke:#86efac
+  </div>
+  <p>Ví dụ thực tế: agent sửa bug → chạy test → đọc test fail → sửa tiếp → chạy lại → pass → dừng.</p>
+
+  <h3>Những thứ bạn phải "engineer" cho vòng lặp</h3>
+  <div class="steps">
+    <div class="step"><strong>Tiêu chí dừng (stopping criteria)</strong>
+      <p>Khi nào coi là "xong"? (test pass, file tồn tại, output đúng schema). Thiếu cái này → agent lặp vô tận hoặc dừng sớm.</p>
+    </div>
+    <div class="step"><strong>Tool &amp; quyền hạn</strong>
+      <p>Cho agent công cụ gì (đọc/ghi file, chạy lệnh, gọi API) và giới hạn nào. Quyền càng rộng → càng mạnh &amp; càng rủi ro.</p>
+    </div>
+    <div class="step"><strong>Phản hồi để tự sửa</strong>
+      <p>Agent cần "thấy" kết quả hành động (log, lỗi test) thì mới sửa được. Không có vòng phản hồi = không tự sửa.</p>
+    </div>
+    <div class="step"><strong>Hàng rào an toàn (guardrails)</strong>
+      <p>Giới hạn số bước/chi phí, chặn lệnh nguy hiểm, chốt kiểm duyệt của con người ở điểm quan trọng.</p>
+    </div>
+    <div class="step"><strong>Điểm người duyệt (human-in-the-loop)</strong>
+      <p>Việc rủi ro (xóa dữ liệu, deploy, gửi email) nên dừng hỏi người trước khi làm.</p>
+    </div>
+  </div>
+
+  <div class="pc-grid">
+    <div class="pc-box pc-pros">
+      <h4>✅ Vòng lặp tốt</h4>
+      <ul>
+        <li>Có tiêu chí dừng đo được.</li>
+        <li>Giới hạn bước/chi phí rõ ràng.</li>
+        <li>Tự kiểm bằng test/kiểm tra thực tế.</li>
+        <li>Dừng hỏi người ở chỗ rủi ro.</li>
+      </ul>
+    </div>
+    <div class="pc-box pc-cons">
+      <h4>❌ Vòng lặp dễ hỏng</h4>
+      <ul>
+        <li>"Cứ làm đến khi tốt" — không đo được → lặp mãi.</li>
+        <li>Toàn quyền không giới hạn → hành động nguy hiểm.</li>
+        <li>Không có phản hồi → lặp lại cùng lỗi.</li>
+        <li>Tin output mà không kiểm thực tế.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout warn">
+    ⚠️ Rủi ro đặc trưng cấp này: agent <strong>tự tin nhưng sai</strong>, lặp lại lỗi, hoặc "đi lạc" tiêu tốn token/quyền.
+    Loop Engineering = phần lớn là <em>thiết kế giới hạn &amp; phản hồi</em>, không chỉ "thả cho chạy".
+  </div>
+
+  <p>
+    Khi một vòng lặp đã chạy ổn, bước cuối là <strong>gắn nó vào sự kiện thật</strong> để tự khởi động —
+    đó là <strong>Workflow khép kín</strong> (cấp 4).
+  </p>

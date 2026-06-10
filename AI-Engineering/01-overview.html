@@ -1,0 +1,57 @@
+  <h2>🪜 Thang kỹ năng vận hành AI</h2>
+  <p class="tagline">
+    Vibe coding là điểm khởi đầu. Để AI làm được việc lớn — thậm chí <strong>tự vận hành</strong> — bạn leo qua
+    4 cấp, mỗi cấp khó hơn nhưng cho bạn nhiều quyền lực hơn: <strong>Prompt → Context → Loop → Workflow khép kín</strong>.
+  </p>
+
+  <div class="level l1">
+    <span class="level-num">1</span><h4>Prompt Engineering</h4><span class="level-tag">Dễ · ai cũng cần</span>
+    <p>Viết yêu cầu rõ ràng cho <em>một lượt</em> hỏi-đáp. Điều khiển <strong>cái AI làm ngay bây giờ</strong>.</p>
+  </div>
+  <div class="level l2">
+    <span class="level-num">2</span><h4>Context Engineering</h4><span class="level-tag">Trung bình</span>
+    <p>Quản lý <em>những gì AI nhìn thấy</em>: tài liệu, file, ví dụ, bộ nhớ. Điều khiển <strong>cái AI biết</strong>.</p>
+  </div>
+  <div class="level l3">
+    <span class="level-num">3</span><h4>Loop Engineering</h4><span class="level-tag">Khó</span>
+    <p>Thiết kế <em>vòng lặp tự sửa</em>: AI lập kế hoạch → hành động → quan sát → điều chỉnh. Điều khiển <strong>cách AI tự làm nhiều bước</strong>.</p>
+  </div>
+  <div class="level l4">
+    <span class="level-num">4</span><h4>Workflow khép kín</h4><span class="level-tag">Khó nhất</span>
+    <p>Ghép tất cả thành <em>quy trình tự chạy</em>: trigger → agent → tool → kết quả, có giám sát. Điều khiển <strong>để AI tự hoạt động</strong>.</p>
+  </div>
+
+  <h3>Vì sao độ khó tăng dần?</h3>
+  <div class="mermaid">
+flowchart LR
+    P["1. Prompt<br>1 lượt"] --> C["2. Context<br>nhiều nguồn"]
+    C --> L["3. Loop<br>nhiều bước tự sửa"]
+    L --> W["4. Workflow<br>tự chạy, không cần người"]
+    P -. "kiểm soát từng chữ" .-> note1[" "]
+    W -. "giao phó nhiều hơn<br>→ cần guardrail" .-> note2[" "]
+    style P fill:#dcfce7,color:#166534,stroke:#86efac
+    style C fill:#cffafe,color:#155e75,stroke:#67e8f9
+    style L fill:#fef3c7,color:#92400e,stroke:#fcd34d
+    style W fill:#ede9fe,color:#5b21b6,stroke:#c4b5fd
+    style note1 fill:#fff,stroke:#fff
+    style note2 fill:#fff,stroke:#fff
+  </div>
+  <p>
+    Càng lên cao, bạn càng <strong>giao việc</strong> nhiều cho AI và <strong>can thiệp thủ công</strong> ít đi.
+    Đổi lại, bạn phải đầu tư nhiều hơn vào <em>thiết kế</em> (ngữ cảnh, vòng lặp, hàng rào an toàn) để AI không đi chệch.
+  </p>
+
+  <h3>Mỗi cấp cho ai?</h3>
+  <table>
+    <tr><th>Cấp</th><th>Bạn làm chủ điều gì</th><th>Phù hợp khi…</th></tr>
+    <tr><td><strong>1. Prompt</strong></td><td>Cái AI làm trong 1 lượt</td><td>Hỏi đáp, sinh nội dung/code lẻ</td></tr>
+    <tr><td><strong>2. Context</strong></td><td>Cái AI biết / nhìn thấy</td><td>Làm việc với codebase, tài liệu riêng</td></tr>
+    <tr><td><strong>3. Loop</strong></td><td>Cách AI tự làm nhiều bước</td><td>Giao task lớn cho agent tự hoàn thành</td></tr>
+    <tr><td><strong>4. Workflow</strong></td><td>Để AI tự chạy theo sự kiện</td><td>Tự động hóa quy trình lặp đi lặp lại</td></tr>
+  </table>
+
+  <div class="callout">
+    📚 Trang này bổ trợ cho: <strong>Vibe Coding</strong> (chọn công cụ) và
+    <strong>AI Concepts</strong> (khái niệm nền: Model, Tool, Agent, RAG, Memory, Hook).
+    Ở đây ta tập trung vào <em>kỹ năng vận hành</em> — cách dùng những khối đó cho khéo.
+  </div>

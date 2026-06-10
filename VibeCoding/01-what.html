@@ -1,0 +1,63 @@
+  <h2>🌀 Vibe Coding là gì?</h2>
+  <p class="tagline">
+    "Vibe coding" — bạn <strong>mô tả ý tưởng bằng ngôn ngữ tự nhiên</strong>, AI viết code,
+    bạn xem kết quả chạy và tiếp tục mô tả để chỉnh — thay vì tự gõ từng dòng.
+  </p>
+
+  <h3>Nguồn gốc thuật ngữ</h3>
+  <p>
+    Khái niệm do <strong>Andrej Karpathy</strong> (đồng sáng lập OpenAI) đặt tên đầu 2025:
+    <em>"fully give in to the vibes… and forget that the code even exists"</em> — phó mặc cho cảm hứng,
+    tin vào AI, gần như quên rằng có code bên dưới. Từ đó "vibe coding" trở thành cách gọi chung cho
+    lối lập trình <strong>dẫn dắt bằng prompt</strong>.
+  </p>
+
+  <div class="callout">
+    💡 Điểm cốt lõi: con người chuyển vai từ <strong>"người gõ code"</strong> sang
+    <strong>"người mô tả ý định + kiểm duyệt kết quả"</strong>. AI lo phần cú pháp, bạn lo phần ý tưởng và đánh giá.
+  </div>
+
+  <h3>Vòng lặp của Vibe Coding</h3>
+  <div class="mermaid">
+flowchart LR
+    A["🧑 Mô tả ý tưởng<br>(prompt)"] --> B["🤖 AI sinh code"]
+    B --> C["▶️ Chạy / xem preview"]
+    C --> D{Ổn chưa?}
+    D -- "Chưa" --> E["🗣️ Mô tả chỗ sai<br>/ yêu cầu chỉnh"]
+    E --> B
+    D -- "Rồi" --> F["🚀 Deploy / commit"]
+    style A fill:#e0e7ff,color:#3730a3,stroke:#6366f1
+    style B fill:#ede9fe,color:#4c1d95,stroke:#a78bfa
+    style F fill:#dcfce7,color:#14532d,stroke:#86efac
+  </div>
+
+  <h3>Vibe Coding vs Lập trình truyền thống</h3>
+  <table>
+    <tr><th>Khía cạnh</th><th>Truyền thống</th><th>Vibe Coding</th></tr>
+    <tr><td>Đầu vào chính</td><td>Code do người gõ</td><td>Mô tả ngôn ngữ tự nhiên (prompt)</td></tr>
+    <tr><td>Tốc độ tạo bản nháp</td><td>Chậm</td><td>Rất nhanh (phút → giờ)</td></tr>
+    <tr><td>Vai trò con người</td><td>Tác giả code</td><td>Đạo diễn + người review</td></tr>
+    <tr><td>Rủi ro</td><td>Lỗi do mình viết</td><td>Lỗi/ "ảo giác" do AI, mình có thể không hiểu code</td></tr>
+    <tr><td>Hợp nhất với</td><td>Hệ thống lớn, cần kiểm soát</td><td>Prototype, MVP, công cụ nội bộ, học nhanh</td></tr>
+  </table>
+
+  <div class="callout warn">
+    ⚠️ Vibe coding <strong>không xóa bỏ nhu cầu hiểu code</strong>. Với sản phẩm thật, bạn vẫn phải
+    đọc, review, test và chịu trách nhiệm cho code AI sinh ra — nếu không sẽ tích lũy "nợ kỹ thuật" mà không ai hiểu.
+  </div>
+
+  <h3>3 cấp độ "vibe" — chọn đúng mức cho việc của bạn</h3>
+  <div class="card-grid">
+    <div class="card">
+      <h4>① Tự động hoàn thiện (Autocomplete)</h4>
+      <p>AI gợi ý dòng tiếp theo khi bạn gõ. Bạn vẫn kiểm soát hoàn toàn. VD: GitHub Copilot, Cursor Tab.</p>
+    </div>
+    <div class="card">
+      <h4>② Trợ lý theo lệnh (Inline / Chat)</h4>
+      <p>Bạn ra lệnh "viết hàm X", "sửa lỗi này" cho một vùng code. VD: Cmd+K của Cursor, Copilot Chat.</p>
+    </div>
+    <div class="card">
+      <h4>③ Agent tự chủ (Vibe thuần)</h4>
+      <p>AI tự lập kế hoạch, sửa nhiều file, chạy lệnh, tự sửa lỗi. VD: Cursor Agent, Claude Code, Lovable, Replit Agent.</p>
+    </div>
+  </div>
