@@ -3,6 +3,10 @@
    vào iframe. Khác với common.js (vốn lo tab + search TRONG mỗi trang),
    nên vỏ có logic riêng ở đây.
    Thêm trang mới = thêm 1 dòng trong mảng PAGES.
+
+   Mỗi trang con có 1 iframe RIÊNG, tạo lazy lần đầu mở rồi GIỮ SỐNG.
+   Đổi tab = bật/tắt class .is-active (ẩn/hiện) — KHÔNG đổi src, nên
+   không reload, không nháy, giữ nguyên scroll + sub-tab + ô tìm kiếm.
    ════════════════════════════════════════════════════════════ */
 var PAGES = [
   { id: 'vibe',     icon: '🌀', label: 'Vibe Coding',           file: 'VibeCoding.html' },
@@ -11,13 +15,26 @@ var PAGES = [
 ];
 
 var STORAGE_KEY = 'activePage:index';
-var nav   = document.getElementById('shell-nav');
-var frame = document.getElementById('shell-frame');
+var nav    = document.getElementById('shell-nav');
+var main   = document.getElementById('shell-main');
+var frames = {}; // id -> <iframe> đã tạo (giữ sống)
 
 function getInitialPageId() {
   var saved = localStorage.getItem(STORAGE_KEY);
   var ok = PAGES.some(function (p) { return p.id === saved; });
   return ok ? saved : PAGES[0].id;
+}
+
+/* Tạo iframe cho 1 trang (chỉ 1 lần), rồi tái dùng ở các lần đổi tab sau. */
+function getFrame(page) {
+  if (frames[page.id]) return frames[page.id];
+  var f = document.createElement('iframe');
+  f.className = 'shell-frame';
+  f.title = page.label;
+  f.src = page.file;
+  main.appendChild(f);
+  frames[page.id] = f;
+  return f;
 }
 
 function activate(id) {
@@ -27,13 +44,10 @@ function activate(id) {
   document.querySelectorAll('.shell-tab').forEach(function (b) {
     b.classList.toggle('active', b.dataset.page === id);
   });
-  // Chỉ đổi src khi khác trang hiện tại (tránh reload thừa).
-  var target = page.file;
-  var current = frame.getAttribute('data-file');
-  if (current !== target) {
-    frame.setAttribute('data-file', target);
-    frame.src = target;
-  }
+  getFrame(page); // tạo lazy nếu là lần đầu mở trang này
+  Object.keys(frames).forEach(function (key) {
+    frames[key].classList.toggle('is-active', key === id);
+  });
 }
 
 PAGES.forEach(function (p) {

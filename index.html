@@ -16,9 +16,8 @@
   <nav class="shell-nav" id="shell-nav"></nav>
 </header>
 
-<main class="shell-main">
-  <iframe id="shell-frame" class="shell-frame" title="Nội dung trang" src="about:blank"></iframe>
-</main>
+<!-- Mỗi trang con = 1 iframe (tạo lazy, giữ sống). index.js bật/tắt is-active. -->
+<main class="shell-main" id="shell-main"></main>
 
 <!-- index.js: dựng tab cấp cao + nạp trang con vào iframe -->
 <script src="index.js"></script>
