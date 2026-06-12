@@ -1,0 +1,89 @@
+  <h2>📐 Spec-Driven Development</h2>
+  <p class="tagline">
+    Thay vì "tả miệng rồi sửa dần", bạn viết <strong>đặc tả (spec) rõ ràng trước</strong> — ý định, yêu cầu,
+    tiêu chí nghiệm thu — rồi để AI lập kế hoạch, code và tự kiểm theo spec đó. <em>Spec là nguồn chân lý</em>, không phải code.
+  </p>
+
+  <h3>Vì sao cần spec?</h3>
+  <p>
+    Vibe coding hợp với việc nhỏ. Nhưng việc lớn, mơ hồ → AI đoán sai ý, làm xong mới biết "không phải cái này",
+    rồi sửa vá chồng chất. Spec-Driven Development đẩy phần <strong>suy nghĩ &amp; thống nhất</strong> lên trước,
+    để AI làm <em>đúng thứ cần làm</em> ngay từ đầu.
+  </p>
+
+  <div class="mermaid">
+flowchart LR
+    IDEA["💡 Ý tưởng<br>(mơ hồ)"] --> SPEC["📐 Spec<br>ý định + yêu cầu + tiêu chí"]
+    SPEC --> PLAN["🗺️ Plan<br>kiến trúc + chia bước"]
+    PLAN --> TASK["✅ Tasks<br>việc nhỏ kiểm được"]
+    TASK --> IMPL["🛠️ Implement<br>AI code theo task"]
+    IMPL --> VER{"Khớp spec?"}
+    VER -- "Chưa" --> SPEC
+    VER -- "Rồi" --> DONE["📦 Kết quả"]
+    style SPEC fill:#e0e7ff,color:#3730a3,stroke:#6366f1
+    style DONE fill:#dcfce7,color:#166534,stroke:#86efac
+  </div>
+  <p>Điểm mấu chốt: khi sai, bạn <strong>sửa spec rồi sinh lại</strong>, chứ không vá mù vào code.</p>
+
+  <h3>Một spec tốt gồm gì?</h3>
+  <div class="steps">
+    <div class="step"><strong>Ý định &amp; bối cảnh (Why)</strong>
+      <p>Giải quyết vấn đề gì, cho ai, ràng buộc nào. Giúp AI quyết định đúng ở chỗ bạn quên ghi.</p>
+    </div>
+    <div class="step"><strong>Yêu cầu rõ ràng (What)</strong>
+      <p>Hành vi mong muốn, input/output, trường hợp biên. Tránh từ mơ hồ ("nhanh", "đẹp", "an toàn") — hãy đo được.</p>
+    </div>
+    <div class="step"><strong>Tiêu chí nghiệm thu (Done)</strong>
+      <p>Làm sao biết là "xong &amp; đúng": test pass, output đúng schema, màn hình khớp mô tả. Đây cũng là tiêu chí dừng cho agent.</p>
+    </div>
+    <div class="step"><strong>Ngoài phạm vi (Out of scope)</strong>
+      <p>Ghi rõ cái <em>không</em> làm, để AI không "vẽ rắn thêm chân".</p>
+    </div>
+    <div class="step"><strong>Quy ước &amp; ràng buộc</strong>
+      <p>Tech stack, style, thư viện được/không được dùng, giới hạn hiệu năng — phần Context Engineering cấp cho spec.</p>
+    </div>
+  </div>
+
+  <h3>So với cách làm cũ</h3>
+  <table>
+    <tr><th></th><th>Vibe / Prompt lẻ</th><th>Spec-Driven</th></tr>
+    <tr><td><strong>Nguồn chân lý</strong></td><td>Code đã sinh ra</td><td>Spec (con người duyệt)</td></tr>
+    <tr><td><strong>Khi sai</strong></td><td>Vá trực tiếp vào code</td><td>Sửa spec → sinh lại</td></tr>
+    <tr><td><strong>Hợp với</strong></td><td>Việc nhỏ, thử nghiệm nhanh</td><td>Tính năng lớn, nhiều người, dài hạn</td></tr>
+    <tr><td><strong>Rủi ro</strong></td><td>Lệch ý, khó bảo trì</td><td>Tốn công viết spec lúc đầu</td></tr>
+  </table>
+
+  <div class="card-grid">
+    <div class="card">
+      <h4>1️⃣ Viết spec</h4>
+      <p>Mô tả ý định + yêu cầu + tiêu chí nghiệm thu. Cùng AI làm rõ chỗ mơ hồ trước khi code.</p>
+    </div>
+    <div class="card">
+      <h4>2️⃣ Sinh plan &amp; tasks</h4>
+      <p>AI biến spec thành kiến trúc và danh sách việc nhỏ kiểm được. Bạn duyệt plan, không duyệt từng dòng.</p>
+    </div>
+    <div class="card">
+      <h4>3️⃣ Thực thi</h4>
+      <p>AI code từng task, đối chiếu liên tục với spec. Lệch là biết ngay vì có tiêu chí rõ.</p>
+    </div>
+    <div class="card">
+      <h4>4️⃣ Nghiệm thu</h4>
+      <p>Kiểm theo tiêu chí trong spec (test/chạy thật). Đạt thì chốt; chưa đạt thì quay lại sửa spec/plan.</p>
+    </div>
+  </div>
+
+  <div class="callout tip">
+    ✅ Mẹo: spec không cần dài — cần <strong>đủ rõ để hai bên hiểu giống nhau</strong>. Bắt đầu từ vài dòng "ý định + tiêu chí done",
+    để AI hỏi ngược những chỗ thiếu, rồi mới mở rộng. Spec sống cùng dự án và được cập nhật, không phải viết một lần rồi bỏ.
+  </div>
+
+  <div class="callout warn">
+    ⚠️ Bẫy thường gặp: viết spec mơ hồ rồi đổ lỗi cho AI; hoặc sa đà đặc tả quá chi tiết tới mức cứng nhắc.
+    Spec là <em>hợp đồng về ý định</em>, không phải bản vẽ từng nút bấm.
+  </div>
+
+  <p>
+    Spec-Driven Development gói gọn cả thang kỹ năng: <strong>Prompt</strong> để viết spec rõ, <strong>Context</strong> để cấp quy ước,
+    <strong>Loop</strong> để AI tự sửa theo tiêu chí. Bước tiếp theo là giao việc cho <em>nhiều agent</em> cùng làm — đó là
+    <strong>Agent-Based Development</strong>.
+  </p>

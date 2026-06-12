@@ -9,5 +9,7 @@ var TABS = [
   { id: 'context',  label: '3. Context Engineering',  file: 'AI-Engineering/03-context.html' },
   { id: 'loop',     label: '4. Loop Engineering',     file: 'AI-Engineering/04-loop.html' },
   { id: 'workflow', label: '5. Workflow khép kín',    file: 'AI-Engineering/05-workflow.html' },
-  { id: 'history',  label: '📋 Lịch sử',              file: 'AI-Engineering/06-history.html' }
+  { id: 'spec',     label: '6. Spec-Driven Dev',      file: 'AI-Engineering/06-spec.html' },
+  { id: 'agent',    label: '7. Agent-Based Dev',      file: 'AI-Engineering/07-agent.html' },
+  { id: 'history',  label: '📋 Lịch sử',              file: 'AI-Engineering/08-history.html' }
 ];

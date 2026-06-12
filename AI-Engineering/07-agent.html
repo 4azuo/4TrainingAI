@@ -1,0 +1,89 @@
+  <h2>🤖 Agent-Based Development</h2>
+  <p class="tagline">
+    Bước phát triển mà AI <strong>agent là thành viên thật trong đội</strong>: nhiều agent chuyên vai —
+    lập kế hoạch, code, review, test — phối hợp dưới một orchestrator để hoàn thành việc lớn,
+    thay vì một mình bạn ra lệnh từng bước.
+  </p>
+
+  <h3>Một agent vs. nhiều agent</h3>
+  <p>
+    Một agent tự lặp (Loop) đã làm được task vừa. Việc lớn hơn thường <strong>chia vai</strong> sẽ tốt hơn:
+    mỗi agent có system prompt, tool và ngữ cảnh riêng cho đúng phần việc của nó — giống một đội người thật.
+  </p>
+
+  <div class="mermaid">
+flowchart TD
+    SPEC["📐 Spec / Mục tiêu"] --> ORC["🧭 Orchestrator<br>chia việc + ghép kết quả"]
+    ORC --> PLAN["🗺️ Agent Planner<br>thiết kế, chia task"]
+    ORC --> CODE["⌨️ Agent Coder<br>viết code"]
+    ORC --> TEST["🧪 Agent Tester<br>viết &amp; chạy test"]
+    ORC --> REV["🔍 Agent Reviewer<br>soi lỗi, góp ý"]
+    CODE --> ART["📦 Code + Test"]
+    TEST --> ART
+    REV -. "yêu cầu sửa" .-> CODE
+    ART --> ORC
+    style ORC fill:#e0e7ff,color:#3730a3,stroke:#6366f1
+    style ART fill:#dcfce7,color:#166534,stroke:#86efac
+  </div>
+
+  <h3>Các mẫu phối hợp hay gặp</h3>
+  <div class="steps">
+    <div class="step"><strong>Orchestrator → Sub-agent</strong>
+      <p>Một agent điều phối chia task cho các agent con chuyên vai, rồi tổng hợp lại. Mẫu phổ biến nhất.</p>
+    </div>
+    <div class="step"><strong>Song song (parallel)</strong>
+      <p>Nhiều agent làm các phần độc lập cùng lúc (mỗi agent một nhánh/worktree) → nhanh hơn, ít đụng nhau.</p>
+    </div>
+    <div class="step"><strong>Đường chuyền (pipeline)</strong>
+      <p>Kết quả agent này là đầu vào agent kế: Plan → Code → Test → Review nối tiếp.</p>
+    </div>
+    <div class="step"><strong>Tranh luận / phản biện</strong>
+      <p>Agent Reviewer soi lỗi agent Coder; hai góc nhìn khác nhau giúp bắt sai sót sớm.</p>
+    </div>
+  </div>
+
+  <h3>Phải "engineer" những gì?</h3>
+  <table>
+    <tr><th>Yếu tố</th><th>Vì sao quan trọng</th></tr>
+    <tr><td><strong>Ranh giới vai rõ</strong></td><td>Mỗi agent một việc + tool riêng. Vai chồng chéo → dẫm chân, lãng phí token.</td></tr>
+    <tr><td><strong>Giao tiếp giữa agent</strong></td><td>Truyền đúng &amp; đủ thông tin (spec, kết quả), tránh "tam sao thất bản".</td></tr>
+    <tr><td><strong>Ngân sách &amp; giới hạn</strong></td><td>Nhiều agent = nhiều token/chi phí. Đặt trần bước, trần tiền, timeout.</td></tr>
+    <tr><td><strong>Gộp kết quả</strong></td><td>Orchestrator phải hợp nhất output, xử lý xung đột (merge, mâu thuẫn).</td></tr>
+    <tr><td><strong>Người chốt cuối</strong></td><td>Hành động không thể hoàn tác (merge, deploy, gửi) cần con người duyệt.</td></tr>
+  </table>
+
+  <div class="pc-grid">
+    <div class="pc-box pc-pros">
+      <h4>✅ Khi nào nên nhiều agent</h4>
+      <ul>
+        <li>Việc lớn, chia được thành phần độc lập.</li>
+        <li>Cần nhiều góc nhìn (code vs. review).</li>
+        <li>Muốn chạy song song cho nhanh.</li>
+        <li>Mỗi phần cần tool/ngữ cảnh rất khác nhau.</li>
+      </ul>
+    </div>
+    <div class="pc-box pc-cons">
+      <h4>❌ Khi nào đừng vội</h4>
+      <ul>
+        <li>Task nhỏ — một agent là đủ, thêm agent chỉ tốn kém.</li>
+        <li>Chưa chạy ổn bằng một agent thì đừng nhân lên.</li>
+        <li>Việc dính chặt vào nhau, khó chia → khó song song.</li>
+        <li>Chưa có cách gộp kết quả &amp; giám sát.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout warn">
+    ⚠️ Nhiều agent <strong>nhân cả sức mạnh lẫn lỗi</strong>: một hiểu sai spec có thể lan ra cả đội, tốn token âm thầm.
+    Bắt buộc có log từng agent, trần chi phí, và điểm gộp/duyệt của con người.
+  </div>
+
+  <div class="callout tip">
+    ✅ Lộ trình: làm <strong>spec rõ</strong> → chạy <strong>một agent</strong> cho ổn → mới <strong>tách vai &amp; song song hóa</strong>
+    khi thật sự cần. Đừng bắt đầu bằng "đội 5 agent" cho một việc một người làm được.
+  </div>
+
+  <p>
+    Agent-Based Development là cách <em>tổ chức lực lượng</em> AI; khi gắn nó vào sự kiện thật để tự khởi động
+    (cron, webhook, PR mới) thì chính là <strong>Workflow khép kín</strong> ở cấp 4.
+  </p>
