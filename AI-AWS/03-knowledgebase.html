@@ -1,0 +1,48 @@
+  <h2>📚 Bedrock Knowledge Bases — RAG được quản lý</h2>
+  <p class="tagline"><strong>RAG = trả lời dựa trên tài liệu của bạn.</strong> Knowledge Bases lo trọn khâu: chia nhỏ tài liệu → tạo embedding → lưu vector → truy hồi → ghép vào prompt. Bạn chỉ trỏ tới dữ liệu trên S3.</p>
+
+  <h3>Knowledge Bases làm gì cho bạn</h3>
+  <ul>
+    <li><strong>Ingestion:</strong> đọc nguồn (S3, web crawler, Confluence, SharePoint, Salesforce), <em>chunk</em> tài liệu.</li>
+    <li><strong>Embedding:</strong> gọi model embedding (Titan Embeddings / Cohere) sinh vector.</li>
+    <li><strong>Lưu trữ vector:</strong> ghi vào OpenSearch Serverless, Aurora pgvector, Pinecone, Redis, Neptune...</li>
+    <li><strong>Retrieve & Generate:</strong> 1 API <code>RetrieveAndGenerate</code> truy hồi đoạn liên quan + gọi LLM trả lời <em>kèm trích dẫn nguồn</em>.</li>
+  </ul>
+
+  <h3>Luồng RAG</h3>
+  <div class="mermaid">
+flowchart LR
+    subgraph Ingest["⚙️ Nạp dữ liệu (1 lần / định kỳ)"]
+      S3["🗄️ S3 tài liệu"] --> CH["✂️ Chunk"]
+      CH --> EMB["🔢 Embedding model<br>(Titan / Cohere)"]
+      EMB --> VDB["🧮 Vector store<br>(OpenSearch...)"]
+    end
+    subgraph Ask["💬 Khi người dùng hỏi"]
+      Q["❓ Câu hỏi"] --> QE["🔢 Embedding"]
+      QE --> SEARCH["🔎 Tìm vector gần nhất"]
+      VDB --> SEARCH
+      SEARCH --> CTX["📋 Ngữ cảnh + câu hỏi"]
+      CTX --> LLM["🟧 Bedrock FM"]
+      LLM --> ANS["✅ Trả lời + trích dẫn"]
+    end
+    style S3 fill:#e0f2fe,color:#0c4a6e,stroke:#7dd3fc
+    style VDB fill:#fdf4ff,color:#7e22ce,stroke:#d8b4fe
+    style LLM fill:#fff7ed,color:#9a3412,stroke:#fdba74
+    style ANS fill:#dcfce7,color:#14532d,stroke:#86efac
+  </div>
+
+  <h3>RAG vs Fine-tuning vs đút thẳng vào prompt</h3>
+  <table>
+    <tr><th></th><th>RAG (Knowledge Bases)</th><th>Fine-tuning</th><th>Nhồi cả tài liệu vào prompt</th></tr>
+    <tr><td>Mục đích</td><td>Thêm <strong>kiến thức</strong> mới, hay đổi</td><td>Đổi <strong>văn phong / kỹ năng</strong></td><td>Ngữ cảnh nhỏ, tạm thời</td></tr>
+    <tr><td>Cập nhật dữ liệu</td><td><span class="pill yes">Chỉ cần re-sync</span></td><td><span class="pill no">Train lại tốn kém</span></td><td><span class="pill mid">Mỗi lần gọi</span></td></tr>
+    <tr><td>Chống "bịa" (hallucination)</td><td><span class="pill yes">Tốt — có nguồn</span></td><td><span class="pill mid">Trung bình</span></td><td><span class="pill yes">Tốt nhưng giới hạn cửa sổ</span></td></tr>
+    <tr><td>Chi phí</td><td>Vừa</td><td>Cao ban đầu</td><td>Token cao mỗi request</td></tr>
+  </table>
+
+  <div class="callout warn">⚠️ Câu hỏi kinh điển: "trả lời theo tài liệu mới cập nhật hằng ngày" → <strong>RAG</strong>, KHÔNG phải fine-tune. "Luôn trả lời theo phong cách thương hiệu" → fine-tune.</div>
+
+  <div class="usecase">
+    <div class="uc-title">🧩 Ví dụ tích hợp — Hỏi đáp tài liệu nội bộ</div>
+    <div class="uc-flow">Tài liệu PDF trên <code>S3</code> → <code>Bedrock Knowledge Base</code> (vector vào <code>OpenSearch Serverless</code>) → app gọi <code>RetrieveAndGenerate</code>; <code>EventBridge</code> hẹn giờ re-sync khi có file mới; quyền truy cập theo người dùng kiểm soát bằng <code>IAM</code> + metadata filter.</div>
+  </div>

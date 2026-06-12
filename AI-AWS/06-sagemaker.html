@@ -1,0 +1,61 @@
+  <h2>🟩 Amazon SageMaker — Nền tảng ML đầy đủ</h2>
+  <p class="tagline"><strong>SageMaker = xưởng ML toàn diện.</strong> Khi Bedrock chưa đủ kiểm soát, SageMaker cho bạn tự build, train, fine-tune và deploy mô hình — kể cả Foundation Model mã nguồn mở qua JumpStart.</p>
+
+  <h3>Các mảnh ghép thường gặp khi thi</h3>
+  <div class="svc-grid">
+    <div class="svc-card">
+      <h4>JumpStart</h4>
+      <div class="role">FM dựng sẵn</div>
+      <p>Kho FM &amp; mô hình mã nguồn mở (Llama, Falcon, Stable Diffusion...) deploy 1 click, fine-tune được, chạy <strong>trong VPC của bạn</strong>.</p>
+    </div>
+    <div class="svc-card">
+      <h4>SageMaker Studio</h4>
+      <div class="role">IDE cho ML</div>
+      <p>Notebook, debug, theo dõi thí nghiệm — môi trường phát triển hợp nhất.</p>
+    </div>
+    <div class="svc-card">
+      <h4>Training Jobs</h4>
+      <div class="role">Huấn luyện</div>
+      <p>Train/fine-tune phân tán trên cụm GPU theo nhu cầu; dùng Spot để tiết kiệm.</p>
+    </div>
+    <div class="svc-card">
+      <h4>Endpoints</h4>
+      <div class="role">Triển khai inference</div>
+      <p>Real-time, Serverless, Asynchronous, hoặc Batch Transform — chọn theo độ trễ &amp; tải.</p>
+    </div>
+    <div class="svc-card">
+      <h4>Clarify &amp; Model Monitor</h4>
+      <div class="role">Chất lượng &amp; giám sát</div>
+      <p>Phát hiện bias, giải thích dự đoán, cảnh báo trôi dữ liệu (data drift) khi vận hành.</p>
+    </div>
+    <div class="svc-card">
+      <h4>Pipelines</h4>
+      <div class="role">MLOps / CI-CD</div>
+      <p>Tự động hóa quy trình từ chuẩn bị dữ liệu → train → đánh giá → deploy.</p>
+    </div>
+  </div>
+
+  <h3>Kiểu endpoint inference — chọn đúng</h3>
+  <table>
+    <tr><th>Loại endpoint</th><th>Phù hợp khi</th></tr>
+    <tr><td><strong>Real-time</strong></td><td>Độ trễ thấp, tải ổn định, online 24/7.</td></tr>
+    <tr><td><strong>Serverless</strong></td><td>Tải gián đoạn/khó đoán, chịu được cold start, không muốn quản instance.</td></tr>
+    <tr><td><strong>Asynchronous</strong></td><td>Payload lớn (vd ảnh/âm thanh), thời gian xử lý dài, hàng đợi.</td></tr>
+    <tr><td><strong>Batch Transform</strong></td><td>Suy luận lô offline trên tập dữ liệu lớn, không cần endpoint thường trực.</td></tr>
+  </table>
+
+  <h3>Bedrock vs SageMaker — chọn cái nào?</h3>
+  <table>
+    <tr><th></th><th>Amazon Bedrock</th><th>Amazon SageMaker (JumpStart)</th></tr>
+    <tr><td>Đối tượng</td><td>Lập trình viên app, ít kiến thức ML</td><td>Data scientist / ML engineer</td></tr>
+    <tr><td>Hạ tầng</td><td>Serverless, ẩn hoàn toàn</td><td>Bạn chọn instance, quản endpoint</td></tr>
+    <tr><td>Mức kiểm soát mô hình</td><td><span class="pill mid">Vừa</span></td><td><span class="pill yes">Cao (weights, VPC)</span></td></tr>
+    <tr><td>Triển khai nhanh</td><td><span class="pill yes">Rất nhanh</span></td><td><span class="pill mid">Cần cấu hình</span></td></tr>
+  </table>
+
+  <div class="usecase">
+    <div class="uc-title">🧩 Ví dụ tích hợp — Fine-tune model mã nguồn mở riêng tư</div>
+    <div class="uc-flow">Dữ liệu trên <code>S3</code> → <code>SageMaker JumpStart</code> fine-tune Llama → deploy <code>Real-time Endpoint</code> trong <code>VPC</code> → app gọi qua <code>PrivateLink</code> (không ra Internet); <code>Model Monitor</code> cảnh báo drift, <code>CloudWatch</code> theo dõi độ trễ.</div>
+  </div>
+
+  <div class="callout tip">💡 "Cần weights nằm trong VPC riêng / tuân thủ nghiêm ngặt" → SageMaker JumpStart. "Nhanh, đa model, ít vận hành" → Bedrock.</div>

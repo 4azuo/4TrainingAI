@@ -1,0 +1,71 @@
+  <h2>🤖 Amazon Bedrock Agents — LLM biết hành động</h2>
+  <p class="tagline"><strong>Agent = LLM + khả năng làm việc.</strong> Không chỉ trả lời, Agent lập kế hoạch nhiều bước, gọi API/Lambda của bạn, tra Knowledge Base, rồi tổng hợp kết quả — tự động dàn xếp (orchestration) thay bạn.</p>
+
+  <h3>Thành phần một Agent</h3>
+  <div class="svc-grid">
+    <div class="svc-card">
+      <h4>Instructions</h4>
+      <div class="role">Vai trò & mục tiêu</div>
+      <p>Mô tả ngôn ngữ tự nhiên: agent là ai, được làm gì, giới hạn nào.</p>
+    </div>
+    <div class="svc-card">
+      <h4>Action Groups</h4>
+      <div class="role">Công cụ / hành động</div>
+      <p>Mỗi action = một API mô tả bằng OpenAPI schema hoặc function, thực thi bằng <strong>Lambda</strong>.</p>
+    </div>
+    <div class="svc-card">
+      <h4>Knowledge Bases</h4>
+      <div class="role">Nguồn tri thức</div>
+      <p>Gắn RAG để agent tra cứu tài liệu trước khi hành động.</p>
+    </div>
+    <div class="svc-card">
+      <h4>Memory & Sessions</h4>
+      <div class="role">Ghi nhớ hội thoại</div>
+      <p>Giữ ngữ cảnh nhiều lượt, duy trì trạng thái qua các bước.</p>
+    </div>
+  </div>
+
+  <h3>Vòng suy luận của Agent (ReAct)</h3>
+  <div class="mermaid">
+flowchart TB
+    U["❓ Yêu cầu người dùng"] --> AG["🤖 Bedrock Agent"]
+    AG --> TH["🧠 Suy nghĩ: cần bước gì?"]
+    TH -->|cần dữ liệu| KB["📚 Knowledge Base"]
+    TH -->|cần hành động| LAM["⚡ Lambda (Action Group)"]
+    LAM --> EXT["🌐 API/DB hệ thống ngoài"]
+    KB --> OBS["👀 Quan sát kết quả"]
+    EXT --> OBS
+    OBS --> DONE{"Đủ để trả lời?"}
+    DONE -->|chưa| TH
+    DONE -->|rồi| ANS["✅ Phản hồi cuối"]
+    style AG fill:#fff7ed,color:#9a3412,stroke:#fdba74
+    style LAM fill:#e0e7ff,color:#3730a3,stroke:#6366f1
+    style ANS fill:#dcfce7,color:#14532d,stroke:#86efac
+  </div>
+
+  <h3>Khi nào dùng Agent thay vì gọi model thường?</h3>
+  <div class="pc-grid">
+    <div class="pc-box pc-pros">
+      <h4>✅ Dùng Agent khi</h4>
+      <ul>
+        <li>Tác vụ <strong>nhiều bước</strong>, cần gọi nhiều API theo thứ tự.</li>
+        <li>Cần model <strong>tự quyết</strong> nên gọi công cụ nào.</li>
+        <li>Muốn kết hợp RAG + hành động trong một luồng.</li>
+      </ul>
+    </div>
+    <div class="pc-box pc-cons">
+      <h4>⚠️ Không cần Agent khi</h4>
+      <ul>
+        <li>Chỉ hỏi-đáp đơn giản → gọi thẳng FM.</li>
+        <li>Chỉ cần tra tài liệu → Knowledge Base + <code>RetrieveAndGenerate</code>.</li>
+        <li>Luồng cố định, không cần model tự quyết → tự code/Step Functions.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="usecase">
+    <div class="uc-title">🧩 Ví dụ tích hợp — Trợ lý đặt lịch & kiểm tra đơn</div>
+    <div class="uc-flow"><code>Bedrock Agent</code> với 2 Action Group: "tra đơn hàng" (<code>Lambda</code> → <code>DynamoDB</code>) và "đặt lịch" (<code>Lambda</code> → API lịch); gắn Knowledge Base chính sách đổi-trả trên <code>S3</code>; Guardrail lọc PII; toàn bộ gọi qua <code>API Gateway</code>.</div>
+  </div>
+
+  <div class="callout">📌 So với LangChain tự dựng: Bedrock Agents là <strong>managed orchestration</strong> — bạn không tự viết vòng lặp ReAct, AWS lo phần gọi tool, parse, retry.</div>

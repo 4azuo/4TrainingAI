@@ -1,0 +1,37 @@
+  <h2>📋 Lịch sử chỉnh sửa</h2>
+  <p class="tagline">Ghi lại toàn bộ thay đổi của tài liệu qua các phiên bản.</p>
+
+  <div class="history-table">
+    <table>
+      <tr>
+        <th>Phiên bản</th>
+        <th>Ngày</th>
+        <th>Tác giả</th>
+        <th>Nội dung thay đổi</th>
+      </tr>
+      <tr>
+        <td><span class="version-badge">v1.0</span></td>
+        <td>2026-06-12</td>
+        <td>phong</td>
+        <td>
+          <span class="change-tag tag-new">New</span> Phiên bản đầu tiên trang <strong>AWS AI Services</strong> theo lộ trình AWS Certified Generative AI Developer – Professional<br>
+          <span class="change-tag tag-new">New</span> 12 tab nội dung: Tổng quan AWS AI, Amazon Bedrock, Knowledge Bases (RAG), Bedrock Agents, Guardrails &amp; Safety, SageMaker, Amazon Q, AI Services quản lý, Embeddings &amp; Vector, Ví dụ tích hợp, Bảo mật &amp; Vận hành, So sánh &amp; Tổng kết<br>
+          <span class="change-tag tag-new">New</span> Mỗi tab có: giải thích nhiệm vụ, bảng so sánh với lựa chọn khác, ví dụ tích hợp với dịch vụ AWS, và sơ đồ Mermaid<br>
+          <span class="change-tag tag-style">Style</span> CSS riêng <code>AI-AWS.css</code>: accent cam AWS, service badge, layer-stack, svc-card, usecase
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <h3 style="margin-top:28px;">Ghi chú kỹ thuật</h3>
+  <table>
+    <tr><th>File</th><th>Vai trò</th></tr>
+    <tr><td>AI-AWS.html</td><td>Khung trang (shell): head, header, search, nav rỗng + main rỗng</td></tr>
+    <tr><td>AI-AWS.css</td><td>Style riêng của trang (accent AWS) — theme chung ở <code>common.css</code></td></tr>
+    <tr><td>AI-AWS.js</td><td>Manifest tab (biến <code>TABS</code>); logic chung (loader, tab, search, Mermaid) ở <code>common.js</code></td></tr>
+    <tr><td>AI-AWS/*.html</td><td>Nội dung từng tab — mỗi chủ đề 1 file độc lập</td></tr>
+  </table>
+  <p style="margin-top:16px;color:var(--text-muted);font-size:0.85rem;">
+    ⚠️ Lưu ý: vì nội dung nạp động qua <code>fetch</code>, hãy mở trang qua một server cục bộ
+    (VD: <strong>VSCode Live Server</strong>) thay vì mở thẳng file <code>file://</code> — trình duyệt chặn fetch trên giao thức file.
+  </p>

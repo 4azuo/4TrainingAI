@@ -1,0 +1,69 @@
+  <h2>🟦 AI Services quản lý — gọi API là xong</h2>
+  <p class="tagline">Các dịch vụ AI <strong>chuyên một việc</strong>, mô hình huấn luyện sẵn, trả kết quả qua API — không cần biết ML. Hay được ghép cùng Bedrock trong các pipeline GenAI.</p>
+
+  <h3>Thị giác & tài liệu</h3>
+  <div class="svc-grid">
+    <div class="svc-card">
+      <h4>Amazon Rekognition</h4>
+      <div class="role">Phân tích ảnh / video</div>
+      <p>Nhận diện vật thể, khuôn mặt, chữ trong ảnh, nội dung không phù hợp, so khớp khuôn mặt.</p>
+    </div>
+    <div class="svc-card">
+      <h4>Amazon Textract</h4>
+      <div class="role">OCR thông minh</div>
+      <p>Trích chữ, bảng, cặp khóa-giá trị từ PDF/scan — hơn OCR thường vì hiểu form &amp; bảng.</p>
+    </div>
+  </div>
+
+  <h3>Ngôn ngữ & văn bản</h3>
+  <div class="svc-grid">
+    <div class="svc-card">
+      <h4>Amazon Comprehend</h4>
+      <div class="role">NLP</div>
+      <p>Phân tích cảm xúc, thực thể (entity), ngôn ngữ, chủ đề; <strong>Comprehend Medical</strong> cho y tế; phát hiện PII.</p>
+    </div>
+    <div class="svc-card">
+      <h4>Amazon Translate</h4>
+      <div class="role">Dịch máy</div>
+      <p>Dịch thời gian thực giữa nhiều ngôn ngữ, hỗ trợ từ điển tùy chỉnh.</p>
+    </div>
+    <div class="svc-card">
+      <h4>Amazon Kendra</h4>
+      <div class="role">Tìm kiếm doanh nghiệp</div>
+      <p>Tìm kiếm ngữ nghĩa trên tài liệu nội bộ; hay làm <strong>retriever cho RAG</strong>.</p>
+    </div>
+    <div class="svc-card">
+      <h4>Amazon Lex</h4>
+      <div class="role">Chatbot / IVR</div>
+      <p>Hiểu ý định (intent) &amp; slot cho bot hội thoại, voice; nền tảng đứng sau Alexa.</p>
+    </div>
+  </div>
+
+  <h3>Giọng nói</h3>
+  <div class="svc-grid">
+    <div class="svc-card">
+      <h4>Amazon Transcribe</h4>
+      <div class="role">Speech → Text</div>
+      <p>Chuyển âm thanh thành chữ, phân tách người nói, lọc PII; bản y tế &amp; call analytics.</p>
+    </div>
+    <div class="svc-card">
+      <h4>Amazon Polly</h4>
+      <div class="role">Text → Speech</div>
+      <p>Sinh giọng nói tự nhiên (neural TTS) nhiều ngôn ngữ &amp; giọng.</p>
+    </div>
+  </div>
+
+  <h3>So với việc tự làm bằng Bedrock / mô hình tự train</h3>
+  <table>
+    <tr><th></th><th>AI Services</th><th>Bedrock (FM)</th><th>Tự train (SageMaker)</th></tr>
+    <tr><td>Tác vụ</td><td>Cố định, chuyên biệt</td><td>Sinh ngôn ngữ tổng quát</td><td>Bất kỳ, theo dữ liệu riêng</td></tr>
+    <tr><td>Công sức</td><td><span class="pill yes">Thấp nhất</span></td><td><span class="pill mid">Vừa</span></td><td><span class="pill no">Cao</span></td></tr>
+    <tr><td>Ví dụ đúng việc</td><td>OCR hóa đơn, dịch, đọc cảm xúc</td><td>Tóm tắt, soạn thảo, hỏi-đáp</td><td>Phân loại ảnh y tế đặc thù</td></tr>
+  </table>
+
+  <div class="usecase">
+    <div class="uc-title">🧩 Ví dụ tích hợp — Tổng đài thoại thông minh</div>
+    <div class="uc-flow"><code>Transcribe</code> ghi âm cuộc gọi → <code>Comprehend</code> đọc cảm xúc → <code>Bedrock</code> tóm tắt &amp; gợi ý phản hồi → <code>Polly</code> đọc lại cho khách; điều phối bằng <code>Step Functions</code>, dữ liệu vào <code>S3</code>.</div>
+  </div>
+
+  <div class="callout">📌 Mẹo nhớ cặp đôi: <strong>Transcribe</strong> = tai (nghe), <strong>Polly</strong> = miệng (nói), <strong>Textract</strong> = mắt đọc giấy, <strong>Rekognition</strong> = mắt nhìn ảnh.</div>

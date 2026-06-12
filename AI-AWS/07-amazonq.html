@@ -1,0 +1,43 @@
+  <h2>🟧 Amazon Q — Trợ lý GenAI dựng sẵn</h2>
+  <p class="tagline"><strong>Amazon Q = ứng dụng GenAI "đóng hộp".</strong> Không cần tự ghép FM + RAG + Agent; AWS đã dựng sẵn trợ lý cho lập trình và cho doanh nghiệp.</p>
+
+  <h3>Hai dòng chính</h3>
+  <div class="svc-grid">
+    <div class="svc-card">
+      <h4>Amazon Q Developer</h4>
+      <div class="role">Trợ lý cho lập trình viên</div>
+      <p>Gợi ý code trong IDE, giải thích &amp; refactor, quét bảo mật, nâng cấp Java, và trả lời về chính tài nguyên AWS của bạn (chi phí, cấu hình).</p>
+    </div>
+    <div class="svc-card">
+      <h4>Amazon Q Business</h4>
+      <div class="role">Trợ lý hỏi-đáp nội bộ</div>
+      <p>Kết nối &gt;40 nguồn (S3, SharePoint, Salesforce, Jira...), trả lời theo tài liệu công ty, tôn trọng phân quyền sẵn có của người dùng.</p>
+    </div>
+  </div>
+
+  <h3>Q Business hoạt động thế nào</h3>
+  <div class="mermaid">
+flowchart LR
+    SRC["📁 Nguồn dữ liệu<br>S3 · SharePoint · Jira..."] -->|connectors| Q["🟧 Amazon Q Business"]
+    Q --> IDX["🔎 Lập chỉ mục + ACL"]
+    U["👤 Nhân viên"] -->|hỏi| Q
+    Q --> ANS["✅ Trả lời + nguồn<br>(chỉ thấy tài liệu được phép)"]
+    style Q fill:#fff7ed,color:#9a3412,stroke:#fdba74
+    style ANS fill:#dcfce7,color:#14532d,stroke:#86efac
+  </div>
+
+  <h3>Q so với tự xây trên Bedrock</h3>
+  <table>
+    <tr><th></th><th>Amazon Q Business</th><th>Tự xây bằng Bedrock + Knowledge Bases</th></tr>
+    <tr><td>Công sức</td><td><span class="pill yes">Rất thấp (cấu hình)</span></td><td><span class="pill mid">Phải code app</span></td></tr>
+    <tr><td>Tùy biến luồng/UI</td><td><span class="pill no">Hạn chế</span></td><td><span class="pill yes">Toàn quyền</span></td></tr>
+    <tr><td>Connector dựng sẵn</td><td><span class="pill yes">&gt;40 nguồn</span></td><td>Tự tích hợp</td></tr>
+    <tr><td>Phù hợp</td><td>Hỏi-đáp doanh nghiệp tiêu chuẩn</td><td>Sản phẩm GenAI riêng, logic phức tạp</td></tr>
+  </table>
+
+  <div class="callout tip">💡 Đề thi: "trợ lý hỏi-đáp tài liệu nội bộ, nhanh, ít phát triển nhất, tôn trọng phân quyền" → <strong>Amazon Q Business</strong>. "Trợ lý code trong IDE" → <strong>Q Developer</strong>.</div>
+
+  <div class="usecase">
+    <div class="uc-title">🧩 Ví dụ tích hợp</div>
+    <div class="uc-flow"><code>Q Business</code> cắm <code>S3</code> + <code>Confluence</code> để hỗ trợ phòng nhân sự tra cứu quy định; <code>Q Developer</code> tích hợp <code>VS Code</code> &amp; <code>CodeWhisperer</code>-style hỗ trợ đội dev — cả hai dùng <code>IAM Identity Center</code> để xác thực &amp; áp ACL.</div>
+  </div>

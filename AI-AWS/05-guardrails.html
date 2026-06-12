@@ -1,0 +1,55 @@
+  <h2>🛡️ Guardrails & Responsible AI</h2>
+  <p class="tagline"><strong>Guardrails for Amazon Bedrock</strong> là lớp lọc đặt giữa người dùng và model — chặn nội dung độc hại, ẩn PII, giữ chủ đề, và giảm "bịa". Áp dụng được cho mọi FM, kể cả model tự host.</p>
+
+  <h3>Các chính sách (policy) của Guardrail</h3>
+  <table>
+    <tr><th>Chính sách</th><th>Chặn gì</th></tr>
+    <tr><td><strong>Content filters</strong></td><td>Bạo lực, thù ghét, lăng mạ, tình dục, hành vi sai trái — chỉnh theo mức.</td></tr>
+    <tr><td><strong>Denied topics</strong></td><td>Chủ đề cấm do bạn định nghĩa (vd: tư vấn đầu tư, chính trị).</td></tr>
+    <tr><td><strong>Word filters</strong></td><td>Từ thô tục & danh sách từ tùy chỉnh.</td></tr>
+    <tr><td><strong>Sensitive info (PII)</strong></td><td>Phát hiện & che/chặn email, SĐT, thẻ tín dụng, hoặc regex riêng.</td></tr>
+    <tr><td><strong>Contextual grounding</strong></td><td>Chấm điểm câu trả lời có bám nguồn RAG không → chặn câu "bịa".</td></tr>
+    <tr><td><strong>Prompt attacks</strong></td><td>Phát hiện prompt injection / jailbreak.</td></tr>
+  </table>
+
+  <h3>Guardrail lọc cả hai chiều</h3>
+  <div class="mermaid">
+flowchart LR
+    U["👤 Người dùng"] --> GIN["🛡️ Lọc đầu vào<br>(injection, chủ đề cấm)"]
+    GIN -->|đạt| FM["🟧 Foundation Model"]
+    GIN -->|vi phạm| BLK1["🚫 Chặn / trả lời mẫu"]
+    FM --> GOUT["🛡️ Lọc đầu ra<br>(PII, độc hại, grounding)"]
+    GOUT -->|đạt| ANS["✅ Trả lời"]
+    GOUT -->|vi phạm| BLK2["🚫 Che / chặn"]
+    style GIN fill:#fff7ed,color:#9a3412,stroke:#fdba74
+    style GOUT fill:#fff7ed,color:#9a3412,stroke:#fdba74
+    style ANS fill:#dcfce7,color:#14532d,stroke:#86efac
+    style BLK1 fill:#fee2e2,color:#b91c1c,stroke:#fca5a5
+    style BLK2 fill:#fee2e2,color:#b91c1c,stroke:#fca5a5
+  </div>
+
+  <h3>Công cụ Responsible AI liên quan</h3>
+  <div class="svc-grid">
+    <div class="svc-card">
+      <h4>Model Evaluation</h4>
+      <div class="role">Bedrock</div>
+      <p>So sánh model theo độ chính xác, độ độc hại, robustness — tự động hoặc dùng người chấm.</p>
+    </div>
+    <div class="svc-card">
+      <h4>SageMaker Clarify</h4>
+      <div class="role">SageMaker</div>
+      <p>Phát hiện <strong>thiên lệch (bias)</strong> trong dữ liệu/mô hình và giải thích dự đoán (explainability).</p>
+    </div>
+    <div class="svc-card">
+      <h4>Model / AI Service Cards</h4>
+      <div class="role">Tài liệu minh bạch</div>
+      <p>Mô tả mục đích, giới hạn, dữ liệu của mô hình — phục vụ governance.</p>
+    </div>
+    <div class="svc-card">
+      <h4>Watermarking</h4>
+      <div class="role">Titan Image</div>
+      <p>Ảnh sinh bởi Titan có watermark vô hình để truy nguồn nội dung AI.</p>
+    </div>
+  </div>
+
+  <div class="callout warn">⚠️ Phân biệt: <strong>Guardrails</strong> chặn nội dung lúc chạy (runtime). <strong>Clarify</strong> phân tích bias/explainability lúc phát triển mô hình. Đề hay đánh tráo hai cái này.</div>

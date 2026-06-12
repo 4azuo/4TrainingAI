@@ -1,0 +1,64 @@
+  <h2>🧩 Ví dụ tích hợp — Kiến trúc tham khảo</h2>
+  <p class="tagline">Sức mạnh thật sự đến từ <strong>ghép dịch vụ AI với phần còn lại của AWS</strong>. Dưới đây là các pattern hay gặp trong đề thi &amp; thực tế.</p>
+
+  <h3>① Chatbot RAG serverless cho doanh nghiệp</h3>
+  <div class="mermaid">
+flowchart LR
+    U["👤 Người dùng"] --> CF["🌐 CloudFront + S3<br>(web UI)"]
+    CF --> APIGW["🚪 API Gateway"]
+    APIGW --> L["⚡ Lambda"]
+    L --> BR["🟧 Bedrock (Converse)"]
+    BR --> KB["📚 Knowledge Base"]
+    KB --> OS[("🧮 OpenSearch")]
+    L --> DDB[("🗂️ DynamoDB<br>lịch sử chat")]
+    BR --> GR["🛡️ Guardrail"]
+    L --> CW["📊 CloudWatch"]
+    style BR fill:#fff7ed,color:#9a3412,stroke:#fdba74
+    style KB fill:#fdf4ff,color:#7e22ce,stroke:#d8b4fe
+  </div>
+  <p><strong>Vì sao:</strong> hoàn toàn serverless → ít vận hành; Guardrail đảm bảo an toàn; DynamoDB giữ ngữ cảnh hội thoại; tài liệu cập nhật chỉ cần re-sync Knowledge Base.</p>
+
+  <h3>② Pipeline xử lý tài liệu thông minh (IDP)</h3>
+  <div class="mermaid">
+flowchart LR
+    UP["📤 Upload"] --> S3["🗄️ S3"]
+    S3 -->|event| SF["🔀 Step Functions"]
+    SF --> TX["📄 Textract<br>trích chữ/bảng"]
+    TX --> CM["🔤 Comprehend<br>phân loại + PII"]
+    CM --> BR["🟧 Bedrock<br>tóm tắt + trích yếu"]
+    BR --> OUT[("🗂️ DynamoDB / S3<br>kết quả có cấu trúc")]
+    style BR fill:#fff7ed,color:#9a3412,stroke:#fdba74
+    style TX fill:#e0f2fe,color:#0c4a6e,stroke:#7dd3fc
+    style CM fill:#e0f2fe,color:#0c4a6e,stroke:#7dd3fc
+  </div>
+  <p><strong>Vì sao:</strong> mỗi dịch vụ làm đúng việc — Textract đọc giấy, Comprehend hiểu &amp; che PII, Bedrock tóm tắt; Step Functions điều phối, dễ retry &amp; theo dõi.</p>
+
+  <h3>③ Trợ lý hành động (Agent) gọi hệ thống nội bộ</h3>
+  <div class="mermaid">
+flowchart LR
+    U["👤"] --> AG["🤖 Bedrock Agent"]
+    AG --> KB["📚 KB chính sách"]
+    AG --> A1["⚡ Lambda: tra đơn"]
+    A1 --> DB[("🗂️ DynamoDB")]
+    AG --> A2["⚡ Lambda: tạo ticket"]
+    A2 --> EXT["🌐 API nội bộ"]
+    style AG fill:#fff7ed,color:#9a3412,stroke:#fdba74
+  </div>
+  <p><strong>Vì sao:</strong> Agent tự quyết gọi tool nào theo yêu cầu, kết hợp RAG + hành động trong một luồng managed.</p>
+
+  <h3>④ Phân tích đa phương tiện</h3>
+  <div class="usecase">
+    <div class="uc-title">Kiểm duyệt &amp; mô tả ảnh người dùng tải lên</div>
+    <div class="uc-flow"><code>S3</code> nhận ảnh → <code>Rekognition</code> lọc nội dung không phù hợp → <code>Bedrock</code> (model multimodal) sinh mô tả &amp; alt-text → lưu <code>DynamoDB</code>; vi phạm thì <code>SNS</code> báo quản trị.</div>
+  </div>
+
+  <h3>Khối "keo dán" hay đi cùng dịch vụ AI</h3>
+  <table>
+    <tr><th>Dịch vụ</th><th>Vai trò trong pipeline AI</th></tr>
+    <tr><td><span class="svc">Lambda</span></td><td>Glue code, gọi Bedrock, thực thi Action Group của Agent.</td></tr>
+    <tr><td><span class="svc">Step Functions</span></td><td>Điều phối nhiều bước AI có trạng thái, retry.</td></tr>
+    <tr><td><span class="svc">API Gateway</span></td><td>Cổng REST/WebSocket cho app gọi tới model.</td></tr>
+    <tr><td><span class="svc">S3</span></td><td>Lưu tài liệu nguồn, dữ liệu fine-tune, kết quả batch.</td></tr>
+    <tr><td><span class="svc">DynamoDB</span></td><td>Lịch sử hội thoại, metadata, trạng thái.</td></tr>
+    <tr><td><span class="svc">EventBridge</span></td><td>Kích hoạt re-sync KB / pipeline theo lịch hoặc sự kiện.</td></tr>
+  </table>

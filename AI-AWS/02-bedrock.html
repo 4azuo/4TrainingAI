@@ -1,0 +1,65 @@
+  <h2>🟧 Amazon Bedrock — Nền tảng Generative AI</h2>
+  <p class="tagline"><strong>Bedrock = "cửa hàng FM" serverless.</strong> Một API duy nhất gọi nhiều Foundation Model của nhiều nhà cung cấp; không quản máy chủ, không huấn luyện từ đầu.</p>
+
+  <h3>Nhiệm vụ chính</h3>
+  <div class="svc-grid">
+    <div class="svc-card">
+      <h4>Truy cập Foundation Models</h4>
+      <div class="role">InvokeModel / Converse API</div>
+      <p>Anthropic <strong>Claude</strong>, Amazon <strong>Titan / Nova</strong>, Meta <strong>Llama</strong>, Mistral, Cohere, Stability AI — đổi model = đổi 1 tham số.</p>
+    </div>
+    <div class="svc-card">
+      <h4>Tùy biến mô hình</h4>
+      <div class="role">Fine-tuning · Continued Pre-training</div>
+      <p>Nạp dữ liệu riêng (trên S3) để model nói đúng giọng & nghiệp vụ công ty. Bản tùy biến chạy qua <strong>Provisioned Throughput</strong>.</p>
+    </div>
+    <div class="svc-card">
+      <h4>RAG & Agents dựng sẵn</h4>
+      <div class="role">Knowledge Bases · Agents</div>
+      <p>Cắm dữ liệu công ty (RAG) và cho model gọi hành động/API mà không tự code orchestration. Xem tab 3 & 4.</p>
+    </div>
+    <div class="svc-card">
+      <h4>An toàn & đánh giá</h4>
+      <div class="role">Guardrails · Model Evaluation</div>
+      <p>Chặn nội dung độc hại, lọc PII, chống prompt injection; so sánh chất lượng nhiều model. Xem tab 5.</p>
+    </div>
+  </div>
+
+  <h3>Kiến trúc gọi Bedrock</h3>
+  <div class="mermaid">
+flowchart LR
+    APP["📱 App / Lambda"] -->|Converse API| BR["🟧 Amazon Bedrock"]
+    BR --> FM["Foundation Model<br>(Claude / Titan / Llama)"]
+    BR -. RAG .-> KB["📚 Knowledge Base"]
+    BR -. hành động .-> AG["🤖 Agent → Lambda / API"]
+    BR -. lọc .-> GR["🛡️ Guardrail"]
+    FM --> OUT["💬 Phản hồi"]
+    style APP fill:#e0e7ff,color:#3730a3,stroke:#6366f1
+    style BR fill:#fff7ed,color:#9a3412,stroke:#fdba74
+    style FM fill:#fdf4ff,color:#7e22ce,stroke:#d8b4fe
+    style OUT fill:#dcfce7,color:#14532d,stroke:#86efac
+  </div>
+
+  <h3>Chế độ chạy & chi phí (quan trọng khi thi)</h3>
+  <table>
+    <tr><th>Chế độ</th><th>Khi nào</th><th>Tính phí</th></tr>
+    <tr><td><strong>On-Demand</strong></td><td>Lưu lượng thấp/biến động, mô hình gốc</td><td>Theo token in/out</td></tr>
+    <tr><td><strong>Batch</strong></td><td>Xử lý lô lớn, không cần realtime</td><td>Rẻ hơn ~50%, kết quả ghi ra S3</td></tr>
+    <tr><td><strong>Provisioned Throughput</strong></td><td>Lưu lượng cao ổn định; <strong>bắt buộc cho model đã fine-tune</strong></td><td>Mua "model units" theo giờ/tháng</td></tr>
+  </table>
+
+  <h3>So sánh với lựa chọn khác</h3>
+  <table>
+    <tr><th></th><th>Amazon Bedrock</th><th>SageMaker JumpStart</th><th>Tự host LLM trên EC2</th></tr>
+    <tr><td>Quản hạ tầng</td><td><span class="pill yes">Không (serverless)</span></td><td><span class="pill mid">Có endpoint</span></td><td><span class="pill no">Tự lo hết</span></td></tr>
+    <tr><td>Chọn model</td><td>Nhiều hãng, 1 API</td><td>FM mã nguồn mở</td><td>Bất kỳ</td></tr>
+    <tr><td>Fine-tune sâu / quyền kiểm soát</td><td><span class="pill mid">Vừa</span></td><td><span class="pill yes">Cao</span></td><td><span class="pill yes">Toàn quyền</span></td></tr>
+    <tr><td>Công sức vận hành</td><td><span class="pill yes">Thấp nhất</span></td><td><span class="pill mid">Trung bình</span></td><td><span class="pill no">Cao nhất</span></td></tr>
+  </table>
+
+  <div class="usecase">
+    <div class="uc-title">🧩 Ví dụ tích hợp — Chatbot CSKH serverless</div>
+    <div class="uc-flow"><code>API Gateway</code> → <code>Lambda</code> → <code>Bedrock (Claude, Converse API)</code> → trả lời; lịch sử hội thoại lưu <code>DynamoDB</code>; prompt template & key trong <code>Secrets Manager</code>; log token ra <code>CloudWatch</code>.</div>
+  </div>
+
+  <div class="callout">📌 <strong>Converse API</strong> là API hội thoại thống nhất (multi-turn, tool use, ảnh) — nên dùng thay cho <code>InvokeModel</code> thô vì cùng một cấu trúc cho mọi model.</div>

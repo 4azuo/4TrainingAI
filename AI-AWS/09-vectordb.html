@@ -1,0 +1,55 @@
+  <h2>🧮 Embeddings & Vector Stores</h2>
+  <p class="tagline"><strong>Embedding = biến chữ thành vector số.</strong> Văn bản gần nghĩa → vector gần nhau. Vector store lưu &amp; tìm "hàng xóm gần nhất" — trái tim của RAG &amp; tìm kiếm ngữ nghĩa.</p>
+
+  <h3>Model tạo embedding trên AWS</h3>
+  <table>
+    <tr><th>Model</th><th>Ghi chú</th></tr>
+    <tr><td><strong>Amazon Titan Text Embeddings</strong></td><td>Embedding văn bản đa ngôn ngữ, gọi qua Bedrock.</td></tr>
+    <tr><td><strong>Amazon Titan Multimodal Embeddings</strong></td><td>Nhúng ảnh + chữ chung một không gian → tìm ảnh bằng chữ.</td></tr>
+    <tr><td><strong>Cohere Embed</strong></td><td>Có trên Bedrock, đa ngôn ngữ, chất lượng cao.</td></tr>
+  </table>
+
+  <h3>Lưu vector ở đâu trên AWS?</h3>
+  <div class="svc-grid">
+    <div class="svc-card">
+      <h4>OpenSearch Serverless</h4>
+      <div class="role">Mặc định phổ biến</div>
+      <p>Vector engine (k-NN), managed, tích hợp sẵn với Bedrock Knowledge Bases.</p>
+    </div>
+    <div class="svc-card">
+      <h4>Aurora PostgreSQL (pgvector)</h4>
+      <div class="role">Đã có Postgres</div>
+      <p>Thêm cột vector vào CSDL quan hệ sẵn có — không phải dựng hệ thống mới.</p>
+    </div>
+    <div class="svc-card">
+      <h4>Amazon Neptune Analytics</h4>
+      <div class="role">Đồ thị + vector</div>
+      <p>Kết hợp graph &amp; tìm kiếm vector cho dữ liệu liên kết.</p>
+    </div>
+    <div class="svc-card">
+      <h4>MemoryDB / Redis · Pinecone</h4>
+      <div class="role">Độ trễ thấp / bên thứ ba</div>
+      <p>Tìm vector cực nhanh trong bộ nhớ; Pinecone là lựa chọn managed ngoài AWS được Bedrock hỗ trợ.</p>
+    </div>
+  </div>
+
+  <h3>Embedding phục vụ tìm kiếm ngữ nghĩa</h3>
+  <div class="mermaid">
+flowchart LR
+    DOC["📄 Tài liệu"] --> E1["🔢 Titan Embeddings"]
+    E1 --> V[("🧮 Vector store")]
+    Q["❓ 'chính sách hoàn tiền'"] --> E2["🔢 Titan Embeddings"]
+    E2 --> KNN["🔎 k-NN: vector gần nhất"]
+    V --> KNN
+    KNN --> R["📋 Đoạn liên quan nhất"]
+    style V fill:#fdf4ff,color:#7e22ce,stroke:#d8b4fe
+    style R fill:#dcfce7,color:#14532d,stroke:#86efac
+  </div>
+
+  <h3>Chọn vector store thế nào?</h3>
+  <div class="cheat-row"><div class="cheat-situation">Bắt đầu nhanh, để Bedrock tự lo</div><div class="cheat-answer">OpenSearch Serverless</div></div>
+  <div class="cheat-row"><div class="cheat-situation">Đã có dữ liệu trong Aurora/Postgres</div><div class="cheat-answer">pgvector</div></div>
+  <div class="cheat-row"><div class="cheat-situation">Cần độ trễ siêu thấp, quy mô lớn</div><div class="cheat-answer">MemoryDB / Redis</div></div>
+  <div class="cheat-row"><div class="cheat-situation">Tìm ảnh bằng mô tả văn bản</div><div class="cheat-answer">Titan Multimodal Embeddings</div></div>
+
+  <div class="callout">📌 Phân biệt: <strong>embedding</strong> (sinh vector) khác <strong>vector store</strong> (lưu &amp; tìm vector). RAG cần cả hai; Knowledge Bases ghép sẵn hai khâu này cho bạn.</div>

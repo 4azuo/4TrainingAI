@@ -1,0 +1,50 @@
+  <h2>🎯 So sánh & Tổng kết</h2>
+  <p class="tagline">Bảng tra nhanh để chọn đúng dịch vụ AWS cho từng tình huống — đúng tinh thần đề <strong>Generative AI Developer – Professional</strong>.</p>
+
+  <h3>Mỗi dịch vụ — một câu</h3>
+  <table>
+    <tr><th>Dịch vụ</th><th>Nhiệm vụ cốt lõi</th><th>Dùng khi</th></tr>
+    <tr><td><span class="svc core">Bedrock</span></td><td>Truy cập &amp; tùy biến Foundation Model qua API</td><td>Xây ứng dụng GenAI tổng quát</td></tr>
+    <tr><td><span class="svc">Knowledge Bases</span></td><td>RAG được quản lý</td><td>Trả lời theo tài liệu công ty</td></tr>
+    <tr><td><span class="svc">Bedrock Agents</span></td><td>LLM tự lập kế hoạch &amp; gọi tool</td><td>Tác vụ nhiều bước, gọi API</td></tr>
+    <tr><td><span class="svc">Guardrails</span></td><td>Lọc an toàn runtime</td><td>Chặn độc hại / PII / injection</td></tr>
+    <tr><td><span class="svc ml">SageMaker</span></td><td>Build/train/deploy mô hình</td><td>Cần kiểm soát sâu, weights trong VPC</td></tr>
+    <tr><td><span class="svc core">Amazon Q</span></td><td>Trợ lý GenAI dựng sẵn</td><td>Code assistant / hỏi-đáp nội bộ ít code</td></tr>
+    <tr><td><span class="svc data">Comprehend</span></td><td>NLP (cảm xúc, entity, PII)</td><td>Phân tích văn bản chuyên biệt</td></tr>
+    <tr><td><span class="svc data">Textract</span></td><td>OCR form/bảng</td><td>Số hóa tài liệu</td></tr>
+    <tr><td><span class="svc data">Rekognition</span></td><td>Phân tích ảnh/video</td><td>Thị giác máy tính</td></tr>
+    <tr><td><span class="svc data">Transcribe / Polly</span></td><td>Speech↔Text</td><td>Voice in/out</td></tr>
+    <tr><td><span class="svc data">Kendra</span></td><td>Tìm kiếm doanh nghiệp</td><td>Retriever cho RAG / tìm tài liệu</td></tr>
+    <tr><td><span class="svc data">Lex</span></td><td>Hiểu intent hội thoại</td><td>Chatbot / IVR theo kịch bản</td></tr>
+  </table>
+
+  <h3>Cây quyết định nhanh</h3>
+  <div class="mermaid">
+flowchart TB
+    Q{"Bạn cần gì?"}
+    Q -->|"Việc AI phổ biến<br>(OCR, dịch, ảnh, giọng)"| A["🟦 AI Services"]
+    Q -->|"Sinh ngôn ngữ /<br>chatbot LLM"| B{"Mức tùy biến?"}
+    Q -->|"Trợ lý dựng sẵn,<br>ít code"| C["🟧 Amazon Q"]
+    B -->|"Nhanh, managed"| D["🟧 Bedrock"]
+    B -->|"Kiểm soát sâu,<br>VPC, weights"| E["🟩 SageMaker"]
+    D --> F{"Cần thêm gì?"}
+    F -->|"Theo tài liệu"| G["📚 Knowledge Bases"]
+    F -->|"Gọi API/hành động"| H["🤖 Agents"]
+    F -->|"An toàn"| I["🛡️ Guardrails"]
+    style A fill:#e0f2fe,color:#0c4a6e,stroke:#7dd3fc
+    style C fill:#fff7ed,color:#9a3412,stroke:#fdba74
+    style D fill:#fff7ed,color:#9a3412,stroke:#fdba74
+    style E fill:#f0fdfa,color:#0f766e,stroke:#5eead4
+  </div>
+
+  <h3>Những cặp dễ nhầm khi thi</h3>
+  <div class="cheat-row"><div class="cheat-situation">Thêm kiến thức mới, hay cập nhật</div><div class="cheat-answer">RAG (KB), KHÔNG fine-tune</div></div>
+  <div class="cheat-row"><div class="cheat-situation">Đổi văn phong / kỹ năng cố định</div><div class="cheat-answer">Fine-tuning</div></div>
+  <div class="cheat-row"><div class="cheat-situation">Chặn nội dung lúc chạy</div><div class="cheat-answer">Guardrails</div></div>
+  <div class="cheat-row"><div class="cheat-situation">Phát hiện bias / giải thích lúc dev</div><div class="cheat-answer">SageMaker Clarify</div></div>
+  <div class="cheat-row"><div class="cheat-situation">Hỏi-đáp nội bộ ít code nhất</div><div class="cheat-answer">Amazon Q Business</div></div>
+  <div class="cheat-row"><div class="cheat-situation">Weights phải nằm trong VPC</div><div class="cheat-answer">SageMaker JumpStart</div></div>
+  <div class="cheat-row"><div class="cheat-situation">Dữ liệu không ra Internet</div><div class="cheat-answer">VPC Endpoint / PrivateLink</div></div>
+  <div class="cheat-row"><div class="cheat-situation">Lô lớn, không realtime, rẻ</div><div class="cheat-answer">Batch inference</div></div>
+
+  <div class="callout tip">💡 <strong>Kim chỉ nam:</strong> ưu tiên dịch vụ <em>managed bậc cao nhất</em> đáp ứng yêu cầu (least operational overhead), trừ khi đề nhấn mạnh nhu cầu kiểm soát/tuân thủ → mới hạ xuống SageMaker / tự host.</div>

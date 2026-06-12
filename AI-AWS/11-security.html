@@ -1,0 +1,62 @@
+  <h2>🔐 Bảo mật & Vận hành dịch vụ AI</h2>
+  <p class="tagline">Đề Professional rất hay hỏi <strong>bảo mật, riêng tư dữ liệu, chi phí, giám sát</strong>. Đây là phần phân biệt "chạy được" với "chạy đúng chuẩn doanh nghiệp".</p>
+
+  <h3>Riêng tư & cô lập mạng</h3>
+  <div class="svc-grid">
+    <div class="svc-card">
+      <h4>Dữ liệu của bạn không bị dùng để train</h4>
+      <div class="role">Bedrock</div>
+      <p>Prompt &amp; dữ liệu KHÔNG được dùng huấn luyện model nền và không chia sẻ với nhà cung cấp model. Dữ liệu fine-tune được mã hóa, giữ riêng cho bạn.</p>
+    </div>
+    <div class="svc-card">
+      <h4>VPC Endpoints (PrivateLink)</h4>
+      <div class="role">Mạng riêng</div>
+      <p>Gọi Bedrock/SageMaker không ra Internet — lưu lượng đi trong mạng AWS, hợp yêu cầu tuân thủ.</p>
+    </div>
+    <div class="svc-card">
+      <h4>Mã hóa với KMS</h4>
+      <div class="role">At rest & in transit</div>
+      <p>Mã hóa model tùy biến, Knowledge Base, dữ liệu S3 bằng khóa KMS do bạn quản (CMK).</p>
+    </div>
+    <div class="svc-card">
+      <h4>IAM least-privilege</h4>
+      <div class="role">Phân quyền</div>
+      <p>Cấp quyền gọi từng model/agent; dùng <code>IAM Identity Center</code> cho Amazon Q để áp ACL theo người dùng.</p>
+    </div>
+  </div>
+
+  <h3>Giám sát & kiểm toán</h3>
+  <table>
+    <tr><th>Dịch vụ</th><th>Theo dõi gì</th></tr>
+    <tr><td><strong>CloudWatch</strong></td><td>Số lần gọi, độ trễ, lỗi, <strong>token in/out</strong>, metric tùy chỉnh.</td></tr>
+    <tr><td><strong>CloudTrail</strong></td><td>Ai gọi API nào, khi nào — phục vụ kiểm toán &amp; điều tra.</td></tr>
+    <tr><td><strong>Model Invocation Logging</strong></td><td>Bedrock ghi toàn bộ prompt/response ra S3 hoặc CloudWatch để soi lại.</td></tr>
+    <tr><td><strong>SageMaker Model Monitor</strong></td><td>Cảnh báo trôi dữ liệu/chất lượng của endpoint đang chạy.</td></tr>
+  </table>
+
+  <h3>Tối ưu chi phí GenAI</h3>
+  <ul>
+    <li><strong>Chọn đúng model:</strong> dùng model nhỏ/rẻ (Haiku, Titan Lite) cho việc đơn giản, model lớn chỉ khi cần.</li>
+    <li><strong>Batch inference:</strong> rẻ hơn đáng kể cho khối lượng lớn không cần realtime.</li>
+    <li><strong>Provisioned Throughput:</strong> chỉ khi lưu lượng cao &amp; ổn định (hoặc bắt buộc cho model fine-tune).</li>
+    <li><strong>Prompt caching & ngắn gọn:</strong> giảm token đầu vào lặp lại.</li>
+    <li><strong>RAG thay vì fine-tune:</strong> tránh chi phí train lại khi dữ liệu thay đổi thường xuyên.</li>
+  </ul>
+
+  <h3>Bảo mật riêng cho GenAI</h3>
+  <div class="mermaid">
+flowchart LR
+    A["🛡️ Guardrails<br>chặn injection, PII, độc hại"]
+    B["🔒 PrivateLink<br>không ra Internet"]
+    C["🔑 KMS<br>mã hóa dữ liệu"]
+    D["📊 Invocation Logging<br>audit prompt/response"]
+    E["👤 IAM / Identity Center<br>phân quyền & ACL"]
+    A --- B --- C --- D --- E
+    style A fill:#fff7ed,color:#9a3412,stroke:#fdba74
+    style B fill:#e0f2fe,color:#0c4a6e,stroke:#7dd3fc
+    style C fill:#fef9c3,color:#854d0e,stroke:#fde68a
+    style D fill:#fdf4ff,color:#7e22ce,stroke:#d8b4fe
+    style E fill:#dcfce7,color:#14532d,stroke:#86efac
+  </div>
+
+  <div class="callout warn">⚠️ Câu hỏi tuân thủ: "không cho dữ liệu rời mạng AWS" → <strong>VPC Endpoint/PrivateLink</strong>. "Chặn lộ PII trong câu trả lời" → <strong>Guardrails (sensitive info)</strong>. "Kiểm toán ai đã gọi model" → <strong>CloudTrail + Invocation Logging</strong>.</div>

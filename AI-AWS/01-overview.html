@@ -1,0 +1,52 @@
+  <h2>☁️ Tổng quan hệ sinh thái AI của AWS</h2>
+  <p class="tagline">AWS chia dịch vụ AI thành <strong>3 tầng</strong>: dịch vụ AI <em>dùng-ngay</em> (API), nền tảng GenAI <em>Bedrock</em>, và nền tảng ML <em>SageMaker</em> cho người tự xây mô hình.</p>
+
+  <h3>3 tầng AI/ML của AWS</h3>
+  <div class="layer-stack">
+    <div class="layer top">
+      <h4>① AI Services — gọi API, không cần biết ML</h4>
+      <p>Mô hình đã huấn luyện sẵn, trả lời qua API. Ví dụ:
+        <span class="svc">Rekognition</span><span class="svc">Textract</span><span class="svc">Comprehend</span>
+        <span class="svc">Transcribe</span><span class="svc">Polly</span><span class="svc">Translate</span><span class="svc">Lex</span><span class="svc">Kendra</span>
+      </p>
+    </div>
+    <div class="layer mid">
+      <h4>② Generative AI — Amazon Bedrock & Amazon Q</h4>
+      <p>Truy cập Foundation Models (FM) qua 1 API thống nhất; thêm RAG (Knowledge Bases), Agents, Guardrails. Amazon Q là trợ lý GenAI dựng sẵn.
+        <span class="svc core">Bedrock</span><span class="svc core">Amazon Q</span>
+      </p>
+    </div>
+    <div class="layer bot">
+      <h4>③ ML Platform — Amazon SageMaker</h4>
+      <p>Tự build / train / fine-tune / deploy mô hình; SageMaker JumpStart cung cấp FM mã nguồn mở để tùy biến sâu.
+        <span class="svc ml">SageMaker</span><span class="svc ml">JumpStart</span>
+      </p>
+    </div>
+  </div>
+
+  <h3>Bản đồ dịch vụ (mức trừu tượng giảm dần)</h3>
+  <div class="mermaid">
+flowchart TB
+    U["👤 Ứng dụng / Lập trình viên"]
+    U --> Q["🟧 Amazon Q<br>Trợ lý GenAI dựng sẵn"]
+    U --> B["🟧 Amazon Bedrock<br>FM + RAG + Agents + Guardrails"]
+    U --> AIS["🟦 AI Services<br>Rekognition, Textract, Comprehend..."]
+    U --> SM["🟩 Amazon SageMaker<br>Train / Fine-tune / Deploy"]
+    B --> FM["Foundation Models<br>Claude, Titan, Llama, Mistral..."]
+    SM --> JS["JumpStart<br>FM mã nguồn mở"]
+    style U fill:#e0e7ff,color:#3730a3,stroke:#6366f1
+    style Q fill:#fff7ed,color:#9a3412,stroke:#fdba74
+    style B fill:#fff7ed,color:#9a3412,stroke:#fdba74
+    style AIS fill:#e0f2fe,color:#0c4a6e,stroke:#7dd3fc
+    style SM fill:#f0fdfa,color:#0f766e,stroke:#5eead4
+    style FM fill:#fdf4ff,color:#7e22ce,stroke:#d8b4fe
+    style JS fill:#fdf4ff,color:#7e22ce,stroke:#d8b4fe
+  </div>
+
+  <h3>Chọn tầng nào? — quy tắc nhanh</h3>
+  <div class="cheat-row"><div class="cheat-situation">Cần OCR, nhận diện ảnh, dịch, chuyển giọng nói... việc phổ biến</div><div class="cheat-answer">AI Services (gọi API)</div></div>
+  <div class="cheat-row"><div class="cheat-situation">Xây chatbot / trợ lý / RAG trên dữ liệu công ty bằng LLM</div><div class="cheat-answer">Amazon Bedrock</div></div>
+  <div class="cheat-row"><div class="cheat-situation">Muốn trợ lý code / hỏi đáp tài liệu nội bộ, ít code nhất</div><div class="cheat-answer">Amazon Q</div></div>
+  <div class="cheat-row"><div class="cheat-situation">Tự huấn luyện / fine-tune mô hình riêng, kiểm soát toàn bộ</div><div class="cheat-answer">Amazon SageMaker</div></div>
+
+  <div class="callout tip">💡 <strong>Mẹo thi:</strong> đề thường hỏi "ít công sức vận hành nhất" (least operational overhead) → ưu tiên dịch vụ managed bậc cao (AI Services hoặc Bedrock) thay vì tự dựng trên SageMaker/EC2.</div>
