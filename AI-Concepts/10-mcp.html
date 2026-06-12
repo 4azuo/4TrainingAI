@@ -1,0 +1,108 @@
+  <h2>🔌 MCP — Model Context Protocol</h2>
+  <p class="tagline"><strong>MCP là "ổ cắm chuẩn" để nối AI với thế giới bên ngoài</strong> — một giao thức mở (open standard) giúp AI cắm thêm tool &amp; nguồn dữ liệu mà không cần code riêng cho từng dịch vụ. Giống cổng <strong>USB-C</strong>: một chuẩn, vô số thiết bị.</p>
+
+  <h3>1. MCP là gì?</h3>
+  <p>Trước MCP: mỗi khi muốn AI dùng một dịch vụ (GitHub, DB, Slack...) phải viết tích hợp riêng — tốn công, mỗi chỗ một kiểu. MCP đặt ra <strong>một ngôn ngữ chung</strong>: bất kỳ "MCP server" nào tuân theo chuẩn đều cắm vào được, AI tự khám phá ra các tool mà server cung cấp và gọi được ngay.</p>
+  <div class="card-grid">
+    <div class="card"><h4>❌ Trước MCP (M×N)</h4><p>M ứng dụng AI × N dịch vụ = M×N tích hợp riêng lẻ phải tự viết &amp; bảo trì.</p></div>
+    <div class="card"><h4>✅ Có MCP (M+N)</h4><p>Mỗi AI nói "tiếng MCP", mỗi dịch vụ có 1 MCP server. Cắm là chạy — chỉ còn M+N.</p></div>
+  </div>
+  <div class="skill-box">
+    <div class="skill-title">🔍 Phân biệt nhanh: MCP vs Tool vs RAG</div>
+    <div class="skill-row"><span class="skill-label">🛠️ Tool</span><span class="skill-value">Một <strong>hành động</strong> AI gọi được (gửi mail, query DB). "AI <em>làm được</em> gì?"</span></div>
+    <div class="skill-row"><span class="skill-label">🔌 MCP</span><span class="skill-value"><strong>Ổ cắm chuẩn</strong> để mang tool/data từ ngoài vào — không phải một hành động khác, mà là <em>cách lắp</em> tool mới. Một server = thêm vài tool.</span></div>
+    <div class="skill-row"><span class="skill-label">📚 RAG</span><span class="skill-value"><strong>Tra cứu</strong> tài liệu rồi nhồi vào ngữ cảnh — chỉ <em>đọc</em>, không hành động. "AI <em>biết</em> dựa trên data nào?"</span></div>
+    <div class="skill-row"><span class="skill-label">Chốt</span><span class="skill-value">Tool/MCP nói về <strong>LÀM</strong> · RAG nói về <strong>BIẾT</strong>. MCP là ổ cắm, Tool là thứ được cắm vào.</span></div>
+  </div>
+
+  <h3>2. Kiến trúc: Host · Client · Server</h3>
+  <p>MCP có 3 vai trò:</p>
+  <div class="mermaid">
+flowchart LR
+    subgraph HOST["🖥️ HOST (ứng dụng AI)"]
+      AI["🧠 AI Model"]
+      C1["🔗 MCP Client A"]
+      C2["🔗 MCP Client B"]
+      AI --- C1
+      AI --- C2
+    end
+    C1 -->|"giao thức MCP"| S1["🔌 MCP Server: GitHub"]
+    C2 -->|"giao thức MCP"| S2["🔌 MCP Server: Filesystem"]
+    S1 --> EXT1["🌐 GitHub API"]
+    S2 --> EXT2["📁 Ổ đĩa"]
+    style HOST fill:#e0e7ff,color:#3730a3,stroke:#6366f1
+    style S1 fill:#dcfce7,color:#14532d,stroke:#86efac
+    style S2 fill:#dcfce7,color:#14532d,stroke:#86efac
+  </div>
+  <table>
+    <tr><th>Vai trò</th><th>Là gì</th><th>Ví dụ</th></tr>
+    <tr><td>🖥️ <strong>Host</strong></td><td>Ứng dụng AI người dùng tương tác, chứa model &amp; quản lý các client</td><td>Claude Desktop, Claude Code, Cursor, VSCode</td></tr>
+    <tr><td>🔗 <strong>Client</strong></td><td>Lớp trung gian trong Host, mỗi client kết nối <strong>1–1</strong> tới một server</td><td>Phần kết nối tới từng MCP server</td></tr>
+    <tr><td>🔌 <strong>Server</strong></td><td>Chương trình cung cấp tool / resource / prompt theo chuẩn MCP</td><td>Server GitHub, filesystem, Postgres, memory...</td></tr>
+  </table>
+  <p>Mỗi MCP server có thể cung cấp 3 thứ: <strong>Tools</strong> (hành động AI gọi), <strong>Resources</strong> (dữ liệu để đọc, vd file/bản ghi), <strong>Prompts</strong> (mẫu prompt dựng sẵn).</p>
+
+  <h3>3. Cách MCP hoạt động</h3>
+  <div class="mermaid">
+sequenceDiagram
+    participant AI as 🧠 AI (Host)
+    participant C as 🔗 Client
+    participant S as 🔌 MCP Server (GitHub)
+    participant G as 🌐 GitHub API
+    AI->>C: Kết nối tới server
+    C->>S: initialize (bắt tay, hỏi khả năng)
+    S-->>C: Danh sách tools: create_issue, list_prs...
+    Note over AI,C: AI giờ "biết" có các tool này
+    AI->>C: Cần tạo issue "Bug login"
+    C->>S: tools/call create_issue(title, body)
+    S->>G: POST /repos/.../issues
+    G-->>S: Issue #42 created ✅
+    S-->>C: Kết quả
+    C-->>AI: Đã tạo issue #42
+  </div>
+  <p>Điểm mấu chốt: AI <strong>không cần biết trước</strong> server có tool gì. Lúc kết nối, nó <em>hỏi</em> server ("discovery") rồi mới biết gọi được những gì — nên cắm thêm server là tự động có thêm tool.</p>
+
+  <h3>4. Transport: chạy Local hay Remote?</h3>
+  <p>MCP server kết nối với client qua 2 kiểu "đường truyền" chính:</p>
+  <table>
+    <tr><th>Kiểu</th><th>Chạy ở đâu</th><th>Cách nối</th><th>Hợp với</th></tr>
+    <tr><td>💻 <strong>Local (stdio)</strong></td><td>Tiến trình chạy ngay trên máy bạn</td><td>Host khởi chạy server, nói chuyện qua stdin/stdout</td><td>Truy cập file, git, công cụ cá nhân — dữ liệu không rời máy</td></tr>
+    <tr><td>🌐 <strong>Remote (HTTP / SSE)</strong></td><td>Server đặt trên cloud / mạng</td><td>Kết nối qua URL, thường kèm xác thực (OAuth/token)</td><td>SaaS dùng chung cho cả team (GitHub, Linear, Sentry...)</td></tr>
+  </table>
+  <div class="skill-box">
+    <div class="skill-title">💡 Local hay Remote?</div>
+    <div class="skill-row"><span class="skill-label">Local</span><span class="skill-value">Riêng tư, nhanh, không cần mạng — nhưng mỗi người tự cài, tự chạy.</span></div>
+    <div class="skill-row"><span class="skill-label">Remote</span><span class="skill-value">Cài 1 lần dùng chung, luôn cập nhật — nhưng dữ liệu đi qua mạng, phải lo xác thực &amp; tin cậy nhà cung cấp.</span></div>
+  </div>
+
+  <h3>5. Các MCP server phổ biến</h3>
+  <table>
+    <tr><th>Server</th><th>Cho phép AI</th><th>Kết nối tới</th></tr>
+    <tr><td>📁 <strong>Filesystem</strong></td><td>Đọc/ghi file trong thư mục cho phép</td><td>Ổ đĩa máy bạn (local)</td></tr>
+    <tr><td>🐙 <strong>GitHub</strong></td><td>Tạo issue/PR, đọc repo, review code</td><td>GitHub API (remote)</td></tr>
+    <tr><td>🗄️ <strong>Postgres / SQLite</strong></td><td>Truy vấn (thường read-only)</td><td>Cơ sở dữ liệu</td></tr>
+    <tr><td>🧠 <strong>Memory</strong></td><td>Lưu &amp; nhớ "fact" dạng knowledge graph qua các phiên</td><td>Kho lưu trữ cục bộ</td></tr>
+    <tr><td>🌐 <strong>Fetch / Web</strong></td><td>Tải &amp; đọc nội dung trang web</td><td>Internet</td></tr>
+    <tr><td>💬 <strong>Slack / Linear / Sentry</strong></td><td>Đọc tin, tạo task, tra lỗi</td><td>SaaS (remote)</td></tr>
+  </table>
+
+  <h3>6. Nên / Tránh khi dùng MCP</h3>
+  <div class="card-grid">
+    <div class="card"><h4>✅ Nên</h4><ul>
+      <li><strong>Chỉ bật server thật sự cần</strong> — mỗi server nạp thêm tool vào ngữ cảnh, càng nhiều càng tốn token &amp; dễ chọn nhầm tool</li>
+      <li>Ưu tiên <strong>server chính thức/uy tín</strong> hơn server lạ — nhất là server remote (thấy hết dữ liệu đi qua)</li>
+      <li>Chạy <strong>read-only</strong> khi chỉ cần đọc (vd DB) — giảm rủi ro ghi/xóa nhầm</li>
+      <li>Đặt cấu hình đúng <strong>scope</strong>: dự án (<code>.mcp.json</code> share cho team) vs cá nhân (user scope)</li>
+    </ul></div>
+    <div class="card"><h4>❌ Tránh</h4><ul>
+      <li>Bật <strong>cả chục server</strong> "cho chắc" → menu tool phình to, AI lẫn lộn, chậm</li>
+      <li>Nhét <strong>secret/token</strong> thẳng vào file cấu hình commit lên git — dùng biến môi trường</li>
+      <li>Cấp <strong>quyền ghi rộng</strong> (toàn ổ đĩa, DB production) khi không cần</li>
+      <li>Tin mù quáng một <strong>server bên thứ ba</strong> — toàn bộ dữ liệu đi xuyên qua nó</li>
+    </ul></div>
+  </div>
+  <div class="skill-box">
+    <div class="skill-title">📌 Ghi nhớ một câu</div>
+    <div class="skill-row"><span class="skill-label">MCP</span><span class="skill-value">là <strong>ổ cắm chuẩn</strong> mang tool/data ngoài vào AI — một server = thêm vài tool, cắm là chạy.</span></div>
+    <div class="skill-row"><span class="skill-label">Nguyên tắc</span><span class="skill-value">Chỉ bật server <strong>thật sự cần</strong>, ưu tiên nguồn tin cậy, trao đúng <strong>quyền tối thiểu</strong>.</span></div>
+  </div>

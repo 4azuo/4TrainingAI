@@ -13,7 +13,8 @@ var TABS = [
   { id: 'memory',       label: '7. Memory',             file: 'AI-Concepts/07-memory.html' },
   { id: 'rag',          label: '8. RAG',                file: 'AI-Concepts/08-rag.html' },
   { id: 'workflow',     label: '9. Workflow',           file: 'AI-Concepts/09-workflow.html' },
-  { id: 'experiences',  label: '10. Experiences',       file: 'AI-Concepts/10-experiences.html' },
-  { id: 'overview',     label: '11. Tổng kết',          file: 'AI-Concepts/11-overview.html' },
-  { id: 'history',      label: '📋 Lịch sử',            file: 'AI-Concepts/12-history.html' }
+  { id: 'mcp',          label: '10. MCP',               file: 'AI-Concepts/10-mcp.html' },
+  { id: 'experiences',  label: '11. Experiences',       file: 'AI-Concepts/11-experiences.html' },
+  { id: 'overview',     label: '12. Tổng kết',          file: 'AI-Concepts/12-overview.html' },
+  { id: 'history',      label: '📋 Lịch sử',            file: 'AI-Concepts/13-history.html' }
 ];
