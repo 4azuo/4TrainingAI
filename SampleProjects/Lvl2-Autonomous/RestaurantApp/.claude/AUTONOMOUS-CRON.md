@@ -95,6 +95,11 @@ sed -i 's/\r$//' "$PROJECT/.claude/hooks/autonomous-tick.sh"
 bash -n "$PROJECT/.claude/hooks/autonomous-tick.sh" && echo "✅ cú pháp OK"
 ```
 
+> ⚠️ **Bit execute hay bị rụng:** mỗi lần file được sửa từ phía Windows (Edit/Write qua mount
+> `\\wsl.localhost\...`, hoặc git checkout) thì quyền `x` có thể mất, khiến cron exec thẳng bị "câm".
+> Vì vậy crontab ở **mục 5** gọi qua `/usr/bin/bash <script>` (chỉ cần quyền đọc) cho chắc — `chmod +x`
+> ở đây chỉ để chạy tay thuận tiện.
+
 ---
 
 ## 4. Bật dịch vụ cron trong WSL
@@ -140,9 +145,15 @@ Thêm dòng (sửa đường dẫn cho khớp `$PROJECT` của bạn):
 
 ```cron
 # Xế Nổ Đường Phố — chu kỳ tự trị mỗi 10 phút
-*/10 * * * * /home/phonghc/projects/RestaurantApp/.claude/hooks/autonomous-tick.sh >> /home/phonghc/projects/RestaurantApp/.claude/cron.out 2>&1
+*/10 * * * * /usr/bin/bash /home/phonghc/projects/RestaurantApp/.claude/hooks/autonomous-tick.sh >> /home/phonghc/projects/RestaurantApp/.claude/cron.out 2>&1
 ```
 
+- **Vì sao gọi qua `/usr/bin/bash <script>` thay vì exec thẳng `<script>`:** file nằm trên ext4 của
+  WSL nhưng hay được sửa/ghi lại từ phía **Windows** (qua mount `\\wsl.localhost\...`, hoặc git).
+  Các thao tác đó **làm rụng bit execute** (`x`). Nếu crontab exec thẳng script mà file mất `x`,
+  `exec` thất bại ngay — và vì cron "No MTA installed, discarding output" nên **lỗi bị nuốt**:
+  log trống, không có lock, nhìn như "cron không chạy" dù `journalctl`/syslog vẫn ghi nhận lượt gọi.
+  Gọi qua `bash` thì bash chỉ cần quyền **đọc** file → không phụ thuộc bit `x` nữa.
 - Script **đã tự ghi** mọi thứ vào `.claude/autonomous-tick.log`; phần `>> cron.out 2>&1` chỉ để
   bắt lỗi *trước khi* script kịp mở log (vd. sai quyền, CRLF). Có thể bỏ nếu không cần.
 - **Tùy chọn settings qua biến môi trường** — đặt ngay đầu dòng cron nếu muốn ghi đè:
@@ -205,6 +216,7 @@ tail -f "$PROJECT/.claude/autonomous-tick.log"
 | Triệu chứng (trong log) | Nguyên nhân | Cách xử lý |
 |---|---|---|
 | Không có dòng `[run]` nào | cron chưa chạy | `sudo service cron start`; `crontab -l` xem đã nạp chưa |
+| syslog có `CRON CMD …tick.sh` **nhưng log trống & không lock** | file mất bit `x`, cron exec thẳng thất bại, lỗi bị "discarding output" nuốt | đổi crontab gọi qua `/usr/bin/bash <script>` (mục 5), hoặc `chmod +x` lại |
 | `bad interpreter: ^M` | file CRLF | `sed -i 's/\r$//' autonomous-tick.sh` |
 | `Permission denied` | thiếu quyền chạy | `chmod +x autonomous-tick.sh` |
 | `[error] không tìm thấy 'claude'` | PATH npm-global sai | sửa dòng `export PATH` hoặc đặt `CLAUDE_BIN` |
