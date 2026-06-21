@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "//": "Cấu hình cho chế độ TỰ TRỊ (headless trên WSL): KHÔNG hỏi quyền, cho phép TẤT CẢ.",
+  "//warning": "Chỉ dùng trong môi trường cô lập (WSL/CI). Đừng bật trên máy chứa dữ liệu nhạy cảm.",
+
+  "model": "claude-opus-4-8",
+  "cleanupPeriodDays": 30,
+
+  "env": {
+    "DOTNET_CLI_TELEMETRY_OPTOUT": "1",
+    "DOTNET_NOLOGO": "1",
+    "RESTAURANTAPP_ENV": "development"
+  },
+
+  "permissions": {
+    "defaultMode": "bypassPermissions",
+    "allow": ["*"],
+    "ask": [],
+    "deny": []
+  },
+
+  "enableAllProjectMcpServers": true
+}

@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>RestaurantApp.App</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- App là composition root: nối Repository -> Service -> Controller -> View. -->
+    <ProjectReference Include="..\Views\RestaurantApp.Views.csproj" />
+    <ProjectReference Include="..\Controllers\RestaurantApp.Controllers.csproj" />
+    <ProjectReference Include="..\Services\RestaurantApp.Services.csproj" />
+    <ProjectReference Include="..\Repositories\RestaurantApp.Repositories.csproj" />
+    <ProjectReference Include="..\Models\RestaurantApp.Models.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Copy seed JSON ra thư mục output: bin/.../data/menu.json (repo đọc/ghi tại đây). -->
+    <None Include="..\..\data\menu.json" Link="data\menu.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,45 @@
+{
+  "//": "Cấu hình VS Code dùng chung cho project RestaurantApp (monorepo .NET WinForms).",
+
+  "files.exclude": {
+    "**/bin": true,
+    "**/obj": true
+  },
+  "files.eol": "\r\n",
+  "files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true,
+
+  "editor.formatOnSave": true,
+  "editor.tabSize": 4,
+  "editor.rulers": [120],
+
+  "[csharp]": {
+    "editor.defaultFormatter": "ms-dotnettools.csharp",
+    "editor.tabSize": 4
+  },
+  "[json]": {
+    "editor.tabSize": 2
+  },
+  "[markdown]": {
+    "editor.tabSize": 2,
+    "files.trimTrailingWhitespace": false
+  },
+  "[powershell]": {
+    "// utf8bom": "WinPS 5.1 đọc file không BOM theo ANSI -> tiếng Việt trong comment bị lỗi; ép giữ BOM.",
+    "files.encoding": "utf8bom"
+  },
+
+  "dotnet.defaultSolution": "RestaurantApp.sln",
+  "omnisharp.enableRoslynAnalyzers": true,
+
+  "search.exclude": {
+    "**/bin": true,
+    "**/obj": true,
+    "**/reports": true
+  },
+
+  "//claude": "Cho Claude Code extension biết file CLAUDE.md gốc nằm ở đâu",
+  "claude-code.environmentVariables": {
+    "RESTAURANTAPP_ENV": "development"
+  }
+}

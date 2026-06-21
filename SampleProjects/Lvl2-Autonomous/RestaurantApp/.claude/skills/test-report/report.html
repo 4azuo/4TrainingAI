@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Báo cáo Test — RestaurantApp</title>
+<link rel="stylesheet" href="report.css">
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="head-row">
+      <div>
+        <h1 id="reportTitle">Báo cáo Test</h1>
+        <div class="date" id="reportDate">RestaurantApp</div>
+      </div>
+      <button id="doneBtn" class="done-btn" title="Lưu trữ report sang reports/done/">✓ Done</button>
+    </div>
+
+    <div class="searchbar">
+      <input id="searchInput" type="search" placeholder="Tìm từ khoá… (Enter: tiếp, Shift+Enter: lùi)" autocomplete="off">
+      <span id="searchCount" class="search-count">0/0</span>
+      <button id="prevBtn" class="nav-btn" title="Trước (Shift+Enter)">▲</button>
+      <button id="nextBtn" class="nav-btn" title="Sau (Enter)">▼</button>
+    </div>
+
+    <nav class="tabs">
+      <button class="tab active" data-tab="ut">Unit Test</button>
+      <button class="tab" data-tab="it">Integration Test</button>
+      <button class="tab" data-tab="sum">Tổng hợp</button>
+    </nav>
+  </header>
+
+  <main>
+    <section id="tab-ut" class="tabpane active"></section>
+    <section id="tab-it" class="tabpane"></section>
+    <section id="tab-sum" class="tabpane"></section>
+  </main>
+
+  <footer>Báo cáo sinh tự động bởi skill <b>test-report</b> · Claude Code Lvl1.</footer>
+</div>
+
+<div id="doneModal" class="modal hidden">
+  <div class="modal-card">
+    <h3 id="doneModalTitle">Lưu trữ report</h3>
+    <p id="doneModalMsg"></p>
+    <pre id="doneModalCmd" class="cmd hidden"></pre>
+    <div class="modal-actions">
+      <button id="doneModalCopy" class="nav-btn hidden">Copy lệnh</button>
+      <!-- <button id="doneModalClose" class="done-btn">Đóng</button> -->
+    </div>
+  </div>
+</div>
+
+<script src="report-data.js"></script>
+<script src="report.js"></script>
+</body>
+</html>
