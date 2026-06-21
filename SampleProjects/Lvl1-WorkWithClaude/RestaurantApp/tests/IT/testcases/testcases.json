@@ -1,0 +1,6 @@
+[
+  { "id": "TC-001", "title": "Thêm món mới hợp lệ" },
+  { "id": "TC-002", "title": "Chặn thêm món trùng tên" },
+  { "id": "TC-003", "title": "Tìm kiếm món theo từ khoá" },
+  { "id": "TC-004", "title": "Xoá món" }
+]

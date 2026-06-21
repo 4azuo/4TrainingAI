@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>RestaurantApp.Services</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Service phụ thuộc Models (entity) và Repositories (truy xuất dữ liệu). -->
+    <ProjectReference Include="..\Models\RestaurantApp.Models.csproj" />
+    <ProjectReference Include="..\Repositories\RestaurantApp.Repositories.csproj" />
+  </ItemGroup>
+
+</Project>

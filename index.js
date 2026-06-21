@@ -10,9 +10,9 @@
    ════════════════════════════════════════════════════════════ */
 var PAGES = [
   { id: 'vibe',     icon: '🌀', label: 'Vibe Coding',           file: 'VibeCoding.html' },
-  { id: 'enduser',  icon: '🧠', label: 'AI Concepts',     file: 'AI-Concepts.html' },
-  { id: 'workflow', icon: '🔁', label: 'AI Engineering',  file: 'AI-Engineering.html' },
-  { id: 'aws',      icon: '☁️', label: 'AWS AI Services',  file: 'AI-AWS.html' }
+  { id: 'enduser',  icon: '🧠', label: 'AI Concepts',           file: 'AI-Concepts.html' },
+  { id: 'workflow', icon: '🔁', label: 'AI Engineering',        file: 'AI-Engineering.html' },
+  { id: 'aws',      icon: '☁️', label: 'AWS AI Services (Review)',       file: 'AI-AWS.html' }
 ];
 
 var STORAGE_KEY = 'activePage:index';

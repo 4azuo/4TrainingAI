@@ -1,0 +1,21 @@
+{
+  // Tự khởi động report-server.py khi mở workspace trong VSCode (cần "Trust" workspace).
+  // Server phục vụ reports/ và xử lý nút Done (POST /api/done) cho report HTML.
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "report-server",
+      "type": "process",
+      "command": "python",
+      "args": ["scripts/report-server.py"],
+      "isBackground": true,
+      "runOptions": { "runOn": "folderOpen" },
+      "presentation": {
+        "reveal": "silent",
+        "panel": "dedicated",
+        "showReuseMessage": false
+      },
+      "problemMatcher": []
+    }
+  ]
+}
