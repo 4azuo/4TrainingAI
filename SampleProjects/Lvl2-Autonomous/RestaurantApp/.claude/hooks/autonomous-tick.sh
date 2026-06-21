@@ -3,7 +3,6 @@
 #
 #   crontab -e   →   */10 * * * * /path/RestaurantApp/.claude/hooks/autonomous-tick.sh
 #
-#   - Nếu lượt trước (hoặc một task khác) còn giữ khóa  → flock fail → ghi log "skip" rồi thoát.
 # Cơ chế "bận thì chờ lượt sau": khóa bằng SỰ TỒN TẠI của file `.autonomous.lock` (không dùng flock).
 #   - Nếu file khóa đã có  → một lượt cron khác đang chạy → ghi log "skip" rồi thoát.
 #   - Nếu chưa có          → tạo file khóa → gọi Claude headless chạy /auto-cycle.
