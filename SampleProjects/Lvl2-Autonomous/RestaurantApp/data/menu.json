@@ -1,6 +1,0 @@
-[
-  { "Id": 1, "Name": "Phở bò", "Category": "Món chính", "UnitPrice": 60000, "IsAvailable": true },
-  { "Id": 2, "Name": "Cơm tấm", "Category": "Món chính", "UnitPrice": 55000, "IsAvailable": true },
-  { "Id": 3, "Name": "Cà phê sữa", "Category": "Đồ uống", "UnitPrice": 25000, "IsAvailable": true },
-  { "Id": 4, "Name": "Lẩu thái", "Category": "Món chính", "UnitPrice": 250000, "IsAvailable": true }
-]

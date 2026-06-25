@@ -1,9 +1,0 @@
-{
-  "//": "Extension khuyến nghị — VS Code sẽ gợi ý cài khi mở project.",
-  "recommendations": [
-    "anthropic.claude-code",
-    "ms-dotnettools.csharp",
-    "ms-dotnettools.csdevkit",
-    "editorconfig.editorconfig"
-  ]
-}
